@@ -1,13 +1,20 @@
 import { UpsideDownTriangle } from '@assets'
 import React from 'react'
 
+export type CustomTimeInputProps = {
+  value?: string
+  onClick?: React.MouseEventHandler<HTMLButtonElement>
+  ref?: React.Ref<HTMLButtonElement>
+}
+
 /**
  * 커스텀된 TimeInput을 반환함
  */
-const CustomTimeInput = React.forwardRef<
-  HTMLButtonElement,
-  { value?: string; onClick?: () => void }
->(({ value, onClick }, ref) => {
+export default function CustomTimeInput({
+  value,
+  onClick,
+  ref,
+}: CustomTimeInputProps) {
   return (
     <button
       type="button"
@@ -19,7 +26,6 @@ const CustomTimeInput = React.forwardRef<
       <UpsideDownTriangle className="relative h-4 w-4 text-neutral-400" />
     </button>
   )
-})
-CustomTimeInput.displayName = 'CustomTimeInput'
+}
 
-export default CustomTimeInput
+CustomTimeInput.displayName = 'CustomTimeInput'
