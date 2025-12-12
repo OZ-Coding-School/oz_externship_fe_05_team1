@@ -2,7 +2,7 @@ import type { VariantProps } from 'class-variance-authority'
 
 import { cn } from '@utils/cn'
 
-import { buttonVariants } from './ButtonStyle'
+import { buttonVariants } from './buttonStyle'
 
 export type ButtonProps = React.ComponentPropsWithoutRef<'button'> &
   VariantProps<typeof buttonVariants> & {
