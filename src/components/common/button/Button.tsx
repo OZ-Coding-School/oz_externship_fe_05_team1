@@ -24,9 +24,11 @@ export default function Button({
   type,
   ...rest
 }: ButtonProps) {
+  const finalVariant = disabled ? 'disabled-input' : variant
+
   return (
     <button
-      className={cn(buttonVariants({ variant, size }), className)}
+      className={cn(buttonVariants({ variant: finalVariant, size }), className)}
       disabled={disabled}
       type={type || 'button'}
       {...rest}
