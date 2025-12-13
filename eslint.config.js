@@ -1,3 +1,6 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+import storybook from 'eslint-plugin-storybook'
+
 import js from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import react from 'eslint-plugin-react'
@@ -10,13 +13,18 @@ import jsxA11y from 'eslint-plugin-jsx-a11y'
 
 export default tseslint.config(
   {
-    ignores: ['dist', 'node_modules', '*.config.js', '*.config.ts', 'public'],
+    ignores: [
+      'dist',
+      'node_modules',
+      '*.config.js',
+      '*.config.ts',
+      'public',
+      '.storybook',
+      'vitest.shims.d.ts',
+    ],
   },
-
   js.configs.recommended,
-
   ...tseslint.configs.recommended,
-
   {
     files: ['**/*.{ts,tsx}'],
 
@@ -166,6 +174,6 @@ export default tseslint.config(
       ...jsxA11y.configs.recommended.rules,
     },
   },
-
-  prettier
+  prettier,
+  storybook.configs['flat/recommended']
 )
