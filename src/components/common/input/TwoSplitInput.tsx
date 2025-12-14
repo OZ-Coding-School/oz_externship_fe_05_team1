@@ -3,12 +3,33 @@ import { cn } from '@utils'
 import BaseInput, { type BaseInputProps } from './BaseInput'
 import { inputVariant, type InputVariant } from './inputStyle'
 
-type Props = BaseInputProps & {
+type twoSplitInputProps = BaseInputProps & {
   label: string
 }
 
-function extractWidthFromVariant(size: InputVariant['size']) {
-  const match = inputVariant({ size }).match(/w-\[(\d+)px]/)
+/**
+ *
+ * size, twoSplitLabel의 타입의 값에서 px의 값을 추출하는 함수
+ * ex) size = "xl" -> 690 추출, twoSplitLabel = 'primary' -> 140추출
+ */
+function extractWidthFromVariant(
+  variant: InputVariant['size'] | InputVariant['twoSplitLabel']
+) {
+  let classes: string
+
+  if (
+    variant === 'sm' ||
+    variant === 'md' ||
+    variant === 'lg' ||
+    variant === 'xl'
+  ) {
+    classes = inputVariant({ size: variant })
+  } else {
+    classes = inputVariant({ twoSplitLabel: variant })
+  }
+
+  const match = classes.match(/w-\[(\d+)px]/)
+
   return match ? Number(match[1]) : 0
 }
 
@@ -24,9 +45,9 @@ export default function TwoSplitInput({
   size,
   error,
   ...props
-}: Props) {
+}: twoSplitInputProps) {
   const baseWidth = extractWidthFromVariant(size)
-  const computedWidth = baseWidth + 140
+  const computedWidth = baseWidth + extractWidthFromVariant('primary')
 
   return (
     <div
@@ -34,7 +55,10 @@ export default function TwoSplitInput({
       style={{ width: `${computedWidth}px` }}
     >
       <div
-        className={`flex h-[50px] w-[140px] items-center bg-neutral-200 text-sm text-neutral-500`}
+        className={cn(
+          `flex items-center bg-neutral-200 px-2 text-sm text-neutral-500`,
+          inputVariant({ twoSplitLabel: 'primary' })
+        )}
       >
         {label}
       </div>

@@ -18,6 +18,9 @@ export const inputVariant = cva(
         true: 'pr-8',
         false: '',
       },
+      twoSplitLabel: {
+        primary: 'w-[140px] h-[50px]',
+      },
     },
     defaultVariants: {
       size: 'md',
