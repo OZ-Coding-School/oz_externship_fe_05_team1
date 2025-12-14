@@ -22,7 +22,7 @@ export default function ToastMessageContainer() {
 
         return () => clearTimeout(timer)
       }
-    }, [id, duration, removeToastMessage])
+    }, [id, duration])
 
     return (
       <div className="mb-3 transform transition-opacity duration-300 ease-out">
