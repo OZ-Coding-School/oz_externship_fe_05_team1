@@ -3,4 +3,7 @@ export { default as Header } from './layout/Header'
 export { default as SideMenu } from './layout/SideMenu'
 export { default as Button } from './common/button/Button'
 export { default as BaseInput } from './common/input/BaseInput'
+
 export { default as DateInput } from './common/input/DateInput'
+
+export { default as StatusBadge } from './common/statusbadge/StatusBadge'
