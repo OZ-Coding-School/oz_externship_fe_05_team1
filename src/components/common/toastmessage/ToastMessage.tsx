@@ -1,10 +1,14 @@
 import { cn } from '@utils/cn'
 
-import CloseIcon from '@/assets/icons/close-icon.svg'
+import {ReactComponent as CloseIcon} from '@/assets/icons/close-icon.svg'
 import ErrorIcon from '@/assets/icons/error-icon.svg'
 import SuccessIcon from '@/assets/icons/success-icon.svg'
 
 import { iconColorMap, toastMessageVariant } from './toastMessageStyle'
+
+const CloseIcon = CloseIconSvg as React.FC<React.SVGProps<SVGSVGElement>>
+const ErrorIcon = ErrorIconSvg as React.FC<React.SVGProps<SVGSVGElement>>
+const SuccessIcon = SuccessIconSvg as React.FC<React.SVGProps<SVGSVGElement>>
 
 export type ToastMessageVariant = `success` | `error`
 
@@ -15,7 +19,7 @@ export type ToastMessageProps = {
   duration?: number
 }
 
-const iconMap: Record<ToastMessageProps['variant'], (color:string) => React.ReactNode> = {
+const iconMap: Record<ToastMessageProps['variant'], (color?:string) => React.ReactNode> = {
   success: () => <SuccessIcon />,
   error: () => <ErrorIcon />,
 }
