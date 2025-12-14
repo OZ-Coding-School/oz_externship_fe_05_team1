@@ -5,7 +5,7 @@ import type { ToastMessageProps } from './ToastMessage'
 export const toastWrapper =
   'w-[350px] min-h-[42px] bg-white rounded-xl shadow-lg flex items-center px-4 py-2'
 
-export const ToastMessageVariant = cva(toastWrapper, {
+export const toastMessageVariant = cva(toastWrapper, {
   variants: {
     variant: {
       success: 'border-l-4 border-[#01E17B] text-gray-900',
