@@ -4,7 +4,7 @@ import CloseIcon from '@/assets/icons/close-icon.svg'
 import ErrorIcon from '@/assets/icons/error-icon.svg'
 import SuccessIcon from '@/assets/icons/success-icon.svg'
 
-import { iconColorMap, ToastMessageVariant } from './ToastMessageStyle'
+import { iconColorMap, ToastMessageVariant } from './toastMessageStyle'
 
 export type ToastMessageVariant = `success` | `error`
 
