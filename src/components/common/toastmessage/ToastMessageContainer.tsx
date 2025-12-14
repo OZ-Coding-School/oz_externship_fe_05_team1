@@ -9,10 +9,10 @@ import { useToastMessage } from './ToastMessageProvider'
  * ToastMessage 컴포넌트들을 화면에 렌더링/관리하는 컨테이너 컴포넌트
  */
 export default function ToastMessageContainer() {
-  const { toasts, removeToastMessage } = useToastMessage()
+  const { toastMessage, removeToastMessage } = useToastMessage()
 
-  const ToastItemComponent = ({ toast }: { toast: ToastMessageItem }) => {
-    const { id, message, variant, duration } = toast
+  const ToastItemComponent = ({ toastMessage }: { toastMessage: ToastMessageItem }) => {
+    const { id, message, variant, duration } = toastMessage;
 
     useEffect(() => {
       if (duration) {
@@ -44,8 +44,8 @@ export default function ToastMessageContainer() {
         alignItems: 'flex-end',
       }}
     >
-      {toasts.map((toast) => (
-        <ToastItemComponent key={toast.id} toast={toast} />
+      {toastMessage.map((item) => (
+        <ToastItemComponent key={item.id} toastMessage={item} />
       ))}
     </div>
   )
