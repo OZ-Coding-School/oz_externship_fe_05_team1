@@ -6,5 +6,5 @@ export { default as BaseInput } from './common/input/BaseInput'
 export { default as ToastMessage } from './common/toastmessage/ToastMessage'
 
 export { default as DateInput } from './common/input/DateInput'
-
 export { default as StatusBadge } from './common/statusbadge/StatusBadge'
+export { default as TwoSplitInput } from './common/input/TwoSplitInput'
