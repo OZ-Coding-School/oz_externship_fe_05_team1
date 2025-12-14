@@ -4,7 +4,7 @@ import CloseIcon from '@/assets/icons/close-icon.svg'
 import ErrorIcon from '@/assets/icons/error-icon.svg'
 import SuccessIcon from '@/assets/icons/success-icon.svg'
 
-import { IconColorMap, ToastMessageVariant } from './toastMessageStyle'
+import { iconColorMap, ToastMessageVariant } from './ToastMessageStyle'
 
 export type ToastMessageVariant = `success` | `error`
 
@@ -15,7 +15,7 @@ export type ToastMessageProps = {
   duration?: number
 }
 
-const IconMap: Record<ToastMessageProps['variant'], (color:string) => React.ReactNode> = {
+const iconMap: Record<ToastMessageProps['variant'], (color:string) => React.ReactNode> = {
   success: () => <SuccessIcon />,
   error: () => <ErrorIcon />,
 }
@@ -25,14 +25,14 @@ export default function ToastMessage({
   message,
   onClose,
 }: ToastMessageProps) {
-  const variantColor = IconColorMap[variant];
+  const variantColor = iconColorMap[variant];
   
   return (
     <div
       className={cn(ToastMessageVariant({ variant }), 'flex-row items-center')}
     >
       <div className = 'flex-shrink-0 mr-3'>
-        {IconMap[variant]()}
+        {iconMap[variant]()}
       </div>
       <div className="flex-1 truncate text-sm font-normal">{message}</div>
 
