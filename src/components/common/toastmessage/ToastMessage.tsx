@@ -43,7 +43,7 @@ export default function ToastMessage({
           className="ml-4 flex-shrink-0 rounded-full transition-colors hover:bg-gray-100"
           aria-label="닫기"
         >
-          <CloseIcon className={variantColor}/>
+          <CloseIcon className={variantColorClass}/>
         </button>
       )}
     </div>
