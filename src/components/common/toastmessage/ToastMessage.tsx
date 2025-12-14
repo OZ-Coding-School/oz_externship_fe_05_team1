@@ -29,7 +29,7 @@ export default function ToastMessage({
   
   return (
     <div
-      className={cn(ToastMessageVariant({ variant }), 'flex-row items-center')}
+      className={cn(toastMessageVariant({ variant }), 'flex-row items-center')}
     >
       <div className = 'flex-shrink-0 mr-3'>
         {iconMap[variant]()}
