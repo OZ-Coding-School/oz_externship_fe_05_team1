@@ -3,7 +3,7 @@ import { cn } from '@utils'
 import BaseInput, { type BaseInputProps } from './BaseInput'
 import { inputVariant, type InputVariant } from './inputStyle'
 
-type twoSplitInputProps = BaseInputProps & {
+type TwoSplitInputProps = BaseInputProps & {
   label: string
 }
 
@@ -45,7 +45,7 @@ export default function TwoSplitInput({
   size,
   error,
   ...props
-}: twoSplitInputProps) {
+}: TwoSplitInputProps) {
   const baseWidth = extractWidthFromVariant(size)
   const computedWidth = baseWidth + extractWidthFromVariant('primary')
 

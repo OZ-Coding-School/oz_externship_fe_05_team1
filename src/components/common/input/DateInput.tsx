@@ -14,6 +14,7 @@ import CustomTimeInput from './CustomTimeInput'
  */
 export default function DateInput() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date())
+
   return (
     <>
       <DatePicker
@@ -29,6 +30,7 @@ export default function DateInput() {
         onChange={(date) => {
           if (!date) return
           const updated = new Date(selectedDate!)
+
           updated.setHours(date.getHours())
           updated.setMinutes(date.getMinutes())
           setSelectedDate(updated)
