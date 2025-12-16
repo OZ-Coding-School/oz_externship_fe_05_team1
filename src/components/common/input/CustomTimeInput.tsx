@@ -1,5 +1,4 @@
-import { UpsideDownTriangle } from '@assets'
-import React from 'react'
+import { DropdownIcon } from '@assets'
 
 export type CustomTimeInputProps = {
   value?: string
@@ -23,7 +22,7 @@ export default function CustomTimeInput({
       className="flex w-[100px] items-center rounded-md border border-neutral-200 px-3 py-2 text-left"
     >
       <span className="flex-1">{value}</span>
-      <UpsideDownTriangle className="relative h-4 w-4 text-neutral-400" />
+      <DropdownIcon className="relative h-4 w-4 text-neutral-400" />
     </button>
   )
 }

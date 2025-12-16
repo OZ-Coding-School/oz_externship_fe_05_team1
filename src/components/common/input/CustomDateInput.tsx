@@ -1,5 +1,4 @@
 import { CalendarIcon } from '@assets'
-import React from 'react'
 
 export type CustomDateInputProps = {
   value?: string

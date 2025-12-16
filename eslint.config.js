@@ -104,7 +104,7 @@ export default tseslint.config(
         {
           selector: 'variable',
           types: ['boolean'],
-          format: ['camelCase'],
+          format: ['PascalCase'],
           prefix: ['is', 'has', 'should', 'can'],
         },
       ],
