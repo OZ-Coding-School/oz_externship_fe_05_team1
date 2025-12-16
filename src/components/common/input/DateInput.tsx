@@ -28,7 +28,10 @@ export default function DateInput() {
       <DatePicker
         selected={selectedDate}
         onChange={(date) => {
-          if (!date) return
+          if (!date) {
+            return
+          }
+
           const updated = new Date(selectedDate!)
 
           updated.setHours(date.getHours())
