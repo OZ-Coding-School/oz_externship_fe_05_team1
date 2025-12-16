@@ -8,7 +8,6 @@ type TwoSplitInputProps = BaseInputProps & {
 }
 
 /**
- *
  * size, twoSplitLabel의 타입의 값에서 px의 값을 추출하는 함수
  * ex) size = "xl" -> 690 추출, twoSplitLabel = 'primary' -> 140추출
  */
@@ -34,7 +33,7 @@ function extractWidthFromVariant(
 }
 
 /**
- *
+ * 합쳐진 인풋 필드
  * @param label - 라벨명을 입력(ex. 닉네임)
  * @param size - 인풋 길이 size값(sm-md-lg-xl)
  * @returns

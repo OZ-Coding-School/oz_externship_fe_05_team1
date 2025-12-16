@@ -18,7 +18,8 @@ export default function Portal({ children, portalId }: PortalProps) {
     const el = document.getElementById(portalId)
 
     if (!el) {
-      console.error(`${portalId}가 없습니다.`)
+      // eslint-disable-next-line no-console
+      console.log(`${portalId}가 없습니다.`)
 
       return
     }

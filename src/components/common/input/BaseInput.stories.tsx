@@ -24,6 +24,7 @@ const meta: Meta<typeof BaseInput> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof BaseInput>
 
 export const Default: Story = {

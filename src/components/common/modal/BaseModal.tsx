@@ -75,13 +75,13 @@ export default function BaseModal({
           onClick={(e) => e.stopPropagation()}
           role="presentation"
         >
-          <div className="flex items-center justify-between p-5">
+          <div className="flex items-center justify-between p-4 pb-0">
             <h2 className="text-lg font-semibold">{title}</h2>
             <button type="button" onClick={onClose} className="rounded p-1">
               <XbuttonIcon className="cursor-pointer text-neutral-400" />
             </button>
           </div>
-          <div className={cn('overflow-auto p-5', className)}>{children}</div>
+          <div className={cn('overflow-auto', className)}>{children}</div>
         </div>
       </div>
     </Portal>
