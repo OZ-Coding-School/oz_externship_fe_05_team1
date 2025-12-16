@@ -15,3 +15,7 @@ export { default as DoubleArrowLeftIcon } from './icon/db-arrow-left-icon.svg?re
 export { default as DoubleArrowRightIcon } from './icon/db-arrow-right-icon.svg?react'
 export { default as CheckIcon } from './icon/check-icon.svg?react'
 export { default as WarningIcon } from './icon/warning-icon.svg?react'
+export { default as SuccessIcon } from './icon/success-icon.svg?react'
+export { default as ErrorIcon } from './icon/error-icon.svg?react'
+export { default as SuccessCloseIcon } from './icon/success-close-icon.svg?react'
+export { default as FailCloseIcon } from './icon/fail-close-icon.svg?react'
