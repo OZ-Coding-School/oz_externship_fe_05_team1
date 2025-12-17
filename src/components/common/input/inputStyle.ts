@@ -5,10 +5,10 @@ export const inputVariant = cva(
   {
     variants: {
       size: {
-        sm: 'w-[140px] h-[36px]',
-        md: 'w-[230px] h-[36px]',
-        lg: 'w-[364px] h-[36px]',
-        xl: 'w-[690px] h-[36px]',
+        sm: 'w-[140px] h-[40px]',
+        md: 'w-[230px] h-[40px]',
+        lg: 'w-[364px] h-[40px]',
+        xl: 'w-[690px] h-[40px]',
       },
       error: {
         true: 'border-error',
@@ -19,7 +19,7 @@ export const inputVariant = cva(
         false: '',
       },
       twoSplitLabel: {
-        primary: 'w-[140px] h-[50px]',
+        primary: 'w-[140px] h-[50px] rounded-none',
       },
     },
     defaultVariants: {

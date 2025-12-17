@@ -67,7 +67,7 @@ export default function BaseModal({
       >
         <div
           className={cn(
-            'relative h-[90%] min-h-[290px] w-[90%] min-w-[320px] rounded-[12px] bg-bg-primary shadow-2xl',
+            'relative h-[90%] min-h-72.5 w-[90%] min-w-[320px] rounded-xl bg-bg-primary shadow-2xl',
             modalWidth,
             modalHeight
           )}
@@ -76,12 +76,12 @@ export default function BaseModal({
           role="presentation"
         >
           <div className="flex items-center justify-between p-4 pb-0">
-            <h2 className="text-lg font-semibold">{title}</h2>
+            <span className="text-[22px] font-semibold">{title}</span>
             <button type="button" onClick={onClose} className="rounded p-1">
               <XbuttonIcon className="cursor-pointer text-neutral-400" />
             </button>
           </div>
-          <div className={cn('overflow-auto', className)}>{children}</div>
+          <div className={cn('overflow-auto p-2.5', className)}>{children}</div>
         </div>
       </div>
     </Portal>
