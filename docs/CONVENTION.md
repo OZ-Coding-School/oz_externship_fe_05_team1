@@ -1,135 +1,140 @@
-# 🚀 프로젝트 개발 컨벤션 및 가이드라인
+# 📐 Code Convention
 
-## 1. 팀 운영 규칙
-
-- **일정 공유**: 팀원들에게 현재 진행 중인 일정을 미리 공유합니다.
-- **진행 상황 공유**: "어떤 것을 파악 중이고", "어떤 것을 진행하는 중이다." 등 현재 작업 상태를 명확히 공유하여 투명성을 유지합니다.
-- **PR 병합 전 확인**: 병합 직전 팀장과 작업한 팀원이 각각 리베이스가 최신 상태에 맞춰 진행되었는지 확인합니다. (여러 PR이 올라왔을 때 하나를 합쳤다면, 다른 PR 작업 브랜치를 리베이스 해야 함)
+> 일관된 코드 스타일 유지를 위한 규칙입니다.
 
 ---
 
-## 2. 코드 스타일
+## 네이밍 규칙
 
-### 2.1 네이밍 (Naming Conventions)
-
-| 유형                | 규칙                                                       | 예시                                  | 참고                        |
-| :------------------ | :--------------------------------------------------------- | :------------------------------------ | :-------------------------- |
-| **상수**            | 대문자-스네이크 (`UPPER_SNAKE_CASE`)                       | `ABC_DEF`, `CHECK_ICON_COLOR`         |                             |
-| **Boolean 변수**    | `is`, `has`, `should` 접두사 + 동사 (`camelCase`)          | `isLoading`, `isFocused`, `hasError`  | ESLint 규칙 준수            |
-| **일반 변수**       | `camelCase` 사용                                           | `userEmail`, `totalPrice`             |                             |
-| **배열**            | 복수형 사용                                                | `users`, `items`                      |                             |
-| **객체**            | 단수형 사용                                                | `user`, `item`                        |                             |
-| **이벤트 핸들러**   | `handle` + 버튼명 + 이벤트명 (`camelCase`)                 | `handleLoginBtnClick`                 |                             |
-| **비동기 함수**     | `fetch`, `create`, `update`, `delete` 접두사 + `camelCase` | `fetchUserList`, `createUser`         |                             |
-| **타입/인터페이스** | `PascalCase`                                               | `User`, `DropdownItem`, `OrderDetail` | 기본적으로 `type` 사용 지향 |
-| **Props**           | `PascalCase` + `Props` 접미사                              | `ButtonProps`                         |                             |
-| **아이콘 컴포넌트** | 이름 뒤에 `Icon` 접미사                                    | `HeartIcon`, `DropdownIcon`           | SVG 사용                    |
-
-### 2.2 파일 및 폴더 네이밍
-
-| 대상                  | 규칙                         | 예시                                  |
-| :-------------------- | :--------------------------- | :------------------------------------ |
-| **컴포넌트 (`.tsx`)** | `PascalCase`                 | `CartList.tsx`, `DropdownMenu.tsx`    |
-| **커스텀 훅 (`.ts`)** | `use` 접두사 + `camelCase`   | `useMovieInfo.ts`                     |
-| **유틸/상수 (`.ts`)** | `camelCase`                  | `utils.ts`, `constants.ts`            |
-| **폴더명**            | 소문자-하이픈 (`kebab-case`) | `intersection-oserver`, `modal-hooks` |
-| **그 외 파일**        | `kebab-case`                 | `home-logo.svg`, `favicon.svg`        |
+| 대상           | 규칙                                   | 예시                      |
+| -------------- | -------------------------------------- | ------------------------- |
+| 상수           | UPPER_SNAKE_CASE                       | `API_BASE_URL`            |
+| Boolean 변수   | is + 동사                              | `isOpened`, `isLoading`   |
+| 일반 변수      | camelCase                              | `userEmail`               |
+| 배열 / 객체    | 복수형 / 단수형                        | `users` / `user`          |
+| 이벤트 핸들러  | handle + 대상 + 이벤트                 | `handleLoginBtnClick`     |
+| 비동기 함수    | fetch/create/update/delete + camelCase | `fetchUserList`           |
+| Props 타입     | PascalCase                             | `ButtonProps`             |
+| Type/Interface | PascalCase                             | `UserType`, `ApiResponse` |
 
 ---
 
-## 3. 함수 및 로직
+## 파일 네이밍
 
-### 3.1 함수 기본 원칙
-
-- **단일 책임 원칙**: 하나의 함수는 오직 한 가지 작업만 수행해야 합니다.
-- **불변성 유지**: 참조형 데이터(배열, 객체)를 다룰 때 원본을 변경하지 않고 항상 새로운 데이터를 반환합니다.
-- **부수 효과 방지**: 외부 데이터를 직접 사용하지 않고, 모든 의존성은 파라미터로 명확히 받아서 사용합니다.
-- **인수 형식**: 함수 인수는 무조건 **객체** 형태로 입력받고 내부에서 구조 분해하여 사용합니다.
-
-### 3.2 함수 형태
-
-- **함수 표현식 사용**: 함수 선언문 대신 화살표 함수 형태의 함수 표현식을 사용합니다.
-- **축약 반환**: 바로 `return` 하는 경우, 중괄호와 `return` 키워드를 생략합니다.
-- **블록문 규칙**: 한 줄 블록인 경우라도 `{}`를 생략하지 않고 명확히 줄바꿈하여 사용합니다.
-
-### 3.3 주석 (TSDoc/JSDoc)
-
-- **형식**: 함수, 컴포넌트, 타입 위에 `/** */` 형태의 TSDoc/JSDoc 형식을 사용합니다.
-- **대상**: `export` 되는 요소 위주로 작성합니다.
-- **위치**: 주석 작성 후 아래에 **한 줄 띄어쓰기** 후 코드를 작성합니다.
-- **협업**: 코드에 집중해서 봐야 할 것이 있다면 PR에 기록합니다.
+| 파일 유형      | 규칙             | 예시                    |
+| -------------- | ---------------- | ----------------------- |
+| 컴포넌트       | PascalCase       | `CartList.tsx`          |
+| 훅             | use + PascalCase | `useMovieInfo.ts`       |
+| 유틸리티/상수  | camelCase        | `utils.ts`              |
+| 폴더명         | kebab-case       | `intersection-observer` |
+| 그 외 (svg 등) | kebab-case       | `home-logo.svg`         |
 
 ---
 
-## 4. 모듈, CSS 및 React
+## 코드 스타일
 
-### 4.1 모듈 내보내기 (Export)
+### 기본 규칙
 
-| 대상                         | 내보내기 규칙                                                     |
-| :--------------------------- | :---------------------------------------------------------------- |
-| **컴포넌트**                 | `export default`                                                  |
-| **훅, 유틸, 상수, 타입**     | `named export`                                                    |
-| **Barrel File (`index.ts`)** | `named export`로 재정리 (단, `index.ts`에서는 `@` 경로 사용 금지) |
-
-### 4.2 CSS 및 스타일
-
-- **우선순위**: Tailwind CSS를 가장 먼저 사용합니다.
-- **조건부 스타일**: 조건부 스타일링이 필요할 경우 `cn` 유틸리티 함수를 사용합니다.
-- **스타일 변형**: 복잡한 스타일 변형이 필요하면 `cva` 사용을 고려합니다.
-- **인라인 CSS**: 런타임에 값이 동적으로 바뀌는 경우를 제외하고는 가급적 사용을 피합니다.
-
-### 4.3 React 및 TypeScript
-
-- **함수 컴포넌트**: 함수 컴포넌트만 사용합니다.
-- **파일당 컴포넌트**: 기본적으로 하나의 파일에 하나의 컴포넌트만 생성합니다. (예외 발생 시 팀원과 상의 후 결정)
-- **Props 전달**: Props 타입은 별도로 `type`을 사용하여 정의하며, Props 객체 자체는 단수형(`props`)으로 통일합니다.
-- **TypeScript 규칙**: `React.FC` 사용 금지, `any` 사용 금지, `enum` 대신 `...as const` 사용을 지향합니다.
-- **SOLID 원칙**: 단일 책임 원칙, 폐쇄 개방 원칙을 준수하며 설계합니다.
+> - 하나의 함수는 **한 가지 작업만** 수행
+> - 인수는 **객체로 입력받는 것** 지향
+> - 참조형 데이터는 **불변성 유지**
+> - **화살표 함수** 사용
+> - **type** 사용 (interface 대신)
+> - **any 사용 금지**
 
 ---
 
-## 5. Git 커밋 및 브랜치 규칙
+## 컴포넌트 작성 규칙
 
-### 5.1 브랜치 전략
+### 함수 컴포넌트 사용
 
-Git Flow를 간소화한 전략을 사용합니다.
+```tsx
+// ✅ Good
+const Button = ({ children, onClick }: ButtonProps) => {
+  return <button onClick={onClick}>{children}</button>
+}
 
-`main` (배포) ⬅️ `develop` (개발) ⬅️ 타입별 브랜치 (`feature/이슈번호--기능명` 등)
+export default Button
+```
 
-- **명명 규칙**: `<type>/<이슈번호>—<기능명>`
-- **규칙**: 브랜치명은 소문자와 하이픈(-)을 사용하며, 이슈 번호와 기능명은 **이중 하이픈(`--`)**으로 구분합니다.
+### Props 타입 정의
 
-### 5.2 커밋 메시지 규칙 (Conventional Commits)
-
-**형식**: `<type>: <subject>(#<issue-number>)`
-
-| Type       | 설명                        | 규칙                                               |
-| :--------- | :-------------------------- | :------------------------------------------------- |
-| `feat`     | 새로운 기능 개발            | 제목 50자 이내, 소문자, 명령문, **이슈 번호 포함** |
-| `fix`      | 버그 수정                   |                                                    |
-| `refactor` | 코드 리팩토링               |                                                    |
-| `docs`     | 문서 수정                   |                                                    |
-| `style`    | 코드 포맷팅/스타일          |                                                    |
-| `build`    | 빌드 관련 파일 수정         |                                                    |
-| `chore`    | 빌드, 패키지 매니저 설정 등 |                                                    |
-| `perf`     | 성능 개선                   |                                                    |
-| `ci`       | CI 설정 파일 수정           |                                                    |
+```tsx
+// ✅ Good - type 사용
+type ButtonProps = {
+  children: React.ReactNode
+  onClick: () => void
+  variant?: 'primary' | 'secondary'
+}
+```
 
 ---
 
-## 6. 기술 스택 및 초기 설정
+## Import 순서
 
-### 6.1 기술 스택
+```tsx
+// 1. React 관련
+import { useState, useEffect } from 'react'
 
-- React, TypeScript, Vite
-- Zustand, TanStack Query, Axios
-- TailwindCSS, Zod, `react-hook-form`
-- `husky`, `commitlint`, `lint-staged`
+// 2. 외부 라이브러리
+import { useQuery } from '@tanstack/react-query'
 
-### 6.2 초기 세팅 가이드
+// 3. 내부 모듈 (절대 경로)
+import { Button } from '@components/common'
+import { useAuth } from '@hooks'
 
-- **처음 프로젝트 의존성 설치**: `npm ci` (정확한 `package-lock.json` 스냅샷 재현)
-- **패키지를 새로 추가**: `npm install <패키지명>`
-- **패키지 변경된 경우**: `npm ci`를 다시 실행해서 똑같은 버전으로 맞춥니다.
+// 4. 타입
+import type { UserType } from '@custom-types'
+
+// 5. 스타일 / 에셋
+import styles from './Component.module.css'
+```
 
 ---
+
+## 모듈 내보내기
+
+| 대상                    | 방식             |
+| ----------------------- | ---------------- |
+| 컴포넌트                | `export default` |
+| 훅, 유틸, 상수, 타입 등 | `named export`   |
+
+---
+
+## 코드 품질 도구
+
+| 도구          | 용도                   |
+| ------------- | ---------------------- |
+| ESLint        | 코드 린팅              |
+| Prettier      | 코드 포맷팅            |
+| Husky         | Git hooks (pre-commit) |
+| commitlint    | 커밋 메시지 검사       |
+| lint-staged   | staged 파일만 린트     |
+| perfectionist | import 자동 정렬       |
+| TypeScript    | 정적 타입 검사         |
+
+---
+
+## 설계 원칙 (SOLID)
+
+### 단일 책임 원칙 (SRP)
+
+> 하나의 함수/컴포넌트는 **하나의 역할만** 수행
+
+### 개방-폐쇄 원칙 (OCP)
+
+> 기존 코드를 **변경하지 않으면서** 기능을 확장할 수 있도록 설계
+
+---
+
+## Communication
+
+| 도구    | 용도                        |
+| ------- | --------------------------- |
+| Discord | 실시간 소통                 |
+| Notion  | 데일리 스크럼, 일정, 회의록 |
+| Figma   | 디자인 협업                 |
+
+---
+
+<p align="right"><a href="../README.md">⬅️ Back to README</a></p>
