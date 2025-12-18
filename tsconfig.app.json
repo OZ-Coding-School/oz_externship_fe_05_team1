@@ -44,7 +44,9 @@
       "@features": ["src/features"],
       "@features/*": ["src/features/*"],
       "@custom-types": ["src/custom-types"],
-      "@custom-types/*": ["src/custom-types/*"]
+      "@custom-types/*": ["src/custom-types/*"],
+      "@mocks": ["src/mocks"],
+      "@mocks/*": ["src/mocks/*"]
     }
   },
   "include": ["src"]

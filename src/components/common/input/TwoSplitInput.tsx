@@ -25,7 +25,8 @@ function extractWidthFromVariant(
     variant === 'sm' ||
     variant === 'md' ||
     variant === 'lg' ||
-    variant === 'xl'
+    variant === 'xl' ||
+    variant === 'xxl'
   ) {
     classes = inputVariant({ size: variant })
   } else {
@@ -49,18 +50,22 @@ export default function TwoSplitInput({
   rightSide,
   labelHeight = 50,
   size,
+  className,
 }: TwoSplitInputProps) {
   const baseWidth = extractWidthFromVariant(size)
   const computedWidth = baseWidth + extractWidthFromVariant('primary')
 
   return (
     <div
-      className={`flex items-center rounded-none border border-r-0 border-neutral-300`}
+      className={cn(
+        `flex w-full items-center rounded-none border-t border-neutral-300`,
+        className
+      )}
       style={{ width: `${computedWidth}px` }}
     >
       <div
         className={cn(
-          `flex items-center rounded-none bg-neutral-200 px-2 text-[14px] text-neutral-500`,
+          `flex items-center rounded-none bg-neutral-200 text-[14px] text-neutral-500`,
           inputVariant({ twoSplitLabel: 'primary' })
         )}
         style={{ height: `${labelHeight}px` }}

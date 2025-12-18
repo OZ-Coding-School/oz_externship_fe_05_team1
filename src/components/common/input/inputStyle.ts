@@ -8,7 +8,8 @@ export const inputVariant = cva(
         sm: 'w-[140px] h-[40px]',
         md: 'w-[230px] h-[40px]',
         lg: 'w-[364px] h-[40px]',
-        xl: 'w-[690px] h-[40px]',
+        xl: 'w-[500px] h-[40px]',
+        xxl: 'w-[690px] h-[40px]',
       },
       error: {
         true: 'border-error',
