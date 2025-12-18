@@ -21,3 +21,4 @@ export { default as SuccessCloseIcon } from './icon/success-close-icon.svg?react
 export { default as FailCloseIcon } from './icon/fail-close-icon.svg?react'
 export { default as SelectedCheckIcon } from './icon/selected-check-icon.svg?react'
 export { default as CheckIcon } from './icon/check-icon.svg?react'
+export { default as LogoUpload } from './images/logo-upload.svg?react'

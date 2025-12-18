@@ -19,7 +19,7 @@ export default function CustomTimeInput({
       type="button"
       onClick={onClick}
       ref={ref}
-      className="flex w-25 items-center rounded-md border border-neutral-200 px-3 py-2 text-left"
+      className="flex w-23 items-center rounded-md border border-neutral-200 px-3 py-2 text-left"
     >
       <span className="flex-1">{value}</span>
       <DropdownIcon className="relative h-4 w-4 text-neutral-400" />

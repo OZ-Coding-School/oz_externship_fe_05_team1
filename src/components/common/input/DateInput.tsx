@@ -6,17 +6,15 @@ import CustomDateInput from './CustomDateInput'
 import CustomTimeInput from './CustomTimeInput'
 
 /**
- *
  * @returns DatePicker 라이브러리 사용
  * 날짜와 시간 인풋 생성
  * 분리 가능
- *
  */
 export default function DateInput() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date())
 
   return (
-    <>
+    <div className="flex items-center gap-3">
       <DatePicker
         selected={selectedDate}
         onChange={(date) => setSelectedDate(date)}
@@ -45,6 +43,6 @@ export default function DateInput() {
         dateFormat="HH:mm"
         customInput={<CustomTimeInput />}
       />
-    </>
+    </div>
   )
 }

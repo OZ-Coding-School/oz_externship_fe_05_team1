@@ -1,8 +1,10 @@
-import PopupModal from './PopupModal'
+import type { Meta, StoryObj } from '@storybook/react-vite'
+
 import { useState } from 'react'
 
 import type { PopupModalProps } from './popupStyle'
-import type { Meta, StoryObj } from '@storybook/react-vite'
+
+import PopupModal from './PopupModal'
 
 const meta: Meta<typeof PopupModal> = {
   title: 'Components/Common/PopupModal',
@@ -33,14 +35,14 @@ type PopupWrapperProps = Omit<PopupModalProps, 'onClose'> & {
 }
 
 const PopupWrapper = ({ children, onClose, ...rest }: PopupWrapperProps) => {
-  const [open, setOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(true)
 
   return (
     <PopupModal
       {...rest}
-      isOpen={open}
+      isOpen={isOpen}
       onClose={() => {
-        setOpen(false)
+        setIsOpen(false)
         onClose?.() // onClose는 optional이므로 안전하게 호출
       }}
     >
