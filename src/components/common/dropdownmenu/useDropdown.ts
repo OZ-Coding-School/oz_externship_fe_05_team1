@@ -32,8 +32,8 @@ type UseDropdownReturn = {
 
 // 1. 방향키 이동 값 매핑 (객체 활용)
 const MOVE_STEP: Record<string, number> = {
-  ArrowDown: 1,
-  ArrowUp: -1,
+  ARROW_DOWN: 1,
+  ARROW_UP: -1,
 }
 
 export const useDropdown = ({
