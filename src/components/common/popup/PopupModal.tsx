@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 
 import { CheckIcon, WarningIcon } from '@assets'
-import { BaseModal, Button } from '@components'
+import { BaseModal, Button, type ButtonProps } from '@components'
 import { cn } from '@utils'
 
 import { type PopupDivision, type PopupModalProps } from './popupStyle'
@@ -80,13 +80,13 @@ const ButtonArea = ({ children }: ButtonAreaProps) => (
 
 type PopupButtonProps = {
   children: ReactNode
-  variant: PopupDivision
+  variant?: ButtonProps['variant']
 }
 
 /**
  * 컴파운드 PopupButton
  */
-const PopupButton = ({ variant, children }: PopupButtonProps) => (
+const PopupButton = ({ variant = 'secondary', children }: PopupButtonProps) => (
   <Button variant={variant} size="sm">
     {children}
   </Button>

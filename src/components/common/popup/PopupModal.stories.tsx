@@ -62,7 +62,7 @@ export const Default: Story = {
         여기에 설명 문구가 들어갑니다.
       </PopupModal.Description>
       <PopupModal.ButtonArea>
-        <PopupModal.PopupButton variant="default">확인</PopupModal.PopupButton>
+        <PopupModal.PopupButton variant="primary">확인</PopupModal.PopupButton>
       </PopupModal.ButtonArea>
     </PopupWrapper>
   ),
@@ -99,7 +99,9 @@ export const DangerPopup: Story = {
       </PopupModal.Title>
       <PopupModal.Description>계속 진행하시겠습니까?</PopupModal.Description>
       <PopupModal.ButtonArea>
-        <PopupModal.PopupButton variant="default">취소</PopupModal.PopupButton>
+        <PopupModal.PopupButton variant="secondary">
+          취소
+        </PopupModal.PopupButton>
         <PopupModal.PopupButton variant="danger">진행</PopupModal.PopupButton>
       </PopupModal.ButtonArea>
     </PopupWrapper>
