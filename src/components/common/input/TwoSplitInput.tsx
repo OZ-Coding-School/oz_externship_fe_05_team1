@@ -1,10 +1,15 @@
+import type { ReactNode } from 'react'
+
 import { cn } from '@utils'
 
-import BaseInput, { type BaseInputProps } from './BaseInput'
+import { type BaseInputProps } from './BaseInput'
 import { inputVariant, type InputVariant } from './inputStyle'
 
 type TwoSplitInputProps = BaseInputProps & {
   label: string
+  rightSide?: ReactNode
+  labelHeight?: number
+  className?: string
 }
 
 /**
@@ -36,37 +41,33 @@ function extractWidthFromVariant(
  * 합쳐진 인풋 필드
  * @param label - 라벨명을 입력(ex. 닉네임)
  * @param size - 인풋 길이 size값(sm-md-lg-xl)
- * @returns
+ * @param rightSide - 오른쪽 칸에 들어갈 화면 랜더링
+ * @param className - 추가 클래스 설정
  */
 export default function TwoSplitInput({
   label,
-  className,
+  rightSide,
+  labelHeight = 50,
   size,
-  error,
-  ...props
 }: TwoSplitInputProps) {
   const baseWidth = extractWidthFromVariant(size)
   const computedWidth = baseWidth + extractWidthFromVariant('primary')
 
   return (
     <div
-      className={`flex h-[50px] items-center rounded-none border border-r-0 border-neutral-200`}
+      className={`flex items-center rounded-none border border-r-0 border-neutral-300`}
       style={{ width: `${computedWidth}px` }}
     >
       <div
         className={cn(
-          `flex items-center bg-neutral-200 px-2 text-sm text-neutral-500`,
+          `flex items-center rounded-none bg-neutral-200 px-2 text-[14px] text-neutral-500`,
           inputVariant({ twoSplitLabel: 'primary' })
         )}
+        style={{ height: `${labelHeight}px` }}
       >
         {label}
       </div>
-      <BaseInput
-        {...props}
-        size={size}
-        error={error}
-        className={cn(`mx-2 rounded-none`, className)}
-      />
+      <div className="pl-4">{rightSide}</div>
     </div>
   )
 }
