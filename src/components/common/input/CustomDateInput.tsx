@@ -19,7 +19,7 @@ export default function CustomDateInput({
       type="button"
       onClick={onClick}
       ref={ref}
-      className="relative flex w-[140px] items-center rounded-md border border-neutral-200 px-3 py-2 text-left"
+      className="relative flex w-35 items-center rounded-md border border-neutral-200 px-3 py-2 text-left"
     >
       <span className="flex-1">{value}</span>
       <CalendarIcon className="absolute right-2 h-5 w-5 text-neutral-400" />

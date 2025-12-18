@@ -40,7 +40,7 @@ export default function SideMenu() {
                   <Link
                     key={path}
                     to={path}
-                    className="pl-[44px] text-sm font-medium text-neutral-400 hover:text-primary-500"
+                    className="pl-11 text-sm font-medium text-neutral-400 hover:text-primary-500"
                   >
                     - {label}
                   </Link>
