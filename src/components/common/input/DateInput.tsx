@@ -21,7 +21,7 @@ export default function DateInput() {
         selected={selectedDate}
         onChange={(date) => setSelectedDate(date)}
         dateFormat="yyyy.MM.dd"
-        className="w-[200px] px-3 py-2 outline-none"
+        className="w-50 px-3 py-2 outline-none"
         customInput={<CustomDateInput />}
       />
 

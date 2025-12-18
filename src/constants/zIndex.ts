@@ -3,4 +3,5 @@
  */
 export const Z_INDEX = {
   MODAL: 100,
+  DROPDOWN: 20,
 }

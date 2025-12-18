@@ -1,6 +1,6 @@
 import type { VariantProps } from 'class-variance-authority'
 
-import { cn } from '@utils/cn'
+import { cn } from '@utils'
 
 import { buttonVariants } from './buttonStyle'
 
