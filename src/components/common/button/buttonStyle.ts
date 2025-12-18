@@ -1,14 +1,13 @@
 import { cva } from 'class-variance-authority'
 
 export const buttonVariants = cva(
-  'rounded-md font-medium font-normal transition-colors duration-150 flex justify-center items-center px-3.5 py-1.5 text-[16px] disabled:opacity-50 disabled:cursor-not-allowed',
+  'rounded-md font-medium font-normal transition-colors duration-300 flex justify-center items-center px-3.5 py-1.5 text-[16px] disabled:opacity-50 disabled:cursor-not-allowed',
   {
     variants: {
       variant: {
-        primary:
-          'bg-primary-400 text-white hover:bg-primary-500 hover:text-primary-400',
+        primary: 'bg-primary-400 text-white hover:bg-primary-500',
         'primary-light':
-          'bg-primary-light text-primary-500 hover:bg-primary-100',
+          'bg-primary-light text-primary-500 hover:bg-primary-400 hover:text-white',
         secondary: 'bg-neutral-300 text-white hover:bg-neutral-400',
         'white-outline':
           'bg-bg-primary border border-neutral-200 text-neutral-500 hover:bg-neutral-300 hover:text-white',
@@ -23,6 +22,7 @@ export const buttonVariants = cva(
         md: 'w-[64px] h-[36px]',
         lg: 'w-[72px] h-[36px]',
         xl: 'w-[100px] h-[36px]',
+        xxl: 'w-[160px] h-[48px] text-[16px] font-semibold',
       },
     },
     defaultVariants: {
