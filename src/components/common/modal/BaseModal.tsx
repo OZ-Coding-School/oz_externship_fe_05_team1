@@ -75,7 +75,7 @@ export default function BaseModal({
           onClick={(e) => e.stopPropagation()}
           role="presentation"
         >
-          <div className="flex items-center justify-between p-4 pb-0">
+          <div className="flex items-center justify-between p-8 pb-0">
             <span className="text-[22px] font-semibold">{title}</span>
             <button type="button" onClick={onClose} className="rounded p-1">
               <XbuttonIcon className="cursor-pointer text-neutral-400" />

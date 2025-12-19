@@ -27,6 +27,7 @@ export default defineConfig({
       '@stores': path.resolve(__dirname, './src/stores'),
       '@features': path.resolve(__dirname, './src/features'),
       '@custom-types': path.resolve(__dirname, './src/types'),
+      '@mocks': path.resolve(__dirname, './src/mocks'),
     },
   },
   test: {
