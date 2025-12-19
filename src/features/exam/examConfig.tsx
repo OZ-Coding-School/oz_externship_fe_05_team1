@@ -2,8 +2,13 @@ import type { ColumnDef } from '@tanstack/react-table'
 
 import { Button } from '@components'
 
-import type { Exam } from './utils/types'
+import type { Exam } from './types'
 
+/**
+ * 쪽지시험 목록 테이블 컬럼 설정
+ * - TanStack Table(ColumnDef)을 기반으로 시험 목록 컬럼 정의
+ * - 시험 상태에 따라 액션 버튼(배포/배포중) 분기 처리
+ */
 export const ExamColumns: ColumnDef<Exam>[] = [
   {
     accessorKey: 'id',

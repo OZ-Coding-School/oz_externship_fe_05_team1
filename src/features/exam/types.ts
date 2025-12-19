@@ -1,3 +1,5 @@
+import type { DropdownItem } from '@components'
+
 export type Exam = {
   id: number
   title: string
@@ -9,11 +11,12 @@ export type Exam = {
   status: 'deployed' | 'pending'
 }
 
-export type Filters = {
-  course: string
-  subject: string
-}
-
 export type ExamPageProps = {
   initialData?: Exam[]
+}
+
+export type DropdownConfig = {
+  key: string
+  items: DropdownItem[]
+  placeholder: string
 }

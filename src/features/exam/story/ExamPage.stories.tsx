@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { mockExamList } from '@mocks'
 
-import ExamPage from '../ExamPage'
+import ExamPage from '../../../pages/ExamManagementPage'
 
 const meta: Meta<typeof ExamPage> = {
   title: 'Pages/Exam/ExamPage',
