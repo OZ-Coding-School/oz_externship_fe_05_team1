@@ -1,6 +1,6 @@
 import MainLayout from '@components/layout/MainLayout'
 import { ROUTES_PATHS } from '@constants'
-import { MainPage, NotFound } from '@pages'
+import { ExamManagementPage, MainPage, NotFound } from '@pages'
 import { Toaster } from 'react-hot-toast'
 import { Route, Routes } from 'react-router'
 
@@ -13,6 +13,10 @@ function App() {
     {
       path: ROUTES_PATHS.NOT_FOUND,
       element: <NotFound />,
+    },
+    {
+      path: ROUTES_PATHS.EXAM,
+      element: <ExamManagementPage />,
     },
   ]
 

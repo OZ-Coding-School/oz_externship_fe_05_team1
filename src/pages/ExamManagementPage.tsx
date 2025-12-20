@@ -22,7 +22,9 @@ const ExAM_DROPDOWNS: DropdownConfig[] = [
  * - 필터, 검색, 시험 목록/빈 상태를 관리하는 컨테이너 컴포넌트
  * - 시험 데이터 유무에 따라 EmptyState 또는 ExamList 렌더링
  */
-export default function ExamPage({ initialData = [] }: ExamPageProps) {
+export default function ExamManagementPage({
+  initialData = [],
+}: ExamPageProps) {
   const [filters, setFilters] = useState<Record<string, string>>({
     course: '',
     subject: '',
@@ -52,24 +54,27 @@ export default function ExamPage({ initialData = [] }: ExamPageProps) {
   }
 
   return (
-    <section className="p-18">
-      <h1 className="mb-1 text-[18px] text-neutral-500">쪽지시험 관리</h1>
-      <div className="mb-3">
-        <FilterSection
-          dropdowns={ExAM_DROPDOWNS}
-          selectedValues={filters}
-          onChangeFilters={handleChangeFilters}
-          search={search}
-          onChangeSearch={setSearch}
-          onSubmit={handleSearch}
-        />
-      </div>
+    <section className="px-15 py-11">
+      <div className="h-192 bg-white px-18 py-8">
+        <h1 className="mb-1 text-[22px] text-neutral-500">쪽지시험 관리</h1>
 
-      {data.length === 0 ? (
-        <EmptyState onButtonClick={handleCreate} />
-      ) : (
-        <ExamList data={data} onButtonClick={handleCreate} />
-      )}
+        <div className="mb-3">
+          <FilterSection
+            dropdowns={ExAM_DROPDOWNS}
+            selectedValues={filters}
+            onChangeFilters={handleChangeFilters}
+            search={search}
+            onChangeSearch={setSearch}
+            onSubmit={handleSearch}
+          />
+        </div>
+
+        {data.length === 0 ? (
+          <EmptyState onButtonClick={handleCreate} />
+        ) : (
+          <ExamList data={data} onButtonClick={handleCreate} />
+        )}
+      </div>
     </section>
   )
 }
