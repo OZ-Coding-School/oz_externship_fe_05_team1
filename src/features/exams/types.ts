@@ -11,10 +11,6 @@ export type Exam = {
   status: 'deployed' | 'pending'
 }
 
-export type ExamPageProps = {
-  initialData?: Exam[]
-}
-
 export type DropdownConfig = {
   key: string
   items: DropdownItem[]

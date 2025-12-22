@@ -5,7 +5,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 
-import type { Exam } from './types.ts'
+import type { Exam } from '../types.ts'
 
 import { ExamColumns } from './examConfig.tsx'
 

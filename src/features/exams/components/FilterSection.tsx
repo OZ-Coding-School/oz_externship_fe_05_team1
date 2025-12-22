@@ -1,6 +1,6 @@
 import { BaseInput, Button, DropdownMenu } from '@components'
 
-import type { DropdownConfig } from './types'
+import type { DropdownConfig } from '../types'
 
 type FilterSectionProps = {
   dropdowns: DropdownConfig[]
@@ -24,6 +24,22 @@ type FilterSectionProps = {
  * @param search - 검색어
  * @param onChangeSearch - 검색어 변경 콜백
  * @param onSubmit - 조회 버튼 클릭 콜백
+ * @example
+ * ```tsx
+ * const dropdowns = [
+ *   { key: 'course', items: COURSE_LIST, placeholder: '과정' },
+ *   { key: 'subject', items: SUBJECT_LIST, placeholder: '과목' },
+ * ]
+ *
+ * <FilterSection
+ *   dropdowns={dropdowns}
+ *   selectedValues={{ course: '', subject: '' }}
+ *   onChangeFilters={(key, value) => setFilters(prev => ({ ...prev, [key]: value }))}
+ *   search={search}
+ *   onChangeSearch={setSearch}
+ *   onSubmit={handleSearch}
+ * />
+ * ```
  */
 export default function FilterSection({
   dropdowns,

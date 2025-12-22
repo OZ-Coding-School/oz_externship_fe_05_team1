@@ -28,6 +28,7 @@ export default defineConfig({
       '@features': path.resolve(__dirname, './src/features'),
       '@custom-types': path.resolve(__dirname, './src/types'),
       '@mocks': path.resolve(__dirname, './src/mocks'),
+      '@exams': path.resolve(__dirname, './src/features/exams'),
     },
   },
   test: {
