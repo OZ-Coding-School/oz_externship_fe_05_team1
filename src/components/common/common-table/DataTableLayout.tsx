@@ -3,24 +3,30 @@ import { type Table } from '@tanstack/react-table'
 import { DataTable } from './DataTable'
 import { TablePagination } from './TablePagination'
 
+type DataTableLayoutProps<TData> = {
+  table: Table<TData>
+  actionButtons?: React.ReactNode
+}
+
 /**
  * DataTableLayout 컴포넌트
  *
- * DataTable+TablePagination 조합
- * 현재 페이지에 해당하는 row 데이터만 DataTable에 전달
+ * DataTable + TablePagination + 액션버튼 조합
+ *
+ * @param table - TanStack Table 인스턴스
+ * @param actionButtons - 테이블 하단 액션 버튼 (선택)
  */
-
-type DataTableLayoutProps<TData> = {
-  table: Table<TData>
-}
-
-export function DataTableLayout<TData>({ table }: DataTableLayoutProps<TData>) {
+export function DataTableLayout<TData>({
+  table,
+  actionButtons,
+}: DataTableLayoutProps<TData>) {
   return (
     <div className="space-y-4">
       <DataTable
         columns={table.options.columns}
         data={table.getRowModel().rows.map((row) => row.original)}
       />
+      {actionButtons && <div>{actionButtons}</div>}
       <TablePagination table={table} />
     </div>
   )
