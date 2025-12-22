@@ -24,6 +24,7 @@ export default function BaseModal({
   title,
   children,
   className,
+  isBaseAllStyle,
 }: BaseModalProps) {
   const { modalWidth, modalHeight } = modalSize[size]
 
@@ -60,7 +61,7 @@ export default function BaseModal({
   return (
     <Portal portalId="modal-root">
       <div
-        className="absolute inset-0 flex items-center justify-center bg-black/50"
+        className="fixed inset-0 flex items-center justify-center bg-black/50"
         role="presentation"
         onClick={onClose}
         style={{ zIndex: Z_INDEX.MODAL }}
@@ -69,19 +70,23 @@ export default function BaseModal({
           className={cn(
             'relative h-[90%] min-h-72.5 w-[90%] min-w-[320px] rounded-xl bg-bg-primary shadow-2xl',
             modalWidth,
-            modalHeight
+            modalHeight,
+            isBaseAllStyle && className
           )}
-          style={{ zIndex: Z_INDEX.MODAL + 1 }}
           onClick={(e) => e.stopPropagation()}
           role="presentation"
         >
-          <div className="flex items-center justify-between p-8 pb-0">
+          <div className="flex items-center justify-between px-8 pt-8 pb-2.5">
             <span className="text-[22px] font-semibold">{title}</span>
             <button type="button" onClick={onClose} className="rounded p-1">
               <XbuttonIcon className="cursor-pointer text-neutral-400" />
             </button>
           </div>
-          <div className={cn('overflow-auto p-2.5', className)}>{children}</div>
+          <div
+            className={cn('overflow-auto p-2.5', !isBaseAllStyle && className)}
+          >
+            {children}
+          </div>
         </div>
       </div>
     </Portal>

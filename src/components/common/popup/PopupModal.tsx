@@ -112,6 +112,7 @@ export default function PopupModal({
       onClose={onClose}
       size={size}
       title=""
+      isBaseAllStyle={false}
       className="flex flex-col items-center px-6 pb-8 text-center"
     >
       {children}

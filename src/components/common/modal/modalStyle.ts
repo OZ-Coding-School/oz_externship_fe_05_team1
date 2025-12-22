@@ -10,6 +10,7 @@ export type BaseModalProps = {
   onClose: () => void
   children: ReactNode
   size?: ModalSizeKey
-  title?: string
+  title?: string | ReactNode
+  isBaseAllStyle?: boolean
   className?: string
 }
