@@ -30,7 +30,6 @@ type UseDropdownReturn = {
   handleItemClick: (value: string) => void
 }
 
-// 1. 방향키 이동 값 매핑 (객체 활용)
 const MOVE_STEP: Record<string, number> = {
   ARROW_DOWN: 1,
   ARROW_UP: -1,
@@ -58,7 +57,6 @@ export const useDropdown = ({
     [onSelect, buttonRef]
   )
 
-  // 외부 클릭 감지
   const handleClickOutside = useCallback(
     (event: MouseEvent) => {
       if (
@@ -80,7 +78,6 @@ export const useDropdown = ({
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [handleClickOutside])
 
-  // 2. 키보드 이벤트 핸들러 (요청하신 로직 적용)
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
       const step = MOVE_STEP[event.key]
@@ -117,7 +114,6 @@ export const useDropdown = ({
         return
       }
 
-      // 3. 시작 위치 계산
       let startPoint = focusedIndex
 
       if (focusedIndex === -1) {
