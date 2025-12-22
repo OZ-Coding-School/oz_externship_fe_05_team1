@@ -11,12 +11,12 @@ function App() {
       element: <MainPage />,
     },
     {
-      path: ROUTES_PATHS.NOT_FOUND,
-      element: <NotFound />,
-    },
-    {
       path: ROUTES_PATHS.EXAM,
       element: <ExamManagementPage />,
+    },
+    {
+      path: ROUTES_PATHS.NOT_FOUND,
+      element: <NotFound />,
     },
   ]
 

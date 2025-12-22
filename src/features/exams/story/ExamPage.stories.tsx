@@ -1,19 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { mockExamList } from '@mocks'
+import { ExamManagementPage } from '@pages'
 
-import ExamPage from '../../../pages/ExamManagementPage'
-
-const meta: Meta<typeof ExamPage> = {
+const meta: Meta<typeof ExamManagementPage> = {
   title: 'Pages/Exam/ExamPage',
-  component: ExamPage,
+  component: ExamManagementPage,
   parameters: {
     layout: 'fullscreen',
   },
 }
 
 export default meta
-type Story = StoryObj<typeof ExamPage>
+type Story = StoryObj<typeof ExamManagementPage>
 
 export const Default: Story = {}
 

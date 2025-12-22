@@ -1,4 +1,4 @@
-import { createExamDropdown } from '../features/exam/utils/createExamDropdown'
+import { createExamDropdown } from '../features/exams/utils/createExamDropdown'
 
 /**
  * value : 리스트 값
