@@ -1,8 +1,9 @@
 import { BookIcon, UserIcon } from '@assets'
+import { ROUTES_PATHS } from '@constants'
 
 export const EXAMS_MENU_ITEMS = [
   {
-    path: '/exams/exams',
+    path: ROUTES_PATHS.EXAM,
     label: '쪽지시험 관리',
   },
   {

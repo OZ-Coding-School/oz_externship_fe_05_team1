@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import ExamCreate from './ExamCreate'
+import ExamCreate from '../ExamCreate'
 
 const meta = {
   title: 'Modals/ExamCreate',

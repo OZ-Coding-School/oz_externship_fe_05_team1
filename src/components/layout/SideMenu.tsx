@@ -1,8 +1,7 @@
 import { AngleDownIcon, AngleUpIcon } from '@assets'
+import { SIDE_MENU_LIST } from '@mocks'
 import { useState } from 'react'
 import { Link } from 'react-router'
-
-import { SIDE_MENU_LIST } from './SideMenuData'
 
 export default function SideMenu() {
   const [openMenu, setOpenMenu] = useState<string[]>(['admin'])

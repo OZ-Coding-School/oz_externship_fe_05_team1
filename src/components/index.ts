@@ -21,3 +21,8 @@ export { DataTableLayout } from './common/common-table/DataTableLayout'
 export { default as DropdownMenu } from './common/dropdownmenu/DropdownMenu'
 export * from './common/dropdownmenu/DropdownList'
 export * from './common/input/inputStyle'
+export * from './common/dropdownmenu/DropdownList'
+export type {
+  DropdownItem,
+  DropdownMenuProps,
+} from './common/dropdownmenu/DropdownMenu'
