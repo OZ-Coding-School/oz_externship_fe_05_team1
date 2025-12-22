@@ -1,6 +1,6 @@
 import { XbuttonIcon } from '@assets'
 import { modalSize, Portal } from '@components'
-import { Z_INDEX } from '@constants'
+import { PORTAL_IDS, Z_INDEX } from '@constants'
 import { cn } from '@utils'
 import { useEffect } from 'react'
 
@@ -23,8 +23,8 @@ export default function BaseModal({
   size = 'lg',
   title,
   children,
-  className,
-  isBaseAllStyle,
+  containerClassName,
+  contentClassName,
 }: BaseModalProps) {
   const { modalWidth, modalHeight } = modalSize[size]
 
@@ -59,7 +59,7 @@ export default function BaseModal({
   }
 
   return (
-    <Portal portalId="modal-root">
+    <Portal portalId={PORTAL_IDS.MODAL_PORTAL_ID}>
       <div
         className="fixed inset-0 flex items-center justify-center bg-black/50"
         role="presentation"
@@ -71,7 +71,7 @@ export default function BaseModal({
             'relative h-[90%] min-h-72.5 w-[90%] min-w-[320px] rounded-xl bg-bg-primary shadow-2xl',
             modalWidth,
             modalHeight,
-            isBaseAllStyle && className
+            containerClassName
           )}
           onClick={(e) => e.stopPropagation()}
           role="presentation"
@@ -82,9 +82,7 @@ export default function BaseModal({
               <XbuttonIcon className="cursor-pointer text-neutral-400" />
             </button>
           </div>
-          <div
-            className={cn('overflow-auto p-2.5', !isBaseAllStyle && className)}
-          >
+          <div className={cn('overflow-auto p-2.5', contentClassName)}>
             {children}
           </div>
         </div>

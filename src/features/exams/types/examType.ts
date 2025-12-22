@@ -15,6 +15,6 @@ export type ExamQuestionResponse = {
   questionCount: number
   createAt: string
   updatedAt: string
-  thumbnail_img_url: string
+  thumbnailImgUrl: string
   questions: ExamQuestion[]
 }

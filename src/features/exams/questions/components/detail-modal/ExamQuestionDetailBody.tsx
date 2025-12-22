@@ -1,37 +1,28 @@
-import type { ExamQuestionResponse } from '@features/exam'
-import type { ReactNode } from 'react'
+import type { ExamQuestionResponse } from '@features/exams'
 
 import { ClosingAngleIcon, OpeningAngleIcon } from '@assets'
 
-/**
- * Body 컴포넌트
- * @param children : ReactNode
- */
-export const Body = ({ children }: { children: ReactNode }) => (
-  <section className="flex flex-1 flex-col overflow-auto rounded-lg border border-neutral-200 bg-bg-primary p-8">
-    {children}
-  </section>
-)
+type ExamQuestionDetailBodyProps = {
+  exam: ExamQuestionResponse
+  currentIndex: number
+  onPrev: () => void
+  onNext: () => void
+}
 
 /**
- * QuestionBody 컴포넌트
+ * ExamQuestionDetailBody 컴포넌트
  * @param exam : 시험 문제 응답 데이터
  * @param currentIndex : 현재 문제 인덱스
  * @param onPrev : 이전 문제로 이동 함수
  * @param onNext : 다음 문제로 이동 함수
  * @returns Body 컴포넌트
  */
-export function QuestionBody({
+export function ExamQuestionDetailBody({
   exam,
   currentIndex,
   onPrev,
   onNext,
-}: {
-  exam: ExamQuestionResponse
-  currentIndex: number
-  onPrev: () => void
-  onNext: () => void
-}) {
+}: ExamQuestionDetailBodyProps) {
   const question = exam.questions[currentIndex]
 
   return (
@@ -84,14 +75,14 @@ export function QuestionBody({
         <button
           disabled={currentIndex === 0}
           onClick={onPrev}
-          className="absolute top-1/2 left-2 -translate-y-1/2 text-neutral-400 hover:text-neutral-500 disabled:opacity-30"
+          className="absolute top-1/2 left-1 -translate-y-1/2 text-neutral-400 hover:text-neutral-500 disabled:opacity-30"
         >
           <OpeningAngleIcon />
         </button>
         <button
           disabled={currentIndex === exam.questions.length - 1}
           onClick={onNext}
-          className="absolute top-1/2 right-2 -translate-y-1/2 text-neutral-400 hover:text-neutral-500 disabled:opacity-30"
+          className="absolute top-1/2 right-1 -translate-y-1/2 text-neutral-400 hover:text-neutral-500 disabled:opacity-30"
         >
           <ClosingAngleIcon />
         </button>

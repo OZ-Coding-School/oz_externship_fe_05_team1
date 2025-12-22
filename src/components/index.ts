@@ -26,3 +26,4 @@ export type {
   DropdownItem,
   DropdownMenuProps,
 } from './common/dropdownmenu/DropdownMenu'
+export { default as Image } from './common/image/image'
