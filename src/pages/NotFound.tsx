@@ -1,7 +1,25 @@
-import Button from '@components/common/button/Button'
+import type { SVGProps } from 'react'
+
+import { Button } from '@components'
+import { ROUTES_PATHS } from '@constants'
 import { cn } from '@utils'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
+
+const IconX = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    width="28"
+    height="28"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="4"
+    strokeLinecap="round"
+    {...props}
+  >
+    <path d="M18 6L6 18M6 6l12 12" />
+  </svg>
+)
 
 export default function NotFound() {
   const navigate = useNavigate()
@@ -51,17 +69,7 @@ export default function NotFound() {
         </span>
 
         <div className="absolute top-[30%] left-[2%] z-20 flex h-14 w-14 animate-bounce items-center justify-center rounded-full bg-primary-400 text-white shadow-xl shadow-primary-400/20 [animation-duration:2.8s] sm:h-18 sm:w-18">
-          <svg
-            width="28"
-            height="28"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="4"
-            strokeLinecap="round"
-          >
-            <path d="M18 6L6 18M6 6l12 12" />
-          </svg>
+          <IconX className="h-7 w-7 sm:w-8" />
         </div>
 
         <div className="absolute top-[2%] left-[42%] h-6 w-6 animate-bounce rounded-full bg-primary-400 [animation-duration:2.2s]" />
@@ -80,7 +88,7 @@ export default function NotFound() {
         <h2 className="mb-4 text-xl font-bold text-neutral-500 sm:text-2xl lg:text-3xl">
           죄송합니다. 현재 페이지를 찾을 수 없는 페이지를 요청하셨습니다.
         </h2>
-        <p className="mb-10 text-[13px] leading-relaxed text-neutral-300 sm:text-sm lg:text-base">
+        <p className="mx-auto mb-10 max-w-75 text-[13px] leading-relaxed text-neutral-300 sm:max-w-100 sm:text-sm lg:max-w-none lg:text-base">
           방문하시려는 페이지의 주소가 잘못 입력되었거나,
           <br className="hidden sm:block" />
           페이지의 주소가 변경 혹은 삭제되어 요청하신 페이지를 찾을 수 없습니다.
@@ -94,7 +102,7 @@ export default function NotFound() {
               'shadow-[0_8px_25px_rgba(124,53,217,0.3)]',
               'transition-transform hover:scale-105'
             )}
-            onClick={() => navigate('/')}
+            onClick={() => navigate(ROUTES_PATHS.MAIN)}
           >
             홈으로 돌아가기
           </Button>
