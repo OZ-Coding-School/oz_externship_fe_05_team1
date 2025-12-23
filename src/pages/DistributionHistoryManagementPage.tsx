@@ -31,7 +31,9 @@ export default function DistributionHistoryManagementPage() {
     const updatedParams = { ...current, ...newParams }
 
     Object.keys(updatedParams).forEach((key) => {
-      if (!updatedParams[key]) delete updatedParams[key]
+      if (!updatedParams[key]) {
+        delete updatedParams[key]
+      }
     })
 
     setSearchParams(updatedParams)
@@ -83,7 +85,9 @@ export default function DistributionHistoryManagementPage() {
 
         <div>
           <DistributionList
+            // TODO: useQuery를 통해 서버에서 받아온 실제 배포 내역 데이터(data.content) 바인딩
             data={[]}
+            // TODO: API 응답으로 받은 전체 페이지 수(data.totalPages) 전달
             pageCount={0}
             pageIndex={Number(page) - 1}
             onPageChange={(index) => updateParams({ page: String(index + 1) })}

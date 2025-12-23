@@ -3,6 +3,7 @@ import {
   type DataTableLayoutProps,
   TablePagination,
 } from '@components'
+import { PAGE_SIZE } from '@constants'
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
 
 import type { Distribution } from '../../types.ts'
@@ -31,12 +32,12 @@ export default function DistributionList({
     state: {
       pagination: {
         pageIndex,
-        pageSize: 10,
+        pageSize: PAGE_SIZE,
       },
     },
     onPaginationChange: (updater) => {
       if (typeof updater === 'function') {
-        const nextState = updater({ pageIndex, pageSize: 10 })
+        const nextState = updater({ pageIndex, pageSize: PAGE_SIZE })
 
         onPageChange(nextState.pageIndex)
       }
