@@ -30,7 +30,7 @@ export const DistributionColumns: ColumnDef<Distribution>[] = [
     accessorKey: 'courseInfo',
     header: '과정 | 기수',
     cell: ({ row }) => (
-      <span>{`${row.original.averageScore} ${row.original.generation}`}</span>
+      <span>{`${row.original.courseName} ${row.original.generation}`}</span>
     ),
   },
   {
