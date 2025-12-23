@@ -163,7 +163,7 @@ export default function ExamQuestionDetailModal({
         </ExamQuestionDetailModal.Header>
       }
     >
-      <div className="flex h-[500px] w-[1150px] gap-3 pl-3">
+      <div className="flex h-125 w-287.5 gap-3 pl-3">
         <ExamQuestionDetailModal.Side>
           <ExamQuestionDetailSide
             questions={exam.questions}
