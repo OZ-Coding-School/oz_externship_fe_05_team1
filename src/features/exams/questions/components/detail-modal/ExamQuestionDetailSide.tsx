@@ -17,8 +17,8 @@ export const ExamQuestionDetailSide = ({
   currentIndex,
   onSelect,
 }: QuestionNumberGridProps) => (
-  <div className="flex w-[192px] flex-col rounded-lg border border-neutral-200 bg-bg-primary p-4">
-    <div className="mb-6 grid max-h-[300px] grid-cols-4 gap-2.5 overflow-y-auto">
+  <div className="flex w-48 flex-col rounded-lg border border-neutral-200 bg-bg-primary p-4">
+    <div className="mb-6 grid max-h-75 grid-cols-4 gap-2.5 overflow-y-auto">
       {questions.map(({ questionId, question }, idx) => (
         <button
           key={questionId}

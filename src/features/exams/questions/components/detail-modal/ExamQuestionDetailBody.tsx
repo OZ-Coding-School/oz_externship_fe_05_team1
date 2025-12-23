@@ -64,7 +64,7 @@ export function ExamQuestionDetailBody({
         </div>
         <div className="ml-auto flex flex-col">
           <div className="mb-2 text-sm font-medium text-neutral-500">해설</div>
-          <div className="min-h-[238px] w-[332px] rounded border border-neutral-200 bg-neutral-100 p-4">
+          <div className="min-h-59.5 w-83 rounded border border-neutral-200 bg-neutral-100 p-4">
             <p className="text-sm leading-relaxed whitespace-pre-line text-neutral-400">
               {question.prompt}
             </p>

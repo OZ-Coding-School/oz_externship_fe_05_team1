@@ -11,3 +11,4 @@ export { ExamQuestionDetailFooter } from '../exams/questions/components/detail-m
 export { ExamQuestionDetailSide } from '../exams/questions/components/detail-modal/ExamQuestionDetailSide.tsx'
 export { default as ExamQuestionDetailModal } from '../exams/questions/components/detail-modal/ExamQuestionDetailModal.tsx'
 export { default as ExamPage } from '../../pages/ExamManagementPage.tsx'
+export * from '../exams/questions/types.ts'
