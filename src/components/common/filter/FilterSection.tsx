@@ -1,6 +1,10 @@
-import { BaseInput, Button, DropdownMenu } from '@components'
+import { BaseInput, Button, type DropdownItem, DropdownMenu } from '@components'
 
-import type { DropdownConfig } from '../types'
+export type DropdownConfig = {
+  key: string
+  items: DropdownItem[]
+  placeholder: string
+}
 
 type FilterSectionProps = {
   dropdowns: DropdownConfig[]
