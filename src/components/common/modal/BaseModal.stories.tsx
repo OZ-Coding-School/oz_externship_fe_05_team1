@@ -22,7 +22,7 @@ const meta: Meta<typeof BaseModal> = {
       control: 'text',
       description: '모달 상단 제목',
     },
-    onClose: { action: 'close' }, // Storybook action log
+    onClose: { action: 'close' },
   },
 }
 
@@ -38,7 +38,11 @@ export const Default: Story = {
     title: '기본 모달',
   },
   render: (args) => (
-    <BaseModal {...args}>
+    <BaseModal
+      {...args}
+      isOpen={args.isOpen ?? true}
+      onClose={args.onClose ?? (() => {})}
+    >
       <p className="text-neutral-600">이 모달은 BaseModal의 기본 형태입니다.</p>
     </BaseModal>
   ),
@@ -52,7 +56,11 @@ export const SizePreview: Story = {
     title: '사이즈 미리보기',
   },
   render: (args) => (
-    <BaseModal {...args}>
+    <BaseModal
+      {...args}
+      isOpen={args.isOpen ?? true}
+      onClose={args.onClose ?? (() => {})}
+    >
       <p>현재 size: {args.size}</p>
       <p>좌측 Controls에서 size를 변경해보세요.</p>
     </BaseModal>
@@ -64,7 +72,7 @@ export const CloseActions: Story = {
   args: {
     title: '닫기 테스트',
   },
-  render: (args) => {
+  render: (args: Story['args']) => {
     const [isOpen, setIsOpen] = useState(true)
 
     return (

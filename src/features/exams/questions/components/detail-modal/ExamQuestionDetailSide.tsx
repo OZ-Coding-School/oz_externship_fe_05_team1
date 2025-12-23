@@ -1,0 +1,42 @@
+import { cn } from '@utils'
+
+type QuestionNumberGridProps = {
+  questions: { questionId: number; question: string }[]
+  currentIndex: number
+  onSelect: (index: number) => void
+}
+
+/**
+ * 시험 문제 상세 모달의 사이드 컴포넌트
+ * @param questions : 문제 배열
+ * @param currentIndex : 현재 선택된 문제 인덱스
+ * @param onSelect : 문제 선택 핸들러
+ */
+export const ExamQuestionDetailSide = ({
+  questions,
+  currentIndex,
+  onSelect,
+}: QuestionNumberGridProps) => (
+  <div className="flex w-[192px] flex-col rounded-lg border border-neutral-200 bg-bg-primary p-4">
+    <div className="mb-6 grid max-h-[300px] grid-cols-4 gap-2.5 overflow-y-auto">
+      {questions.map(({ questionId, question }, idx) => (
+        <button
+          key={questionId}
+          onClick={() => onSelect(idx)}
+          title={question}
+          className={cn(
+            'flex h-7.5 w-7.5 items-center justify-center rounded-md',
+            idx === currentIndex
+              ? 'bg-primary-300 text-text-inverse'
+              : 'bg-primary-light text-primary-200'
+          )}
+        >
+          {idx + 1}
+        </button>
+      ))}
+    </div>
+    <button className="mt-auto w-full rounded border border-error py-2 text-center text-sm text-error">
+      시험 삭제
+    </button>
+  </div>
+)

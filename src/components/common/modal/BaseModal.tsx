@@ -1,6 +1,6 @@
 import { XbuttonIcon } from '@assets'
 import { modalSize, Portal } from '@components'
-import { Z_INDEX } from '@constants'
+import { PORTAL_IDS, Z_INDEX } from '@constants'
 import { cn } from '@utils'
 import { useEffect } from 'react'
 
@@ -23,7 +23,8 @@ export default function BaseModal({
   size = 'lg',
   title,
   children,
-  className,
+  containerClassName,
+  contentClassName,
 }: BaseModalProps) {
   const { modalWidth, modalHeight } = modalSize[size]
 
@@ -58,9 +59,9 @@ export default function BaseModal({
   }
 
   return (
-    <Portal portalId="modal-root">
+    <Portal portalId={PORTAL_IDS.MODAL_PORTAL_ID}>
       <div
-        className="absolute inset-0 flex items-center justify-center bg-black/50"
+        className="fixed inset-0 flex items-center justify-center bg-black/50"
         role="presentation"
         onClick={onClose}
         style={{ zIndex: Z_INDEX.MODAL }}
@@ -69,19 +70,21 @@ export default function BaseModal({
           className={cn(
             'relative h-[90%] min-h-72.5 w-[90%] min-w-[320px] rounded-xl bg-bg-primary shadow-2xl',
             modalWidth,
-            modalHeight
+            modalHeight,
+            containerClassName
           )}
-          style={{ zIndex: Z_INDEX.MODAL + 1 }}
           onClick={(e) => e.stopPropagation()}
           role="presentation"
         >
-          <div className="flex items-center justify-between p-8 pb-0">
+          <div className="flex items-center justify-between px-8 pt-8 pb-2.5">
             <span className="text-[22px] font-semibold">{title}</span>
             <button type="button" onClick={onClose} className="rounded p-1">
               <XbuttonIcon className="cursor-pointer text-neutral-400" />
             </button>
           </div>
-          <div className={cn('overflow-auto p-2.5', className)}>{children}</div>
+          <div className={cn('overflow-auto p-2.5', contentClassName)}>
+            {children}
+          </div>
         </div>
       </div>
     </Portal>

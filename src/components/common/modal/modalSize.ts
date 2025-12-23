@@ -19,6 +19,10 @@ const modalSize = {
     modalWidth: 'max-w-[850px]',
     modalHeight: 'max-h-[960px]',
   },
+  xxl: {
+    modalWidth: 'max-w-[1412px]',
+    modalHeight: 'max-h-[696px]',
+  },
 } as const
 
 export default modalSize
