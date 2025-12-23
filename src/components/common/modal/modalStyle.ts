@@ -13,6 +13,7 @@ export type BaseModalProps = {
   title?: string | ReactNode
   isBaseAllStyle?: boolean
   className?: string
+  headerClassName?: string
   containerClassName?: string
   contentClassName?: string
 }

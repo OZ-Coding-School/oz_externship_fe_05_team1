@@ -1,6 +1,8 @@
+import { ExamDeletePopupModal } from '@features/exams'
 import { cn } from '@utils'
+import { useState } from 'react'
 
-type QuestionNumberGridProps = {
+type ExamQuestionDetailSideProps = {
   questions: { questionId: number; question: string }[]
   currentIndex: number
   onSelect: (index: number) => void
@@ -16,27 +18,41 @@ export const ExamQuestionDetailSide = ({
   questions,
   currentIndex,
   onSelect,
-}: QuestionNumberGridProps) => (
-  <div className="flex w-48 flex-col rounded-lg border border-neutral-200 bg-bg-primary p-4">
-    <div className="mb-6 grid max-h-75 grid-cols-4 gap-2.5 overflow-y-auto">
-      {questions.map(({ questionId, question }, idx) => (
-        <button
-          key={questionId}
-          onClick={() => onSelect(idx)}
-          title={question}
-          className={cn(
-            'flex h-7.5 w-7.5 items-center justify-center rounded-md',
-            idx === currentIndex
-              ? 'bg-primary-300 text-text-inverse'
-              : 'bg-primary-light text-primary-200'
-          )}
-        >
-          {idx + 1}
-        </button>
-      ))}
+}: ExamQuestionDetailSideProps) => {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const handleExamDeletePopupModal = () => {
+    setIsDeleteModalOpen(true)
+  }
+
+  return (
+    <div className="flex w-48 flex-col rounded-lg border border-neutral-200 bg-bg-primary p-4">
+      <div className="mb-6 grid max-h-75 grid-cols-4 gap-2.5 overflow-y-auto">
+        {questions.map(({ questionId, question }, idx) => (
+          <button
+            key={questionId}
+            onClick={() => onSelect(idx)}
+            title={question}
+            className={cn(
+              'flex h-7.5 w-7.5 items-center justify-center rounded-md',
+              idx === currentIndex
+                ? 'bg-primary-300 text-text-inverse'
+                : 'bg-primary-light text-primary-200'
+            )}
+          >
+            {idx + 1}
+          </button>
+        ))}
+      </div>
+      <button
+        onClick={handleExamDeletePopupModal}
+        className="mt-auto w-full rounded border border-error py-2 text-center text-sm text-error"
+      >
+        시험 삭제
+      </button>
+      <ExamDeletePopupModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+      />
     </div>
-    <button className="mt-auto w-full rounded border border-error py-2 text-center text-sm text-error">
-      시험 삭제
-    </button>
-  </div>
-)
+  )
+}

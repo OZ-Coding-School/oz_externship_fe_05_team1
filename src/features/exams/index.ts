@@ -12,3 +12,4 @@ export { ExamQuestionDetailSide } from '../exams/questions/components/detail-mod
 export { default as ExamQuestionDetailModal } from '../exams/questions/components/detail-modal/ExamQuestionDetailModal.tsx'
 export { default as ExamPage } from '../../pages/ExamManagementPage.tsx'
 export * from '../exams/questions/types.ts'
+export { default as ExamDeletePopupModal } from '../exams/questions/components/detail-modal/ExamDeletePopupModal.tsx'

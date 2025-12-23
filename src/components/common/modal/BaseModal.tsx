@@ -24,6 +24,7 @@ export default function BaseModal({
   title,
   children,
   containerClassName,
+  headerClassName,
   contentClassName,
 }: BaseModalProps) {
   const { modalWidth, modalHeight } = modalSize[size]
@@ -76,7 +77,12 @@ export default function BaseModal({
           onClick={(e) => e.stopPropagation()}
           role="presentation"
         >
-          <div className="flex items-center justify-between px-8 pt-8 pb-2.5">
+          <div
+            className={cn(
+              'flex items-center justify-between px-8 pt-6 pb-2.5',
+              headerClassName
+            )}
+          >
             <span className="text-[22px] font-semibold">{title}</span>
             <button type="button" onClick={onClose} className="rounded p-1">
               <XbuttonIcon className="cursor-pointer text-neutral-400" />
