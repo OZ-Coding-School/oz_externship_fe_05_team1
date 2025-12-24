@@ -1,5 +1,3 @@
-import type { DropdownItem } from '@components'
-
 export type Exam = {
   id: number
   title: string
@@ -11,8 +9,14 @@ export type Exam = {
   status: 'deployed' | 'pending'
 }
 
-export type DropdownConfig = {
-  key: string
-  items: DropdownItem[]
-  placeholder: string
+export type Distribution = {
+  id: number
+  title: string
+  subjectName: string
+  courseName: string
+  generation: number
+  submitCount: number
+  averageScore: number
+  deployedAt: string
+  status: 'activated' | 'deactivated'
 }

@@ -1,4 +1,4 @@
-export { default as MainPage } from './layout/MainLayout'
+export { default as MainLayout } from './layout/MainLayout'
 export { default as Header } from './layout/Header'
 export { default as SideMenu } from './layout/SideMenu'
 export { default as Button } from './common/button/Button'
@@ -17,7 +17,10 @@ export { default as LogoUpload } from './common/input/LogoUpload'
 export * from './common/input/hooks/useImageUpload'
 export { DataTable } from './common/common-table/DataTable'
 export { TablePagination } from './common/common-table/TablePagination'
-export { DataTableLayout } from './common/common-table/DataTableLayout'
+export {
+  DataTableLayout,
+  type DataTableLayoutProps,
+} from './common/common-table/DataTableLayout'
 export { default as DropdownMenu } from './common/dropdownmenu/DropdownMenu'
 export * from './common/dropdownmenu/DropdownList'
 export * from './common/input/inputStyle'
@@ -28,3 +31,7 @@ export type {
 } from './common/dropdownmenu/DropdownMenu'
 export { default as Image } from './common/image/image'
 export { default as PopupModal } from './common/popup/PopupModal'
+export {
+  default as FilterSection,
+  type DropdownConfig,
+} from './common/filter/FilterSection'

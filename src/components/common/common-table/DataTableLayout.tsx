@@ -3,9 +3,10 @@ import { type Table } from '@tanstack/react-table'
 import { DataTable } from './DataTable'
 import { TablePagination } from './TablePagination'
 
-type DataTableLayoutProps<TData> = {
+export type DataTableLayoutProps<TData> = {
   table: Table<TData>
   actionButtons?: React.ReactNode
+  onRowClick?: (data: TData) => void
 }
 
 /**
@@ -19,11 +20,13 @@ type DataTableLayoutProps<TData> = {
 export function DataTableLayout<TData>({
   table,
   actionButtons,
+  onRowClick,
 }: DataTableLayoutProps<TData>) {
   return (
     <div className="space-y-4">
       <DataTable
         columns={table.options.columns}
+        onRowClick={onRowClick}
         data={table.getRowModel().rows.map((row) => row.original)}
       />
       {actionButtons && <div>{actionButtons}</div>}

@@ -1,8 +1,9 @@
-import { EmptyState, ExamList, FilterSection } from '@exams'
+import type { Exam } from '@exams'
+
+import { type DropdownConfig, FilterSection } from '@components'
+import { EmptyState, ExamList } from '@exams'
 import { COURSE_LIST_DROPDOWN, SUBJECT_LIST_DROPDOWN } from '@mocks'
 import { useState } from 'react'
-
-import type { DropdownConfig, Exam } from '../features/exams/types'
 
 // 드롭다운 설정
 const EXAM_DROPDOWNS: DropdownConfig[] = [

@@ -1,6 +1,6 @@
-export { default as FilterSection } from './components/FilterSection.tsx'
 export { default as EmptyState } from './components/EmptyState.tsx'
 export { default as ExamList } from './components/ExamList.tsx'
+export { default as DistributionList } from './deployments/components/DistributionList.tsx'
 export { ExamColumns } from './components/examConfig.tsx'
 export { mockExamList } from '../../mocks/mockExamList.ts'
 export { default as ExamCreate } from './components/ExamCreate.tsx'
@@ -13,3 +13,4 @@ export { default as ExamQuestionDetailModal } from '../exams/questions/component
 export { default as ExamPage } from '../../pages/ExamManagementPage.tsx'
 export * from '../exams/questions/types.ts'
 export { default as ExamDeletePopupModal } from '../exams/questions/components/detail-modal/ExamDeletePopupModal.tsx'
+export type { Exam, Distribution } from './types.ts'

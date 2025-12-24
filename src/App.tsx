@@ -1,7 +1,12 @@
-import MainLayout from '@components/layout/MainLayout'
+import { MainLayout } from '@components'
 import { ROUTES_PATHS } from '@constants'
-import { AdminLoginPage, ExamManagementPage, MainPage, NotFound } from '@pages'
-import { Toaster } from 'react-hot-toast'
+import {
+  AdminLoginPage,
+  DistributionHistoryManagementPage,
+  ExamManagementPage,
+  MainPage,
+  NotFound,
+} from '@pages'
 import { Route, Routes } from 'react-router'
 
 function App() {
@@ -15,23 +20,24 @@ function App() {
       element: <ExamManagementPage />,
     },
     {
+      path: ROUTES_PATHS.EXAM_DISTRIBUTION_HISTORY,
+      element: <DistributionHistoryManagementPage />,
+    },
+    {
       path: ROUTES_PATHS.NOT_FOUND,
       element: <NotFound />,
     },
   ]
 
   return (
-    <>
-      <Toaster />
-      <Routes>
+    <Routes>
+      <Route element={<MainLayout />}>
         <Route path="/" element={<AdminLoginPage />} />
-        <Route element={<MainLayout />}>
-          {ROUTES.map((route) => (
-            <Route key={route.path} path={route.path} element={route.element} />
-          ))}
-        </Route>
-      </Routes>
-    </>
+        {ROUTES.map((route) => (
+          <Route key={route.path} path={route.path} element={route.element} />
+        ))}
+      </Route>
+    </Routes>
   )
 }
 
