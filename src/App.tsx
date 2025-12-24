@@ -31,8 +31,8 @@ function App() {
 
   return (
     <Routes>
+      <Route path="/" element={<AdminLoginPage />} />
       <Route element={<MainLayout />}>
-        <Route path="/" element={<AdminLoginPage />} />
         {ROUTES.map((route) => (
           <Route key={route.path} path={route.path} element={route.element} />
         ))}
