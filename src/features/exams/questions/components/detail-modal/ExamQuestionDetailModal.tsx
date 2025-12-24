@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
 
-import { PencilIcon } from '@assets'
 import { BaseModal, Image } from '@components'
 import {
+  ExamDeploymentsModal,
   ExamQuestionDetailBody,
   ExamQuestionDetailFooter,
   ExamQuestionDetailSide,
@@ -39,7 +39,6 @@ const TitleGroup = ({ title, subject, total }: TitleGroupProps) => (
   <div className="flex flex-col leading-tight">
     <span className="flex items-center gap-2 text-[16px] font-semibold text-neutral-400">
       {title}
-      <PencilIcon />
     </span>
     <span className="text-[14px] text-neutral-400">
       과목: {subject} &nbsp;문제 수: {total}
@@ -130,6 +129,7 @@ export default function ExamQuestionDetailModal({
 }: ExamQuestionDetailProps) {
   const [exam, setExam] = useState<ExamQuestionResponse | null>(null)
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [isDeploymentsOpen, setIsDeploymentsOpen] = useState(false)
 
   useEffect(() => {
     if (!isOpen) {
@@ -184,7 +184,14 @@ export default function ExamQuestionDetailModal({
         <ExamQuestionDetailFooter
           currentIndex={currentIndex}
           total={exam.questionCount}
-          onClose={onClose}
+          openDeploymentsModal={() => setIsDeploymentsOpen(true)}
+          onClose={() => setIsDeploymentsOpen(false)}
+        />
+        <ExamDeploymentsModal
+          examName={exam.examTitle}
+          subjectName={exam.subjectName}
+          isOpen={isDeploymentsOpen}
+          onClose={() => setIsDeploymentsOpen(false)}
         />
       </ExamQuestionDetailModal.Footer>
     </BaseModal>

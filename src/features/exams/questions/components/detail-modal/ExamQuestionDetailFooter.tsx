@@ -4,6 +4,7 @@ type ExamQuestionDetailFooterProps = {
   currentIndex: number
   total: number
   onClose: () => void
+  openDeploymentsModal: () => void
 }
 
 /**
@@ -16,6 +17,7 @@ type ExamQuestionDetailFooterProps = {
 export function ExamQuestionDetailFooter({
   currentIndex,
   total,
+  openDeploymentsModal,
   onClose,
 }: ExamQuestionDetailFooterProps) {
   return (
@@ -24,7 +26,7 @@ export function ExamQuestionDetailFooter({
         {currentIndex + 1} / {total}
       </span>
       <div className="ml-auto flex items-center gap-5">
-        <Button variant="success" size="md" onClick={onClose}>
+        <Button variant="success" size="md" onClick={openDeploymentsModal}>
           배포
         </Button>
         <Button variant="primary" size="md" onClick={onClose}>
