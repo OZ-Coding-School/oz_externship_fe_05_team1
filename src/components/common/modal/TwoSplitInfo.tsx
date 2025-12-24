@@ -51,6 +51,7 @@ export default function TwoSplitInfo({
       )}
       style={{ width: `${computedWidth}px` }}
     >
+      {/* 왼쪽 라벨 영역: bg-neutral-50 적용 */}
       <div
         className={cn(
           `flex items-center border-r border-neutral-200 bg-neutral-50 px-4 text-[13px] font-medium text-neutral-500`,
