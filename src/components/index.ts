@@ -35,3 +35,4 @@ export {
   default as FilterSection,
   type DropdownConfig,
 } from './common/filter/FilterSection'
+export { default as TwoSplitInfo } from './common/modal/TwoSplitInfo'

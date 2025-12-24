@@ -22,3 +22,4 @@ export { useExamDeleteMutation } from './hooks/useExamDeleteMutation.ts'
 export { useExamDeploymentsMutation } from './hooks/useExamDeploymentsMutation.ts'
 
 export { examDeploymentsSchema } from './schemas/examDeploymentsSchema.ts'
+export { default as DeploymentHistoryModal } from './components/DeploymentHistoryModal.tsx'

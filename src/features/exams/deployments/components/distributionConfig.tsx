@@ -19,7 +19,7 @@ export const DistributionColumns: ColumnDef<Distribution>[] = [
     accessorKey: 'title',
     header: '제목',
     cell: ({ row }) => (
-      <span className="cursor-pointer underline">{row.original.title}</span>
+      <span className="cursor-pointer underline">{row.original.examTitle}</span>
     ),
   },
   {
@@ -30,7 +30,7 @@ export const DistributionColumns: ColumnDef<Distribution>[] = [
     accessorKey: 'courseInfo',
     header: '과정 | 기수',
     cell: ({ row }) => (
-      <span>{`${row.original.courseName} ${row.original.generation}`}</span>
+      <span>{`${row.original.courseName} ${row.original.generationNumber}`}</span>
     ),
   },
   {
