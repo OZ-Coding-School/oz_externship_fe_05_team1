@@ -38,7 +38,7 @@ type TitleProps = {
 const Title = ({ children, className }: TitleProps) => (
   <h2
     className={cn(
-      'mt-3 text-[18px] leading-relaxed font-semibold whitespace-pre-line text-neutral-500',
+      'mt-3 text-[16px] leading-relaxed font-semibold whitespace-pre-line text-neutral-500',
       className
     )}
   >
@@ -56,14 +56,15 @@ const Highlight = ({ children, className }: HighlightProps) => (
 
 type DescriptionProps = {
   children: ReactNode
+  className?: string
 }
 
 /**
  * 컴파운드 Description
  */
-const Description = ({ children }: DescriptionProps) => (
-  <div className={cn('flex items-center justify-center')}>
-    <p className="mt-3 text-[14px] text-neutral-500">{children}</p>
+const Description = ({ children, className }: DescriptionProps) => (
+  <div className={cn('flex items-center justify-center', className)}>
+    <p className="mt-3 text-[12px]">{children}</p>
   </div>
 )
 
@@ -81,13 +82,20 @@ const ButtonArea = ({ children }: ButtonAreaProps) => (
 type PopupButtonProps = {
   children: ReactNode
   variant?: ButtonProps['variant']
+  className?: string
+  onClick?: () => void
 }
 
 /**
  * 컴파운드 PopupButton
  */
-const PopupButton = ({ variant = 'secondary', children }: PopupButtonProps) => (
-  <Button variant={variant} size="sm">
+const PopupButton = ({
+  variant = 'secondary',
+  children,
+  className,
+  onClick,
+}: PopupButtonProps) => (
+  <Button variant={variant} size="md" className={className} onClick={onClick}>
     {children}
   </Button>
 )
@@ -111,8 +119,8 @@ export default function PopupModal({
       isOpen={isOpen}
       onClose={onClose}
       size={size}
-      title=""
-      contentClassName="flex flex-col items-center px-6 pb-8 text-center"
+      headerClassName="pb-0"
+      contentClassName="flex flex-col items-center px-10 text-center pt-0"
     >
       {children}
     </BaseModal>

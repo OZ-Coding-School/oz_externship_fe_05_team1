@@ -27,3 +27,4 @@ export type {
   DropdownMenuProps,
 } from './common/dropdownmenu/DropdownMenu'
 export { default as Image } from './common/image/image'
+export { default as PopupModal } from './common/popup/PopupModal'
