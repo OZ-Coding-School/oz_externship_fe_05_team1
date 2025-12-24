@@ -29,6 +29,7 @@ export type DeploymentDetailResponse = {
     questions: {
       questionId: number
       type: string
+      question: string
       point: number
     }[]
   }

@@ -11,12 +11,12 @@ import type { Distribution } from '../../types'
  */
 export const DistributionColumns: ColumnDef<Distribution>[] = [
   {
-    accessorKey: 'id',
+    accessorKey: 'deploymentId',
     header: 'ID',
     enableSorting: true,
   },
   {
-    accessorKey: 'title',
+    accessorKey: 'examTitle',
     header: '제목',
     cell: ({ row }) => (
       <span className="cursor-pointer underline">{row.original.examTitle}</span>
@@ -40,11 +40,11 @@ export const DistributionColumns: ColumnDef<Distribution>[] = [
   {
     accessorKey: 'averageScore',
     header: '평균',
-    cell: ({ row }) => <span>{row.original.averageScore || 0}</span>,
+    cell: ({ row }) => <span>{row.original.averageScore.toFixed(1) ?? 0}</span>,
     enableSorting: true,
   },
   {
-    accessorKey: 'deployedAt',
+    accessorKey: 'createdAt',
     header: '배포 생성 일시',
     enableSorting: true,
   },
@@ -52,7 +52,9 @@ export const DistributionColumns: ColumnDef<Distribution>[] = [
     accessorKey: 'status',
     header: '배포 활성 상태',
     cell: ({ row }) => {
-      const isActive = row.original.status === 'activated'
+      const isActive =
+        row.original.status?.toLowerCase() === 'active' ||
+        row.original.status === 'activated'
 
       return (
         <StatusBadge variant={isActive ? 'success' : 'neutral'}>
