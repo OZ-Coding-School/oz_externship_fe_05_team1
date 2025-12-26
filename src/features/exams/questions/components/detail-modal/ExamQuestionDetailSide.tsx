@@ -6,6 +6,7 @@ type ExamQuestionDetailSideProps = {
   questions: { questionId: number; question: string }[]
   currentIndex: number
   onSelect: (index: number) => void
+  examId: number
 }
 
 /**
@@ -13,11 +14,13 @@ type ExamQuestionDetailSideProps = {
  * @param questions : 문제 배열
  * @param currentIndex : 현재 선택된 문제 인덱스
  * @param onSelect : 문제 선택 핸들러
+ * @param examId : 쪽지시험 id
  */
 export const ExamQuestionDetailSide = ({
   questions,
   currentIndex,
   onSelect,
+  examId,
 }: ExamQuestionDetailSideProps) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const handleExamDeletePopupModal = () => {
@@ -52,6 +55,7 @@ export const ExamQuestionDetailSide = ({
       <ExamDeletePopupModal
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
+        examId={examId}
       />
     </div>
   )

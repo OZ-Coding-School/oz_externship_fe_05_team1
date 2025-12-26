@@ -12,12 +12,17 @@ import { ExamColumns } from './examConfig.tsx'
 type ExamListProps = {
   data: Exam[]
   onButtonClick: () => void
+  onDetailClick: (exam: Exam) => void
 }
 
-export default function ExamList({ data, onButtonClick }: ExamListProps) {
+export default function ExamList({
+  data,
+  onButtonClick,
+  onDetailClick,
+}: ExamListProps) {
   const table = useReactTable({
     data,
-    columns: ExamColumns,
+    columns: ExamColumns(onDetailClick),
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   })

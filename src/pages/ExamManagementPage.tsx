@@ -1,36 +1,64 @@
 import type { Exam } from '@exams'
 
 import { type DropdownConfig, FilterSection } from '@components'
-import { EmptyState, ExamCreateModal, ExamList } from '@exams'
+import {
+  EmptyState,
+  ExamCreateModal,
+  ExamList,
+  ExamQuestionDetailModal,
+} from '@exams'
 import { COURSE_LIST_DROPDOWN, SUBJECT_LIST_DROPDOWN } from '@mocks'
 import { useState } from 'react'
 
-// 드롭다운 설정
 const EXAM_DROPDOWNS: DropdownConfig[] = [
   { key: 'course', items: COURSE_LIST_DROPDOWN, placeholder: '과정' },
   { key: 'subject', items: SUBJECT_LIST_DROPDOWN, placeholder: '과목' },
 ]
 
+type ExamManagementPageProps = {
+  initialExamInfo?: Exam[]
+}
+
 /**
  * 쪽지시험 관리 페이지
  * - 필터, 검색, 시험 목록/빈 상태를 관리하는 컨테이너 컴포넌트
  * - 시험 데이터 유무에 따라 EmptyState 또는 ExamList 렌더링
+ * - 스토리북 테스트를 위해 initialData = [] 추가
  */
-export default function ExamManagementPage() {
+export default function ExamManagementPage({
+  initialExamInfo = [],
+}: ExamManagementPageProps) {
   // TODO: API 연동 시 useQuery 등으로 내부에서 시험 목록 fetch 예정
-  const [data, _setData] = useState<Exam[]>([])
-
+  const [data, _setData] = useState<Exam[]>(initialExamInfo)
   const [filters, setFilters] = useState<Record<string, string>>({
     course: '',
     subject: '',
   })
-
   const [search, setSearch] = useState('')
+  const [isExamCreateOpen, setIsExamCreateOpen] = useState(false)
 
   /**
-   *
+   * 문제 자세히보기 모달 상태관리
    */
-  const [isExamCreateOpen, setIsExamCreateOpen] = useState(false)
+  const [isDetailOpen, setIsDetailOpen] = useState(false)
+  const [selectedExam, setSelectedExam] = useState<Exam | null>(null)
+
+  /**
+   * @param exam - 시험 정보
+   * 쪽지시험 자세히보기 모달 열기
+   */
+  const handleDetailModalOpen = (exam: Exam) => {
+    setSelectedExam(exam)
+    setIsDetailOpen(true)
+  }
+
+  /**
+   * 쪽지시험 자세히보기 모달 닫기
+   */
+  const handleDetailModalClose = () => {
+    setIsDetailOpen(false)
+    setSelectedExam(null)
+  }
 
   /**
    * 필터 값 변경 핸들러
@@ -64,7 +92,6 @@ export default function ExamManagementPage() {
     <section className="px-15 py-11">
       <div className="h-192 bg-white px-18 py-8">
         <h1 className="mb-1 text-[22px] text-neutral-500">쪽지시험 관리</h1>
-
         <div className="mb-3">
           <FilterSection
             dropdowns={EXAM_DROPDOWNS}
@@ -75,11 +102,21 @@ export default function ExamManagementPage() {
             onSubmit={handleSearch}
           />
         </div>
-
         {data.length === 0 ? (
           <EmptyState onButtonClick={handleCreate} />
         ) : (
-          <ExamList data={data} onButtonClick={handleCreate} />
+          <ExamList
+            data={data}
+            onButtonClick={handleCreate}
+            onDetailClick={handleDetailModalOpen}
+          />
+        )}
+        {isDetailOpen && selectedExam && (
+          <ExamQuestionDetailModal
+            examId={selectedExam.id}
+            isOpen={isDetailOpen}
+            onClose={handleDetailModalClose}
+          />
         )}
 
         <ExamCreateModal

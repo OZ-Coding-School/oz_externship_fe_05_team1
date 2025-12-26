@@ -2,6 +2,7 @@ import type { Preview } from '@storybook/react-vite'
 import { initialize, mswDecorator } from 'msw-storybook-addon'
 import '../src/index.css'
 initialize()
+
 const preview: Preview = {
   decorators: [mswDecorator],
   parameters: {
