@@ -9,6 +9,7 @@ import {
   showToast,
   TwoSplitInput,
 } from '@components'
+import { ROUTES_PATHS_ADMIN } from '@constants'
 import { SUBJECT_LIST_DROPDOWN } from '@mocks'
 import { cn } from '@utils'
 import { type ReactNode, useState } from 'react'
@@ -81,7 +82,7 @@ const createInputFields = ({
  * @param onClose : 닫혔을 때 상태값
  * @returns 모달 위에 컴포넌트 조합
  */
-export default function ExamCreate({ isOpen, onClose }: ExamCreateProps) {
+export default function ExamCreateModal({ isOpen, onClose }: ExamCreateProps) {
   const [title, setTitle] = useState<string>('')
   const [subjectId, setSubjectId] = useState<string>('')
   const [logoFile, setLogoFile] = useState<File | null>(null)
@@ -124,11 +125,15 @@ export default function ExamCreate({ isOpen, onClose }: ExamCreateProps) {
     formData.append('thumbnail_img', logoFile)
 
     try {
-      const response = await fetcher.post('/api/v1/admin/exams', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      const response = await fetcher.post(
+        `${ROUTES_PATHS_ADMIN.EXAM}`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      )
 
       if (response.status !== 201) {
         throw new Error(`Unexpected status: ${response.status}`)

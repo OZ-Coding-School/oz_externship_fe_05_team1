@@ -1,12 +1,14 @@
 import axios from 'axios'
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+
 /**
  * Axios 인스턴스 생성
  * - baseURL: API 서버 주소
  * - headers: 기본 Content-Type 설정
  */
 export const fetcher = axios.create({
-  baseURL: 'https://api.ozcodingschool.site',
+  baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },

@@ -1,7 +1,7 @@
 import type { Exam } from '@exams'
 
 import { type DropdownConfig, FilterSection } from '@components'
-import { EmptyState, ExamCreate, ExamList } from '@exams'
+import { EmptyState, ExamCreateModal, ExamList } from '@exams'
 import { COURSE_LIST_DROPDOWN, SUBJECT_LIST_DROPDOWN } from '@mocks'
 import { useState } from 'react'
 
@@ -82,7 +82,7 @@ export default function ExamManagementPage() {
           <ExamList data={data} onButtonClick={handleCreate} />
         )}
 
-        <ExamCreate
+        <ExamCreateModal
           isOpen={isExamCreateOpen}
           onClose={() => setIsExamCreateOpen(false)}
         />
