@@ -1,22 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { ExamCreate } from '@exams'
+import { http, HttpResponse } from 'msw'
 
-const meta = {
+const meta: Meta<typeof ExamCreate> = {
   title: 'Modals/ExamCreate',
   component: ExamCreate,
   tags: ['autodocs'],
-  argTypes: {
-    isOpen: {
-      control: 'boolean',
-      description: '모달 열림/닫힘 상태',
-    },
-    onClose: {
-      action: 'closed',
-      description: '닫기 이벤트',
-    },
-  },
-} satisfies Meta<typeof ExamCreate>
+}
 
 export default meta
 
@@ -27,11 +18,31 @@ export const Default: Story = {
     isOpen: true,
     onClose: () => {},
   },
-}
+  parameters: {
+    msw: {
+      handlers: [
+        http.post('/api/v1/admin/exams', async ({ request }) => {
+          const form = await request.formData()
 
-export const Closed: Story = {
-  args: {
-    isOpen: false,
-    onClose: () => {},
+          const exam_title = form.get('exam_title')
+          const subject_id = form.get('subject_id')
+          const thumbnail_img = form.get('thumbnail_img')
+
+          console.log('[MSW] exam_title:', exam_title)
+          console.log('[MSW] subject_id:', subject_id)
+          console.log('[MSW] thumbnail_img(File):', thumbnail_img)
+
+          return HttpResponse.json({
+            message: 'mock 시험 생성 성공!',
+            received: {
+              exam_title,
+              subject_id,
+              thumbnail_img_name:
+                thumbnail_img instanceof File ? thumbnail_img.name : null,
+            },
+          })
+        }),
+      ],
+    },
   },
 }

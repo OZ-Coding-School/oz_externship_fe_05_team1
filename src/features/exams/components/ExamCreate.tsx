@@ -5,10 +5,12 @@ import {
   DropdownMenu,
   type InputVariant,
   LogoUpload,
+  showToast,
   TwoSplitInput,
 } from '@components'
-import { COURSE_LIST_DROPDOWN, SUBJECT_LIST_DROPDOWN } from '@mocks'
+import { SUBJECT_LIST_DROPDOWN } from '@mocks'
 import { cn } from '@utils'
+import axios from 'axios'
 import { type ReactNode, useState } from 'react'
 
 type ExamCreateProps = {
@@ -21,45 +23,35 @@ type InputField = {
   size: InputVariant['size']
   rightSide: ReactNode
   labelHeight?: number
+  value?: string
 }
 
 type ExamFieldParams = {
-  course: string
-  setCourse: (v: string) => void
-  subject: string
-  setSubject: (v: string) => void
+  subjectId: string
+  setSubjectId: (v: string) => void
+  title: string
+  setTitle: (v: string) => void
+  handleLogoChange: (file: File | null) => void
 }
 
 /**
  * 각 인풋필드
- * @param course - 과정 드롭다운에서 선택된 값 (현재 선택된 과정 이름)
- * @param setCourse - 과정 드롭다운 변경 시 호출 할 상태 업데이트 함수
  * @param subject - 과목 드롭다운에서 선택된 값 (현재 선택된 과목 이름)
  * @param setSubject - 과목 드롭다운 변경 시 호출 할 상태 업데이트 함수
  */
 const createInputFields = ({
-  course,
-  setCourse,
-  subject,
-  setSubject,
+  subjectId,
+  setSubjectId,
+  title,
+  setTitle,
+  handleLogoChange,
 }: ExamFieldParams): InputField[] =>
   [
     {
       label: '제목',
       size: 'xl',
-      rightSide: <BaseInput />,
-    },
-    {
-      label: '과정',
-      size: 'xl',
       rightSide: (
-        <DropdownMenu
-          items={COURSE_LIST_DROPDOWN}
-          selectedValue={course}
-          onSelect={setCourse}
-          placeHolder="과정을 선택하세요"
-          className="w-full"
-        />
+        <BaseInput value={title} onChange={(e) => setTitle(e.target.value)} />
       ),
     },
     {
@@ -68,8 +60,8 @@ const createInputFields = ({
       rightSide: (
         <DropdownMenu
           items={SUBJECT_LIST_DROPDOWN}
-          selectedValue={subject}
-          onSelect={setSubject}
+          selectedValue={subjectId}
+          onSelect={setSubjectId}
           placeHolder="과목을 선택하세요"
           className="w-full"
         />
@@ -78,7 +70,7 @@ const createInputFields = ({
     {
       label: '로고 등록',
       size: 'xl',
-      rightSide: <LogoUpload />,
+      rightSide: <LogoUpload onChange={handleLogoChange} />,
       labelHeight: 220,
     },
   ] as const
@@ -90,18 +82,66 @@ const createInputFields = ({
  * @returns 모달 위에 컴포넌트 조합
  */
 export default function ExamCreate({ isOpen, onClose }: ExamCreateProps) {
-  const [course, setCourse] = useState<string>('')
-  const [subject, setSubject] = useState<string>('')
+  const [title, setTitle] = useState<string>('')
+  const [subjectId, setSubjectId] = useState<string>('')
+  const [logoFile, setLogoFile] = useState<File | null>(null)
+
+  const handleLogoChange = (file: File | null) => {
+    setLogoFile(file)
+  }
+
   const inputFields = createInputFields({
-    course,
-    setCourse,
-    subject,
-    setSubject,
+    subjectId,
+    setSubjectId,
+    title,
+    setTitle,
+    handleLogoChange,
   })
 
-  /**
-   * Todo: 드롭다운 api 추가 예정
-   */
+  const handleExamCreate = async () => {
+    const token = ''
+
+    if (!title) {
+      showToast('제목을 입력하세요.', 'fail')
+
+      return
+    }
+
+    if (!subjectId) {
+      showToast('과목을 선택하세요.', 'fail')
+
+      return
+    }
+
+    if (!logoFile) {
+      showToast('로고를 업로드하세요.', 'fail')
+
+      return
+    }
+
+    const formData = new FormData()
+
+    formData.append('exam_title', title)
+    formData.append('subject_id', subjectId)
+    formData.append('thumbnail_img', logoFile)
+
+    try {
+      const response = await axios.postForm('/api/v1/admin/exams', formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      // eslint-disable-next-line no-console
+      console.log(response)
+      // eslint-disable-next-line no-console
+      console.log('시험이 성공적으로 생성되었습니다!')
+      onClose()
+    } catch {
+      // eslint-disable-next-line no-console
+      console.log('시험 생성 중 오류가 발생했습니다.')
+    }
+  }
 
   return (
     <BaseModal
@@ -122,7 +162,7 @@ export default function ExamCreate({ isOpen, onClose }: ExamCreateProps) {
           />
         ))}
         <div className="mt-5 flex justify-end pr-4">
-          <Button variant="primary" size="md">
+          <Button variant="primary" size="md" onClick={handleExamCreate}>
             저장
           </Button>
         </div>

@@ -1,5 +1,4 @@
 import { cn } from '@utils'
-import { useState } from 'react'
 
 import { inputVariant, type InputVariant } from './inputStyle'
 
@@ -27,22 +26,16 @@ export default function BaseInput({
   onChange,
   ...props
 }: BaseInputProps) {
-  const [inputValue, setInputValue] = useState(String(value))
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value)
-    onChange?.(e)
-  }
-
   return (
     <div className="relative flex items-center">
       <input
-        value={inputValue}
-        onChange={handleChange}
+        value={value}
+        onChange={onChange}
         className={cn(
           inputVariant({
             size,
             error,
-            hasClear: inputValue.length > 0,
+            hasClear: value.length > 0,
           }),
           className
         )}
