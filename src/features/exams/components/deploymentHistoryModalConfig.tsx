@@ -3,6 +3,7 @@ import type { Distribution } from '../types'
 export type DetailRow = {
   label: string
   value: string | number
+  isLink?: boolean
   isFullWidth?: boolean
 }
 
@@ -18,6 +19,7 @@ export const getDeploymentInfoRows = (data: Distribution): DetailRow[] => [
   {
     label: '시험 응시 링크',
     value: data.examAccessUrl ?? '-',
+    isLink: true,
     isFullWidth: true,
   },
   { label: '시험 참가 코드', value: data.accessCode ?? '-', isFullWidth: true },

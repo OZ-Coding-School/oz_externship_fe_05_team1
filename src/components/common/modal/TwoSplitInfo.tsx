@@ -1,4 +1,5 @@
 import { cn } from '@utils'
+import { Link } from 'react-router'
 
 import { inputVariant, type InputVariant } from '../input/inputStyle'
 
@@ -50,7 +51,6 @@ export default function TwoSplitInfo({
       )}
       style={{ width: `${computedWidth}px` }}
     >
-      {/* 왼쪽 라벨 영역: bg-neutral-50 적용 */}
       <div
         className={cn(
           `flex items-center border-r border-neutral-200 bg-neutral-50 px-4 text-[13px] font-medium text-neutral-500`,
@@ -61,17 +61,16 @@ export default function TwoSplitInfo({
         {label}
       </div>
 
-      {/* 오른쪽 텍스트 영역 */}
       <div className="flex-1 px-4 text-[14px] text-neutral-800">
         {isLink ? (
-          <a
-            href={String(value)}
+          <Link
+            to={String(value)}
             target="_blank"
             rel="noreferrer"
             className="text-blue-500 underline decoration-blue-300 underline-offset-4"
           >
             {value}
-          </a>
+          </Link>
         ) : (
           <span className="block truncate">{value}</span>
         )}
