@@ -1,7 +1,7 @@
 import type { Exam } from '@exams'
 
 import { type DropdownConfig, FilterSection } from '@components'
-import { EmptyState, ExamList } from '@exams'
+import { EmptyState, ExamCreate, ExamList } from '@exams'
 import { COURSE_LIST_DROPDOWN, SUBJECT_LIST_DROPDOWN } from '@mocks'
 import { useState } from 'react'
 
@@ -28,6 +28,11 @@ export default function ExamManagementPage() {
   const [search, setSearch] = useState('')
 
   /**
+   *
+   */
+  const [isExamCreateOpen, setIsExamCreateOpen] = useState(false)
+
+  /**
    * 필터 값 변경 핸들러
    * @param key - 변경할 필터 키
    * @param value - 선택된 필터 값
@@ -52,6 +57,7 @@ export default function ExamManagementPage() {
   const handleCreate = () => {
     // eslint-disable-next-line no-console
     console.log('시험 생성하기')
+    setIsExamCreateOpen(true)
   }
 
   return (
@@ -75,6 +81,11 @@ export default function ExamManagementPage() {
         ) : (
           <ExamList data={data} onButtonClick={handleCreate} />
         )}
+
+        <ExamCreate
+          isOpen={isExamCreateOpen}
+          onClose={() => setIsExamCreateOpen(false)}
+        />
       </div>
     </section>
   )

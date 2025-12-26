@@ -10,7 +10,6 @@ const meta: Meta<typeof ExamCreate> = {
 }
 
 export default meta
-
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
@@ -24,22 +23,14 @@ export const Default: Story = {
         http.post('/api/v1/admin/exams', async ({ request }) => {
           const form = await request.formData()
 
-          const exam_title = form.get('exam_title')
-          const subject_id = form.get('subject_id')
-          const thumbnail_img = form.get('thumbnail_img')
-
-          console.log('[MSW] exam_title:', exam_title)
-          console.log('[MSW] subject_id:', subject_id)
-          console.log('[MSW] thumbnail_img(File):', thumbnail_img)
+          console.log('exam_title:', form.get('exam_title'))
+          console.log('subject_id:', form.get('subject_id'))
+          console.log('thumbnail_img:', form.get('thumbnail_img'))
 
           return HttpResponse.json({
-            message: 'mock 시험 생성 성공!',
-            received: {
-              exam_title,
-              subject_id,
-              thumbnail_img_name:
-                thumbnail_img instanceof File ? thumbnail_img.name : null,
-            },
+            message: '시험 생성 MOCK 성공',
+            exam_id: 999,
+            thumbnail_img_url: 'https://mock-server.com/thumbnails/test.png',
           })
         }),
       ],

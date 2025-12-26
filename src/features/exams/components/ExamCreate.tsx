@@ -1,3 +1,4 @@
+import { fetcher } from '@api/fetcher'
 import {
   BaseInput,
   BaseModal,
@@ -10,7 +11,6 @@ import {
 } from '@components'
 import { SUBJECT_LIST_DROPDOWN } from '@mocks'
 import { cn } from '@utils'
-import axios from 'axios'
 import { type ReactNode, useState } from 'react'
 
 type ExamCreateProps = {
@@ -99,8 +99,6 @@ export default function ExamCreate({ isOpen, onClose }: ExamCreateProps) {
   })
 
   const handleExamCreate = async () => {
-    const token = ''
-
     if (!title) {
       showToast('제목을 입력하세요.', 'fail')
 
@@ -126,20 +124,25 @@ export default function ExamCreate({ isOpen, onClose }: ExamCreateProps) {
     formData.append('thumbnail_img', logoFile)
 
     try {
-      const response = await axios.postForm('/api/v1/admin/exams', formData, {
+      const response = await fetcher.post('/api/v1/admin/exams', formData, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
         },
       })
 
+      if (response.status !== 201) {
+        throw new Error(`Unexpected status: ${response.status}`)
+      }
       // eslint-disable-next-line no-console
-      console.log(response)
-      // eslint-disable-next-line no-console
-      console.log('시험이 성공적으로 생성되었습니다!')
+      console.log('시험 생성 성공!', response.data)
       onClose()
-    } catch {
+
+      return { success: true, data: response.data }
+    } catch (err) {
       // eslint-disable-next-line no-console
-      console.log('시험 생성 중 오류가 발생했습니다.')
+      console.log('시험 생성 중 오류가 발생했습니다. : ', err)
+
+      return { sucess: false }
     }
   }
 
