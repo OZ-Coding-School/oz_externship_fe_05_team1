@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 /**
  * 이미지 업로드 훅
- * @param onChange - 파일 선택 시 콜백
+ * @param onChange - 파일 선택 시 콜백.
  * @returns
  *  - fileInputRef: 숨겨진 <input type="file"> 요소를 제어하기 위한 ref
  *  - preview: 미리보기용 Blob URL 문자열 (없으면 null)
@@ -10,7 +10,9 @@ import { useEffect, useRef, useState } from 'react'
  *  - handleOpenFile: 숨겨진 파일 입력창을 열기 위한 함수
  *  - handleFileChange: 파일 선택 시 실행되는 이벤트 핸들러
  */
-export function useImageUpload(onChange?: (file: File | null) => void) {
+export function useImageUpload(
+  onChange?: (file: File | null, previewUrl: string | null) => void
+) {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [preview, setPreview] = useState<string | null>(null)
   const [fileName, setFileName] = useState<string>('')
@@ -36,8 +38,7 @@ export function useImageUpload(onChange?: (file: File | null) => void) {
 
     setPreview(blobUrl)
     setFileName(file.name)
-    onChange?.(file)
-
+    onChange?.(file, blobUrl)
     e.target.value = ''
   }
 

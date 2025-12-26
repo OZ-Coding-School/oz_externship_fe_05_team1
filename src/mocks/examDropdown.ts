@@ -17,12 +17,12 @@ const COURSE_LIST = [
 
 const SUBJECT_LIST = [
   {
-    value: 'exam_id',
+    value: '1',
     label: 'REACT',
   },
   {
-    value: 'exam_id2',
-    label: 'JAVASCRIPT',
+    value: '2',
+    label: 'JAVESCRIPT',
   },
 ]
 

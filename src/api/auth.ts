@@ -31,7 +31,7 @@ type LoginError = {
  * @returns access_token
  */
 export const login = async (data: LoginRequest): Promise<LoginResponse> => {
-  const { data: response } = await fetcher.post('/api/v1/accounts/login', data)
+  const { data: response } = await fetcher.post('/accounts/login', data)
 
   return response
 }

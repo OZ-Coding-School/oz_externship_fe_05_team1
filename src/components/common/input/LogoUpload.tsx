@@ -3,14 +3,14 @@ import { useImageUpload } from '@components'
 import UploadIcon from './UploadIcon'
 
 type LogoUploadProps = {
-  onChange?: (file: File | null) => void
+  onChange?: (file: File | null, previewUrl: string | null) => void
 }
 
 /**
  * 로고 업로드
  * @param onChange - 파일 선택 시 콜백
  */
-export default function LogoUpload({ onChange }: LogoUploadProps) {
+export default function LogoUpload({ onChange, ...props }: LogoUploadProps) {
   const { fileInputRef, preview, fileName, handleOpenFile, handleFileChange } =
     useImageUpload(onChange)
 
@@ -49,6 +49,7 @@ export default function LogoUpload({ onChange }: LogoUploadProps) {
         ref={fileInputRef}
         onChange={handleFileChange}
         className="hidden"
+        {...props}
       />
     </div>
   )
