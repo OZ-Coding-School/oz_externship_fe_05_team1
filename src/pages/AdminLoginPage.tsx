@@ -1,5 +1,6 @@
 import { OzcodingLogo } from '@assets'
-import { BaseInput, Button, Image } from '@components'
+import { BaseInput, Button, Image, showToast } from '@components'
+import { useLogin } from '@features/auth/hooks/useLogin'
 import { cn } from '@utils'
 import { useState } from 'react'
 
@@ -7,10 +8,17 @@ export default function AdminLoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const loginMutaion = useLogin()
+
   const handleSubmit = () => {
-    // eslint-disable-next-line no-console
-    console.log('로그인', { email, password })
-    // TODO: API 연동 예정
+    console.log('로그인성공', { email, password })
+    if (!email || !password) {
+      showToast('이메일과 비밀번호를 입력해주세요')
+
+      return
+    }
+    // mutate 실행 -> onSuccess/onError 자동처리
+    loginMutaion.mutate({ email, password })
   }
 
   const inputStyle =
