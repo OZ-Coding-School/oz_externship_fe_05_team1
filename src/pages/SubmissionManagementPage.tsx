@@ -1,6 +1,10 @@
 import { BaseModal, type DropdownConfig, FilterSection } from '@components'
-import { type Distribution, DistributionList } from '@exams'
-import { COURSE_LIST_DROPDOWN, SUBJECT_LIST_DROPDOWN } from '@mocks'
+import { type Submission, SubmissionList } from '@exams'
+import {
+  COURSE_LIST_DROPDOWN,
+  GENERATION_LIST_DROPDOWN,
+  SUBJECT_LIST_DROPDOWN,
+} from '@mocks'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router'
 
@@ -8,22 +12,24 @@ import { useSearchParams } from 'react-router'
 const EXAM_DROPDOWNS: DropdownConfig[] = [
   { key: 'course', items: COURSE_LIST_DROPDOWN, placeholder: '과정' },
   { key: 'subject', items: SUBJECT_LIST_DROPDOWN, placeholder: '과목' },
+  { key: 'generation', items: GENERATION_LIST_DROPDOWN, placeholder: '기수' },
 ]
 
 /**
- * 쪽지시험 관리 페이지
- * - 필터, 검색, 시험 배포 내역을 관리하는 컨테이너 컴포넌트
- * - DistributiontList 렌더링
+ * 응시 내역 관리 페이지
+ * - 필터, 검색, 응시 내역을 관리하는 컨테이너 컴포넌트
+ * - SubmissiontList 렌더링
  */
-export default function DistributionHistoryManagementPage() {
+export default function SubmissionHistoryManagementPage() {
   // TODO: API 연동 시 useQuery 등으로 내부에서 시험 목록 fetch 예정
   const [searchParams, setSearchParams] = useSearchParams()
-  const [selectedItem, setSelectedItem] = useState<Distribution | null>(null)
+  const [selectedItem, setSelectedItem] = useState<Submission | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const page = searchParams.get('page') || '1'
   const course = searchParams.get('course') || ''
   const subject = searchParams.get('subject') || ''
+  const generation = searchParams.get('generation') || ''
   const search = searchParams.get('search') || ''
 
   const updateParams = (newParams: Record<string, string>) => {
@@ -58,7 +64,7 @@ export default function DistributionHistoryManagementPage() {
     updateParams({ page: '1' })
   }
 
-  const handleRowClick = (item: Distribution) => {
+  const handleRowClick = (item: Submission) => {
     setSelectedItem(item)
     setIsModalOpen(true)
   }
@@ -67,13 +73,13 @@ export default function DistributionHistoryManagementPage() {
     <section className="px-15 py-11">
       <div className="h-192 bg-white px-18 py-8">
         <h1 className="mb-1 text-[22px] text-neutral-500">
-          쪽지시험 배포 내역 조회
+          쪽지시험 응시 내역 조회
         </h1>
 
         <div className="mb-3">
           <FilterSection
             dropdowns={EXAM_DROPDOWNS}
-            selectedValues={{ course, subject }}
+            selectedValues={{ course, subject, generation }}
             onChangeFilters={handleChangeFilters}
             search={search}
             onChangeSearch={handleChangeSearch}
@@ -82,8 +88,10 @@ export default function DistributionHistoryManagementPage() {
         </div>
 
         <div>
-          <DistributionList
+          <SubmissionList
+            // TODO: useQuery를 통해 서버에서 받아온 실제 응시 내역 데이터(data.content) 바인딩
             data={[]}
+            // TODO: API 응답으로 받은 전체 페이지 수(data.totalPages) 전달
             pageCount={0}
             pageIndex={Number(page) - 1}
             onPageChange={(index) => updateParams({ page: String(index + 1) })}
@@ -94,7 +102,7 @@ export default function DistributionHistoryManagementPage() {
 
       {isModalOpen && selectedItem && (
         <BaseModal
-          title="쪽지시험 배포 상세 조회"
+          title="쪽지시험 응시 상세 조회"
           size="xl"
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}

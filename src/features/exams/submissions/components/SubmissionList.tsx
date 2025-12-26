@@ -2,28 +2,28 @@ import { DataTableLayout, type DataTableLayoutProps } from '@components'
 import { PAGE_SIZE } from '@constants'
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
 
-import type { Distribution } from '../../types.ts'
+import type { Submission } from '../../types.ts'
 
-import { DistributionColumns } from './distributionConfig.tsx'
+import { SubmissionColumns } from './submissionConfig.tsx'
 
-type DistributionListProps = {
-  data: Distribution[]
+type SubmissionListProps = {
+  data: Submission[]
   pageCount: number
   pageIndex: number
   onPageChange: (index: number) => void
-  onRowClick?: DataTableLayoutProps<Distribution>['onRowClick']
+  onRowClick?: DataTableLayoutProps<Submission>['onRowClick']
 }
 
-export default function DistributionList({
+export default function SubmissionList({
   data,
   pageCount,
   pageIndex,
   onPageChange,
   onRowClick,
-}: DistributionListProps) {
+}: SubmissionListProps) {
   const table = useReactTable({
     data,
-    columns: DistributionColumns,
+    columns: SubmissionColumns,
     pageCount,
     state: {
       pagination: {

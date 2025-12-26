@@ -13,7 +13,7 @@ export default function SideMenu() {
   }
 
   return (
-    <aside className="min-h-screen w-[256px] border-r border-neutral-100 bg-white">
+    <aside className="min-h-screen w-[256px] shrink-0 border-r border-neutral-100 bg-white">
       <h1 className="px-8 py-8 text-xl font-semibold text-neutral-400">
         오즈코딩스쿨 관리자
       </h1>

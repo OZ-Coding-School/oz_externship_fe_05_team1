@@ -8,6 +8,18 @@ export type Exam = {
   updatedAt: string
   status: 'deployed' | 'pending'
 }
+export type Submission = {
+  id: number
+  title: string
+  subjectName: string
+  nickname: string
+  courseName: string
+  generation: number
+  cheatingCount: number
+  score: number
+  startedAt: string
+  endedAt: string
+}
 
 export type Distribution = {
   id: number

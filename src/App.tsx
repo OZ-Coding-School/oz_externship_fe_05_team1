@@ -6,6 +6,7 @@ import {
   ExamManagementPage,
   MainPage,
   NotFound,
+  SubmissionManagementPage,
 } from '@pages'
 import { Route, Routes } from 'react-router'
 
@@ -22,6 +23,10 @@ function App() {
     {
       path: ROUTES_PATHS.EXAM_DISTRIBUTION_HISTORY,
       element: <DistributionHistoryManagementPage />,
+    },
+    {
+      path: ROUTES_PATHS.EXAM_SUBMISSION_HISTORY,
+      element: <SubmissionManagementPage />,
     },
     {
       path: ROUTES_PATHS.NOT_FOUND,
