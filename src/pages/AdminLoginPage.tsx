@@ -30,7 +30,7 @@ export default function AdminLoginPage() {
         />
         <p className="mb-4 text-sm">
           <span className="text-primary-500">admin 계정</span>
-          <span className="text-white">을 통해 로그인을 진행해주세요.</span>
+          <span className="text-[#000A30]">을 통해 로그인을 진행해주세요.</span>
         </p>
         <BaseInput
           className={cn(inputStyle, 'mb-3')}

@@ -1,3 +1,4 @@
+import { useAuthStore } from '@stores'
 import axios from 'axios'
 
 /**
@@ -17,7 +18,7 @@ export const fetcher = axios.create({
  * - 모든 요청에 accessToken 자동 추가
  */
 fetcher.interceptors.request.use((config) => {
-  const token = localStorage.getItem('accessToken')
+  const token = useAuthStore.getState().accessToken
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
@@ -34,7 +35,7 @@ fetcher.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('accessToken')
+      useAuthStore.getState().logout()
       window.location.href = '/login'
     }
 

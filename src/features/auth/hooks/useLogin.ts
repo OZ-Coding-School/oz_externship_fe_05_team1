@@ -1,28 +1,20 @@
-import type { LoginError } from '@api/auth'
+import type { LoginError, LoginRequest, LoginResponse } from '@api/auth'
 import type { AxiosError } from 'axios'
 
 import { login } from '@api/auth'
 import { showToast } from '@components'
+import { useAuthStore } from '@stores'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 
-/**
- * 로그인 Mutation Hook
- *
- * - 성공 시: 토큰 저장 → 토스트 → 메인 페이지 이동
- * - 실패 시: 에러 토스트 표시
- *
- * @example
- * const loginMutation = useLogin()
- * loginMutation.mutate({ email: 'user@email.com', password: '1234' })
- */
 export function useLogin() {
   const navigate = useNavigate()
+  const setToken = useAuthStore((state) => state.setToken)
 
   return useMutation({
-    mutationFn: login,
-    onSuccess: (data) => {
-      localStorage.setItem('accessToken', data.access_token)
+    mutationFn: (data: LoginRequest) => login(data),
+    onSuccess: (data: LoginResponse) => {
+      setToken(data.access_token)
       showToast('로그인성공', 'success')
       navigate('/')
     },
