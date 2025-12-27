@@ -1,1 +1,1 @@
-export { examDeleteRequest } from './exams'
+export { examDeploymentsRequest } from './exams'

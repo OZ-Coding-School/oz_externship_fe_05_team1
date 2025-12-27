@@ -11,28 +11,15 @@ type InputField = {
 }
 
 export const CREATE_INPUT_FIELDS = (params: {
-  course: string
-  setCourse: (v: string) => void
   cohortId: string
   setCohortId: (v: string) => void
-  duration: string
-  setDuration: (v: string) => void
+  durationTime: string
+  setDurationTime: (v: string) => void
   openAt: string
   setOpenAt: (v: string) => void
   closeAt: string
   setCloseAt: (v: string) => void
 }): InputField[] => [
-  {
-    label: '과정',
-    size: 'xl',
-    rightSide: () => (
-      <BaseInput
-        value={params.course}
-        onChange={(e) => params.setCourse(e.target.value)}
-        placeholder="과정을 선택하세요"
-      />
-    ),
-  },
   {
     label: '기수',
     size: 'xl',
@@ -50,8 +37,20 @@ export const CREATE_INPUT_FIELDS = (params: {
     rightSide: () => (
       <div className="flex items-center gap-2">
         <BaseInput
-          value={params.duration}
-          onChange={(e) => params.setDuration(e.target.value)}
+          value={params.durationTime}
+          onChange={(e) => {
+            const value = e.target.value
+
+            if (!/^\d*$/.test(value)) {
+              return
+            }
+
+            if (value.length > 3) {
+              return
+            }
+
+            params.setDurationTime(value)
+          }}
           className="w-20"
         />
         <span className="text-neutral-400">분</span>
@@ -61,11 +60,18 @@ export const CREATE_INPUT_FIELDS = (params: {
   {
     label: '시작 일시',
     size: 'xl',
-    rightSide: () => <DateInput onChange={(v) => params.setOpenAt(v)} />,
+    rightSide: () => (
+      <DateInput value={params.openAt} onChange={(v) => params.setOpenAt(v)} />
+    ),
   },
   {
     label: '종료 일시',
     size: 'xl',
-    rightSide: () => <DateInput onChange={(v) => params.setCloseAt(v)} />,
+    rightSide: () => (
+      <DateInput
+        value={params.closeAt}
+        onChange={(v) => params.setCloseAt(v)}
+      />
+    ),
   },
 ]

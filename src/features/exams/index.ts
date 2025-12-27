@@ -16,4 +16,8 @@ export { default as ExamDeletePopupModal } from '../exams/questions/components/d
 export { default as DistributionList } from './deployments/components/DistributionList.tsx'
 export { default as SubmissionList } from './submissions/components/SubmissionList.tsx'
 export type { Exam, Distribution, Submission } from './types.ts'
+<<<<<<< HEAD
 export { useExamDeleteMutation } from './hooks/useExamDeleteMutation.ts'
+=======
+export { useExamDeploymentsMutation } from './hooks/useExamDeploymentsMutation.ts'
+>>>>>>> d010c7b (feat: 쪽지시험 배포 생성 API 연동 구현(#101))
