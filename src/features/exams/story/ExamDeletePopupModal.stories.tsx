@@ -1,8 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
+import { ROUTES_PATHS_ADMIN } from '@constants'
 import { ExamDeletePopupModal } from '@features/exams'
 import { http, HttpResponse } from 'msw'
 import { useState } from 'react'
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 const meta: Meta<typeof ExamDeletePopupModal> = {
   title: 'Features/Exam/ExamDeletePopupModal',
@@ -20,9 +23,9 @@ export default meta
 
 type Story = StoryObj<typeof ExamDeletePopupModal>
 
-export const Handlers = [
+export const handlers = [
   http.delete(
-    `https://api.ozcodingschool.site/api/v1/admin/exams/:examId`,
+    `${API_BASE_URL}${ROUTES_PATHS_ADMIN.EXAM}/:examId`,
     ({ params }) =>
       HttpResponse.json(
         {
@@ -59,7 +62,7 @@ const renderModal: Story['render'] = (args) => {
 export const Default: Story = {
   parameters: {
     msw: {
-      handlers: Handlers,
+      handlers: handlers,
     },
   },
   render: renderModal,
@@ -69,15 +72,13 @@ export const Error: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.delete(
-          `https://api.ozcodingschool.site/api/v1/admin/exams/:examId`,
-          () =>
-            HttpResponse.json(
-              {
-                message: 'Server error',
-              },
-              { status: 500 }
-            )
+        http.delete(`${API_BASE_URL}${ROUTES_PATHS_ADMIN.EXAM}/:examId`, () =>
+          HttpResponse.json(
+            {
+              message: 'Server error',
+            },
+            { status: 500 }
+          )
         ),
       ],
     },

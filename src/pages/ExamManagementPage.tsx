@@ -23,7 +23,7 @@ type ExamManagementPageProps = {
  * 쪽지시험 관리 페이지
  * - 필터, 검색, 시험 목록/빈 상태를 관리하는 컨테이너 컴포넌트
  * - 시험 데이터 유무에 따라 EmptyState 또는 ExamList 렌더링
- * - 스토리북 테스트를 위해 initialData = [] 추가
+ * - 스토리북 테스트를 위해 initialInfo = [] 추가
  */
 export default function ExamManagementPage({
   initialExamInfo = [],
@@ -44,8 +44,8 @@ export default function ExamManagementPage({
   const [selectedExam, setSelectedExam] = useState<Exam | null>(null)
 
   /**
-   * @param exam - 시험 정보
    * 쪽지시험 자세히보기 모달 열기
+   * @param exam - 시험 정보
    */
   const handleDetailModalOpen = (exam: Exam) => {
     setSelectedExam(exam)
