@@ -1,12 +1,10 @@
 import { XbuttonIcon } from '@assets'
-import { modalSize, Portal } from '@components'
+import { MODAL_SIZE, Portal } from '@components'
 import { PORTAL_IDS, Z_INDEX } from '@constants'
 import { cn } from '@utils'
 import { useEffect } from 'react'
 
 import type { BaseModalProps } from './modalStyle'
-
-import { lockScroll, unlockScroll } from './modalScrollLock'
 
 /**
  * 베이스 모달
@@ -27,15 +25,33 @@ export default function BaseModal({
   headerClassName,
   contentClassName,
 }: BaseModalProps) {
-  const { modalWidth, modalHeight } = modalSize[size]
+  const { modalMaxWidth, modalMaxHeight } = MODAL_SIZE[size]
 
+  /**
+   * 모달 사용 시 스크롤 잠금 여부
+   * overflow 이전 상태 확인
+   */
   useEffect(() => {
+    const prevOverflow = document.body.style.overflow
+    const prevPaddingRight = document.body.style.paddingRight
+
     if (isOpen) {
-      lockScroll()
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth
+
+      document.body.style.overflow = 'hidden'
+      document.body.style.paddingRight = `${scrollbarWidth}px`
     }
 
     return () => {
-      unlockScroll()
+      const hasOpenModal =
+        (document.getElementById(PORTAL_IDS.MODAL_PORTAL_ID)?.children.length ??
+          0) > 0
+
+      if (!hasOpenModal) {
+        document.body.style.overflow = prevOverflow
+        document.body.style.paddingRight = prevPaddingRight
+      }
     }
   }, [isOpen])
 
@@ -70,8 +86,8 @@ export default function BaseModal({
         <div
           className={cn(
             'relative h-[90%] min-h-72.5 w-[90%] min-w-[320px] rounded-xl bg-bg-primary shadow-2xl',
-            modalWidth,
-            modalHeight,
+            modalMaxWidth,
+            modalMaxHeight,
             containerClassName
           )}
           onClick={(e) => e.stopPropagation()}
