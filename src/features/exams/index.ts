@@ -26,6 +26,7 @@ export { default as DeploymentHistoryModal } from './shared/components/Deploymen
 export * from './shared/components/deploymentHistoryModalConfig.tsx'
 export * from './types.ts'
 export { default as QuestionNav } from './shared/components/QuestionNav.tsx'
+<<<<<<< HEAD
 export { default as FillBlank } from './shared/components/detail-modal/question-option-renderer/FillBlank.tsx'
 export { default as MultipleChoice } from './shared/components/detail-modal/question-option-renderer/MultipleChoice.tsx'
 export { default as Ordering } from './shared/components/detail-modal/question-option-renderer/Ordering.tsx'
@@ -33,3 +34,10 @@ export { default as Ox } from './shared/components/detail-modal/question-option-
 export { default as ShortAnswer } from './shared/components/detail-modal/question-option-renderer/ShortAnswer.tsx'
 export { default as SingleChoice } from './shared/components/detail-modal/question-option-renderer/SingleChoice.tsx'
 export { default as QuestionOptionRenderer } from './shared/components/detail-modal/question-option-renderer/QuestionOptionRenderer.tsx'
+=======
+export { default as BaseTextarea } from '../exams/questions/components/editor/BaseTextarea.tsx'
+export { default as ExplanationEditor } from '../exams/questions/components/editor/ExplanationEditor.tsx'
+export { default as PointSelect } from '../exams/questions/components/editor/PointSelect.tsx'
+export { default as QuestionInput } from '../exams/questions/components/editor/QuestionInput.tsx'
+export { default as QuestionTypeSelect } from '../exams/questions/components/editor/QuestionTypeSelect.tsx'
+>>>>>>> 7478d62 (feat: question editor 입력 컴포넌트 구현(#71))
