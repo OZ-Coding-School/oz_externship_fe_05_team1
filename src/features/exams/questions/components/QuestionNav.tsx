@@ -10,7 +10,10 @@ type QuestionNavProps = {
  * 문제 번호 네비게이션 컴포넌트
  * @param actionButton - 하단 액션 버튼 (문제추가, 시험삭제 등)
  */
-export function QuestionNav({ actionButton, className }: QuestionNavProps) {
+export default function QuestionNav({
+  actionButton,
+  className,
+}: QuestionNavProps) {
   const { questions, currentIndex, setCurrentIndex } = useQuestionStore()
 
   return (

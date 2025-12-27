@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
+import { Button } from '@components'
+import { QuestionNav } from '@features/exams/'
 import { useQuestionStore } from '@stores'
 import { useEffect } from 'react'
-
-import { QuestionNav } from '../../questions/components/QuestionNav'
 
 const meta: Meta<typeof QuestionNav> = {
   title: 'Features/Exams/QuestionNav',
@@ -14,17 +14,6 @@ const meta: Meta<typeof QuestionNav> = {
     backgrounds: {
       default: 'gray',
       values: [{ name: 'gray', value: '#f3f4f6' }],
-    },
-  },
-  argTypes: {
-    defaultType: {
-      control: 'select',
-      options: ['multiple', 'trueFalse', 'shortAnswer', 'essay', 'fillBlank'],
-      description: '새 문제 추가 시 기본 문제 유형',
-    },
-    maxQuestions: {
-      control: { type: 'number', min: 1, max: 50 },
-      description: '최대 문제 개수',
     },
   },
 }
@@ -75,11 +64,53 @@ function StoreInitializer({
 // Stories
 // ========================================
 
-/** 기본 상태 - 문제 1개 */
+/** 기본 상태
+ *  - 버튼 없음
+ *  */
 export const Default: Story = {
   decorators: [
     (Story) => (
-      <StoreInitializer questionCount={1}>
+      <StoreInitializer questionCount={3}>
+        <Story />
+      </StoreInitializer>
+    ),
+  ],
+}
+
+/**
+ * 문제 추가 버튼 (문제 생성 페이지용)
+ * */
+export const WithAddButton: Story = {
+  args: {
+    actionButton: (
+      <Button variant="primary-light" size="md" className="w-full">
+        문제 추가
+      </Button>
+    ),
+  },
+  decorators: [
+    (Story) => (
+      <StoreInitializer questionCount={3}>
+        <Story />
+      </StoreInitializer>
+    ),
+  ],
+}
+
+/**
+ * 시험 삭제 버튼 (상세 보기 페이지용)
+ * */
+export const WithDeleteButton: Story = {
+  args: {
+    actionButton: (
+      <Button variant="danger" size="md" className="w-full">
+        시험 삭제
+      </Button>
+    ),
+  },
+  decorators: [
+    (Story) => (
+      <StoreInitializer questionCount={5} currentIndex={2}>
         <Story />
       </StoreInitializer>
     ),
@@ -108,39 +139,11 @@ export const ManyQuestions: Story = {
   ],
 }
 
-/** 최대 문제 개수 도달 */
-export const MaxQuestionsReached: Story = {
-  args: {
-    maxQuestions: 5,
-  },
-  decorators: [
-    (Story) => (
-      <StoreInitializer questionCount={5}>
-        <Story />
-      </StoreInitializer>
-    ),
-  ],
-}
-
 /** 빈 상태 - 문제 없음 */
 export const Empty: Story = {
   decorators: [
     (Story) => (
       <StoreInitializer questionCount={0}>
-        <Story />
-      </StoreInitializer>
-    ),
-  ],
-}
-
-/** 커스텀 최대 개수 */
-export const CustomMaxQuestions: Story = {
-  args: {
-    maxQuestions: 3,
-  },
-  decorators: [
-    (Story) => (
-      <StoreInitializer questionCount={2}>
         <Story />
       </StoreInitializer>
     ),
