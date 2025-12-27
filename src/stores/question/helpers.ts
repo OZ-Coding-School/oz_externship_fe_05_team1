@@ -7,17 +7,19 @@ import type { Question, QuestionType } from '@features/exams'
  */
 export const createEmptyQuestion = (type: QuestionType): Question => {
   const base = {
-    id: `question-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    id: `question-${Date.now()}`,
     type,
     question: '',
     prompt: '',
     explanation: '',
     point: 10,
+    createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   }
 
   switch (type) {
-    case 'multiple':
+    case 'multiple_choice':
+    case 'single_choice':
       return {
         ...base,
         options: ['', '', '', ''], // 4지선다 기본
@@ -25,7 +27,7 @@ export const createEmptyQuestion = (type: QuestionType): Question => {
         correct_answer: '',
       }
 
-    case 'trueFalse':
+    case 'ox':
       return {
         ...base,
         options: null,
@@ -33,16 +35,22 @@ export const createEmptyQuestion = (type: QuestionType): Question => {
         correct_answer: true,
       }
 
-    case 'shortAnswer':
-    case 'essay':
+    case 'short_answer':
       return {
         ...base,
         options: null,
         blank_count: null,
         correct_answer: '',
       }
+    case 'ordering':
+      return {
+        ...base,
+        options: ['', '', '', ''],
+        blank_count: null,
+        correct_answer: [1, 2, 3, 4],
+      }
 
-    case 'fillBlank':
+    case 'fill_blank':
       return {
         ...base,
         options: null,

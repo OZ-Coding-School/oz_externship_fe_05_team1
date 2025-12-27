@@ -8,15 +8,17 @@ export const buttonVariants = cva(
         primary: 'bg-primary-400 text-white hover:bg-primary-500',
         'primary-light':
           'bg-primary-light text-primary-500 hover:bg-primary-400 hover:text-white',
+        'primary-outline': 'border border-primary-400',
         secondary: 'bg-neutral-300 text-white hover:bg-neutral-400',
         'white-outline':
           'bg-bg-primary border border-neutral-200 text-neutral-500 hover:bg-neutral-300 hover:text-white',
         success:
           'bg-[#66bb6a] text-white hover:bg-success-light hover:text-[#66bb6a] border border-transparent hover:border-[#66bb6a]',
-        danger:
-          'bg-[#d32f2f] text-white hover:bg-error-light hover:text-[#d32f2f] border border-transparent hover:border-[#d32f2f]',
         'success-light':
           'bg-success-light text-success hover:bg-success hover:text-success-light',
+        danger:
+          'bg-[#d32f2f] text-white hover:bg-error-light hover:text-[#d32f2f] border border-transparent hover:border-[#d32f2f]',
+        'danger-outline': 'border border-danger',
       },
       size: {
         sm: 'w-[48px] h-[24px] text-[14px]',
@@ -24,6 +26,7 @@ export const buttonVariants = cva(
         lg: 'w-[72px] h-[36px]',
         xl: 'w-[100px] h-[36px]',
         xxl: 'w-[160px] h-[48px] text-[16px] font-semibold',
+        action: 'w-[156px] h-[36px] text-[14px] font-semibold ',
       },
     },
     defaultVariants: {

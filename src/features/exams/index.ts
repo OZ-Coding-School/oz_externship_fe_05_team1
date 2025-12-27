@@ -25,3 +25,5 @@ export { examDeploymentsSchema } from './schemas/examDeploymentsSchema.ts'
 export { default as DeploymentHistoryModal } from './shared/components/DeploymentHistoryModal.tsx'
 export * from './shared/components/deploymentHistoryModalConfig.tsx'
 export * from './types.ts'
+
+export { default as QuestionNav } from './shared/components/QuestionNav.tsx'
