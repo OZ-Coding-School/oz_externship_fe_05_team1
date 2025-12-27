@@ -17,7 +17,7 @@ export const createEmptyQuestion = (type: QuestionType): Question => {
   }
 
   switch (type) {
-    case 'multiple':
+    case 'multiple_choice':
       return {
         ...base,
         options: ['', '', '', ''], // 4지선다 기본
@@ -25,7 +25,7 @@ export const createEmptyQuestion = (type: QuestionType): Question => {
         correct_answer: '',
       }
 
-    case 'trueFalse':
+    case 'ox':
       return {
         ...base,
         options: null,
@@ -33,8 +33,7 @@ export const createEmptyQuestion = (type: QuestionType): Question => {
         correct_answer: true,
       }
 
-    case 'shortAnswer':
-    case 'essay':
+    case 'short_answer':
       return {
         ...base,
         options: null,
@@ -42,7 +41,15 @@ export const createEmptyQuestion = (type: QuestionType): Question => {
         correct_answer: '',
       }
 
-    case 'fillBlank':
+    case 'ordering':
+      return {
+        ...base,
+        options: ['', '', '', ''], // 순서 정렬할 항목들
+        blank_count: null,
+        correct_answer: [1, 2, 3, 4], // 정답 순서 (1,2,3,4 순)
+      }
+
+    case 'fill_blank':
       return {
         ...base,
         options: null,

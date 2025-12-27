@@ -24,8 +24,12 @@ export type Question = {
   prompt: string
   options: string[] | null
   blank_count: number | null
+<<<<<<< HEAD
   correct_answer: string | string[] | boolean
   question: string
+=======
+  correct_answer: number | string | string[] | number[] | boolean
+>>>>>>> ae6e18b (refactor: question type 명 변경(#71))
   point: number
   explanation: string
 }
