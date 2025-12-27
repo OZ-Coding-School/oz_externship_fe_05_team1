@@ -1,19 +1,11 @@
-import { fetcher } from '@api/fetcher'
-import { PopupModal, showToast } from '@components'
+import { PopupModal } from '@components'
+import { useExamDeleteMutation } from '@features/exams'
 
 type ExamDeletePopupModalProps = {
   isOpen: boolean
   onClose: () => void
   examId: number
 }
-
-type DeleteExamSuccessResponse = {
-  exam_id: number
-}
-
-type DeleteExamResult =
-  | { success: true; data: DeleteExamSuccessResponse }
-  | { success: false }
 
 /**
  * 시험 삭제 팝업 모달
@@ -26,32 +18,11 @@ export default function ExamDeletePopupModal({
   onClose,
   examId,
 }: ExamDeletePopupModalProps) {
-  const handleExamDelete = async (): Promise<DeleteExamResult> => {
-    try {
-      /**
-       * TODO : 상수로 변경 예정 ${ROUTES_PATHS_ADMIN.EXAM}
-       */
-      const response = await fetcher.delete<DeleteExamSuccessResponse>(
-        `/api/v1/admin/exams/${examId}`
-      )
+  const { mutate: examDeleteRequest, isPending } =
+    useExamDeleteMutation(onClose)
 
-      if (response.status !== 200) {
-        throw new Error(`Unexpected status: ${response.status}`)
-      }
-
-      showToast('시험 삭제 성공', 'success')
-      // eslint-disable-next-line no-console
-      console.log('시험 삭제 성공!', response.data)
-      onClose()
-
-      return { success: true, data: response.data }
-    } catch (err) {
-      showToast('시험 삭제 실패', 'fail')
-      // eslint-disable-next-line no-console
-      console.log('시험 삭제 중 오류가 발생했습니다. : ', err)
-
-      return { success: false }
-    }
+  const handleExamDeleteClick = () => {
+    examDeleteRequest(examId)
   }
 
   return (
@@ -69,8 +40,12 @@ export default function ExamDeletePopupModal({
         <PopupModal.PopupButton variant={'secondary'} onClick={onClose}>
           취소
         </PopupModal.PopupButton>
-        <PopupModal.PopupButton variant={'danger'} onClick={handleExamDelete}>
-          삭제
+        <PopupModal.PopupButton
+          variant={'danger'}
+          onClick={handleExamDeleteClick}
+          disabled={isPending}
+        >
+          {isPending ? '삭제중' : '삭제'}
         </PopupModal.PopupButton>
       </PopupModal.ButtonArea>
     </PopupModal>
