@@ -26,11 +26,6 @@ export const Sorting: Story = {
       getSortedRowModel: getSortedRowModel(),
     })
 
-    return (
-      <DataTable
-        columns={userColumns}
-        data={table.getRowModel().rows.map((row) => row.original)}
-      />
-    )
+    return <DataTable table={table} />
   },
 }
