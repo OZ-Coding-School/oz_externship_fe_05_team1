@@ -1,5 +1,6 @@
 import { BaseModal, Button, TwoSplitInput } from '@components'
 import { cn } from '@utils'
+import { useState } from 'react'
 
 import { CREATE_INPUT_FIELDS } from './ExamDeploymentsModalConfig'
 
@@ -23,11 +24,39 @@ export default function ExamDeploymentsModal({
   isOpen,
   onClose,
 }: ExamDeploymentsModalProps) {
+  const [course, setCourse] = useState('')
+  const [cohortId, setCohortId] = useState('')
+  const [duration, setDuration] = useState('')
+  const [openAt, setOpenAt] = useState('')
+  const [closeAt, setCloseAt] = useState('')
   const handleDeployments = () => {
     /**
      * TODO: 쪽지시험 배포 로직 구현
      */
+    // eslint-disable-next-line no-console
+    console.log('과정:', course)
+    // eslint-disable-next-line no-console
+    console.log('기수:', cohortId)
+    // eslint-disable-next-line no-console
+    console.log('시험 시간:', duration)
+    // eslint-disable-next-line no-console
+    console.log('시작 일시:', openAt)
+    // eslint-disable-next-line no-console
+    console.log('종료 일시:', closeAt)
   }
+
+  const FIELDS = CREATE_INPUT_FIELDS({
+    course,
+    setCourse,
+    cohortId,
+    setCohortId,
+    duration,
+    setDuration,
+    openAt,
+    setOpenAt,
+    closeAt,
+    setCloseAt,
+  })
 
   return (
     <BaseModal
@@ -42,12 +71,12 @@ export default function ExamDeploymentsModal({
           <p className="text-sm text-neutral-400">과목명 : {subjectName}</p>
         </div>
         <div className="py-4">
-          {CREATE_INPUT_FIELDS.map((field, index) => (
+          {FIELDS.map((field, index) => (
             <TwoSplitInput
               key={index}
               label={field.label}
               labelHeight={field.labelHeight}
-              rightSide={field.rightSide}
+              rightSide={field.rightSide()}
               size={field.size}
               className={cn(
                 index === CREATE_INPUT_FIELDS.length - 1 && 'border-b'
