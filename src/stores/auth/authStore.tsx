@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-export type AuthState = {
+type AuthState = {
   accessToken: string | null
   isAuthenticated: boolean
 
