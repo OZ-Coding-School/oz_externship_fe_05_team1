@@ -149,7 +149,7 @@ export default tseslint.config(
       'arrow-body-style': ['warn', 'as-needed'],
 
       // 중괄호 항상 사용
-      curly: ['warn', 'all'],
+      curly: ['error', 'all'],
 
       // ===== Vite HMR =====
       'react-refresh/only-export-components': [

@@ -1,9 +1,12 @@
 import { BaseModal, Button, showToast, TwoSplitInput } from '@components'
-import { useExamDeploymentsMutation } from '@features/exams'
+import {
+  examDeploymentsSchema,
+  useExamDeploymentsMutation,
+} from '@features/exams'
 import { cn } from '@utils'
 import { useState } from 'react'
 
-import { CREATE_INPUT_FIELDS } from './ExamDeploymentsModalConfig'
+import { createInputFields } from './ExamDeploymentsModalConfig'
 
 type ExamDeploymentsModalProps = {
   examName: string
@@ -27,63 +30,47 @@ export default function ExamDeploymentsModal({
   onClose,
   examId,
 }: ExamDeploymentsModalProps) {
-  const [cohortId, setCohortId] = useState('')
-  const [durationTime, setDurationTime] = useState('')
-  const [openAt, setOpenAt] = useState('')
-  const [closeAt, setCloseAt] = useState('')
+  const [values, setValues] = useState({
+    cohortId: '',
+    durationTime: '',
+    openAt: '',
+    closeAt: '',
+  })
+
+  const updateValue = (key: keyof typeof values, value: string) => {
+    setValues((prev) => ({ ...prev, [key]: value }))
+  }
 
   const { mutate: examDeploymentsRequest, isPending } =
     useExamDeploymentsMutation(onClose)
 
-  const validateForm = (): string | undefined => {
-    if (!examId) {
-      return '쪽지시험 ID값이 없습니다.'
-    }
-    if (!cohortId.trim()) {
-      return '기수를 입력해주세요.'
-    }
-    if (!durationTime.trim()) {
-      return '시험 시간을 입력해주세요.'
-    }
-    if (!openAt) {
-      return '시작 일시를 선택해주세요.'
-    }
-    if (!closeAt) {
-      return '종료 일시를 선택해주세요.'
-    }
-
-    if (new Date(openAt) >= new Date(closeAt)) {
-      return '종료 일시는 시작 일시보다 늦어야 합니다.'
-    }
-  }
-
   const handleDeployments = () => {
-    const err = validateForm()
+    const schemaResult = examDeploymentsSchema.safeParse({
+      examId,
+      ...values,
+    })
 
-    if (err) {
-      showToast(err, 'fail')
+    if (!schemaResult.success) {
+      const message = schemaResult.error.issues[0].message
+
+      showToast(message, 'fail')
 
       return
     }
+    const parsed = schemaResult.data
 
     examDeploymentsRequest({
-      exam_id: examId,
-      cohort_id: Number(cohortId),
-      duration_time: Number(durationTime),
-      open_at: openAt,
-      close_at: closeAt,
+      examId,
+      cohortId: parsed.cohortId,
+      durationTime: parsed.durationTime,
+      openAt: parsed.openAt,
+      closeAt: parsed.closeAt,
     })
   }
 
-  const FIELDS = CREATE_INPUT_FIELDS({
-    cohortId,
-    setCohortId,
-    durationTime,
-    setDurationTime,
-    openAt,
-    setOpenAt,
-    closeAt,
-    setCloseAt,
+  const FIELDS = createInputFields({
+    values,
+    updateValue,
   })
 
   return (

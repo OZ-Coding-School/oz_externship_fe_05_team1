@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { ROUTES_PATHS_ADMIN } from '@constants'
-import { ExamCreateModal } from '@exams'
+import { ExamCreateModal } from '@features/exams'
 import { http, HttpResponse } from 'msw'
 
 const meta: Meta<typeof ExamCreateModal> = {

@@ -32,7 +32,9 @@ export default function DateInput({ value, onChange }: DateInputProps) {
   }, [value])
 
   useEffect(() => {
-    if (!selectedDate || !onChange) return
+    if (!selectedDate || !onChange) {
+      return
+    }
 
     const y = selectedDate.getFullYear()
     const m = String(selectedDate.getMonth() + 1).padStart(2, '0')

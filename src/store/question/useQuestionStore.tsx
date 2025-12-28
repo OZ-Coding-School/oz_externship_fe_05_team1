@@ -1,8 +1,4 @@
-import type {
-  Question,
-  QuestionPayload,
-  QuestionType,
-} from '@features/exams/questions/types'
+import type { Question, QuestionPayload, QuestionType } from '@features/exams'
 
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'

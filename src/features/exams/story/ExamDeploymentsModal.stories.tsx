@@ -1,13 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { ROUTES_PATHS_ADMIN } from '@constants'
+import { API_BASE_URL, ROUTES_PATHS_ADMIN } from '@constants'
 import { ExamDeploymentsModal } from '@features/exams'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { http, HttpResponse } from 'msw'
 import { useState } from 'react'
 import { MemoryRouter } from 'react-router'
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 const meta: Meta<typeof ExamDeploymentsModal> = {
   title: 'Features/Exam/ExamDeploymentsModal',

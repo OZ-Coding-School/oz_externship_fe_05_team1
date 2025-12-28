@@ -46,9 +46,7 @@
       "@custom-types": ["src/custom-types"],
       "@custom-types/*": ["src/custom-types/*"],
       "@mocks": ["src/mocks"],
-      "@mocks/*": ["src/features/exam*"],
-      "@exams": ["src/features/exams"],
-      "@exams/*": ["src/features/exams*"]
+      "@mocks/*": ["src/mocks/*"]
     }
   },
   "include": ["src"]

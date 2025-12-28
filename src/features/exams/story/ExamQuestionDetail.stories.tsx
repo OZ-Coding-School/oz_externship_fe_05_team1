@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import ExamQuestionDetailModal from '@features/exams/questions/components/detail-modal/ExamQuestionDetailModal'
+import { ExamQuestionDetailModal } from '@features/exams'
 
 const meta: Meta<typeof ExamQuestionDetailModal> = {
   title: 'Features/Exam/ExamQuestionDetailModal',

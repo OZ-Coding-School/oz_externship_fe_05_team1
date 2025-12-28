@@ -1,7 +1,6 @@
-import type { InputVariant } from '@components'
 import type { ReactNode } from 'react'
 
-import { BaseInput, DateInput } from '@components'
+import { BaseInput, DateInput, type InputVariant } from '@components'
 
 type InputField = {
   label: string
@@ -10,23 +9,30 @@ type InputField = {
   labelHeight?: number
 }
 
-export const CREATE_INPUT_FIELDS = (params: {
-  cohortId: string
-  setCohortId: (v: string) => void
-  durationTime: string
-  setDurationTime: (v: string) => void
-  openAt: string
-  setOpenAt: (v: string) => void
-  closeAt: string
-  setCloseAt: (v: string) => void
-}): InputField[] => [
+type CreateInputFieldsProp = {
+  values: {
+    cohortId: string
+    durationTime: string
+    openAt: string
+    closeAt: string
+  }
+  updateValue: (
+    key: keyof CreateInputFieldsProp['values'],
+    value: string
+  ) => void
+}
+
+export const createInputFields = ({
+  values,
+  updateValue,
+}: CreateInputFieldsProp): InputField[] => [
   {
     label: '기수',
     size: 'xl',
     rightSide: () => (
       <BaseInput
-        value={params.cohortId}
-        onChange={(e) => params.setCohortId(e.target.value)}
+        value={values.cohortId}
+        onChange={(e) => updateValue('cohortId', e.target.value)}
         placeholder="기수 선택하세요"
       />
     ),
@@ -37,7 +43,7 @@ export const CREATE_INPUT_FIELDS = (params: {
     rightSide: () => (
       <div className="flex items-center gap-2">
         <BaseInput
-          value={params.durationTime}
+          value={values.durationTime}
           onChange={(e) => {
             const value = e.target.value
 
@@ -49,7 +55,7 @@ export const CREATE_INPUT_FIELDS = (params: {
               return
             }
 
-            params.setDurationTime(value)
+            updateValue('durationTime', e.target.value)
           }}
           className="w-20"
         />
@@ -61,7 +67,10 @@ export const CREATE_INPUT_FIELDS = (params: {
     label: '시작 일시',
     size: 'xl',
     rightSide: () => (
-      <DateInput value={params.openAt} onChange={(v) => params.setOpenAt(v)} />
+      <DateInput
+        value={values.openAt}
+        onChange={(v) => updateValue('openAt', v)}
+      />
     ),
   },
   {
@@ -69,8 +78,8 @@ export const CREATE_INPUT_FIELDS = (params: {
     size: 'xl',
     rightSide: () => (
       <DateInput
-        value={params.closeAt}
-        onChange={(v) => params.setCloseAt(v)}
+        value={values.closeAt}
+        onChange={(v) => updateValue('closeAt', v)}
       />
     ),
   },
