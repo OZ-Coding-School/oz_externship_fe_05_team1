@@ -1,0 +1,1 @@
+export { examDeleteRequest } from './exams'

@@ -8,8 +8,11 @@ import type { Exam } from '../types'
  * 쪽지시험 목록 테이블 컬럼 설정
  * - TanStack Table(ColumnDef)을 기반으로 시험 목록 컬럼 정의
  * - 시험 상태에 따라 액션 버튼(배포/배포중) 분기 처리
+ * - 함수형으로 변경 모달 활성화
  */
-export const ExamColumns: ColumnDef<Exam>[] = [
+export const ExamColumns = (
+  handleDetailModalOpen: (exam: Exam) => void
+): ColumnDef<Exam>[] => [
   {
     accessorKey: 'id',
     header: 'ID',
@@ -56,7 +59,11 @@ export const ExamColumns: ColumnDef<Exam>[] = [
             배포
           </Button>
         )}
-        <Button variant="primary-light" size="sm">
+        <Button
+          variant="primary-light"
+          size="sm"
+          onClick={() => handleDetailModalOpen(row.original)}
+        >
           자세히
         </Button>
       </div>

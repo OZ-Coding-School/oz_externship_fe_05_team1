@@ -1,21 +1,30 @@
 import { PopupModal } from '@components'
+import { useExamDeleteMutation } from '@features/exams'
 
 type ExamDeletePopupModalProps = {
   isOpen: boolean
   onClose: () => void
-  onConfirmDelete?: () => void
+  examId: number
 }
 
 /**
  * 시험 삭제 팝업 모달
  * @param isOpen - 활성화 여부
  * @param onClose - 닫기 동작을 실행하는 함수. 오버레이 클릭/ESC 발생 시 호출
- * @param onConfirmDelete - 시험 삭제 확인 핸들러
+ * @param examId - 쪽지시험 id
  */
 export default function ExamDeletePopupModal({
   isOpen,
   onClose,
+  examId,
 }: ExamDeletePopupModalProps) {
+  const { mutate: examDeleteRequest, isPending } =
+    useExamDeleteMutation(onClose)
+
+  const handleExamDeleteClick = () => {
+    examDeleteRequest(examId)
+  }
+
   return (
     <PopupModal isOpen={isOpen} onClose={onClose}>
       <PopupModal.Icon variant="danger" />
@@ -33,15 +42,10 @@ export default function ExamDeletePopupModal({
         </PopupModal.PopupButton>
         <PopupModal.PopupButton
           variant={'danger'}
-          onClick={() => {
-            /**
-             * TODO: 시험 삭제 로직 구현 필요
-             * onConfirmDelete()
-             */
-            onClose()
-          }}
+          onClick={handleExamDeleteClick}
+          disabled={isPending}
         >
-          삭제
+          {isPending ? '삭제중' : '삭제'}
         </PopupModal.PopupButton>
       </PopupModal.ButtonArea>
     </PopupModal>

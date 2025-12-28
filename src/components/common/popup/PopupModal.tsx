@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { ButtonHTMLAttributes, ReactNode } from 'react'
 
 import { CheckIcon, WarningIcon } from '@assets'
 import { BaseModal, Button, type ButtonProps } from '@components'
@@ -84,7 +84,7 @@ type PopupButtonProps = {
   variant?: ButtonProps['variant']
   className?: string
   onClick?: () => void
-}
+} & ButtonHTMLAttributes<HTMLButtonElement>
 
 /**
  * 컴파운드 PopupButton
@@ -113,6 +113,7 @@ export default function PopupModal({
   isOpen,
   onClose,
   children,
+  ...props
 }: PopupModalProps) {
   return (
     <BaseModal
@@ -121,6 +122,7 @@ export default function PopupModal({
       size={size}
       headerClassName="pb-0"
       contentClassName="flex flex-col items-center px-10 text-center pt-0"
+      {...props}
     >
       {children}
     </BaseModal>

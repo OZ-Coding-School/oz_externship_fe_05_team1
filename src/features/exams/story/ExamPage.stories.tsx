@@ -19,13 +19,13 @@ export const Default: Story = {}
 export const WithData: Story = {
   name: '데이터가 있을 때',
   args: {
-    initialData: mockExamList,
+    initialExamInfo: mockExamList,
   },
 }
 
 export const Empty: Story = {
   name: '데이터가 없을 때(EmptyState',
   args: {
-    initialData: [],
+    initialExamInfo: [],
   },
 }

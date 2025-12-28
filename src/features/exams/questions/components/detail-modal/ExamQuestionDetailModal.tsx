@@ -123,7 +123,7 @@ type ExamQuestionDetailProps = {
  * @param onClose : 모달 닫기 함수
  */
 export default function ExamQuestionDetailModal({
-  examId: _examId,
+  examId,
   isOpen,
   onClose,
 }: ExamQuestionDetailProps) {
@@ -169,6 +169,7 @@ export default function ExamQuestionDetailModal({
             questions={exam.questions}
             currentIndex={currentIndex}
             onSelect={setCurrentIndex}
+            examId={examId}
           />
         </ExamQuestionDetailModal.Side>
         <ExamQuestionDetailModal.Body>
