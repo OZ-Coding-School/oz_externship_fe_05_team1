@@ -1,51 +1,24 @@
-import { useEffect, useState } from 'react'
-import DatePicker from 'react-datepicker'
+import { useDateInputState } from '@components'
 import 'react-datepicker/dist/react-datepicker.css'
+import DatePicker from 'react-datepicker'
 
 import CustomDateInput from './CustomDateInput'
 import CustomTimeInput from './CustomTimeInput'
 
-type DateInputProps = {
+export type DateInputProps = {
   value?: string
   onChange?: (value: string) => void
-  // ... 나머지
 }
 
 /**
- * @returns DatePicker 라이브러리 사용
  * 날짜와 시간 인풋 생성
- * 분리 가능
+ * @returns DatePicker 라이브러리 사용
  */
 export default function DateInput({ value, onChange }: DateInputProps) {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date())
-
-  useEffect(() => {
-    if (value) {
-      const dateObj = new Date(value)
-
-      if (!isNaN(dateObj.getTime())) {
-        setSelectedDate(dateObj)
-      }
-    } else {
-      setSelectedDate(new Date()) // 기본값: 현재 시간
-    }
-  }, [value])
-
-  useEffect(() => {
-    if (!selectedDate || !onChange) {
-      return
-    }
-
-    const y = selectedDate.getFullYear()
-    const m = String(selectedDate.getMonth() + 1).padStart(2, '0')
-    const d = String(selectedDate.getDate()).padStart(2, '0')
-    const hh = String(selectedDate.getHours()).padStart(2, '0')
-    const mm = String(selectedDate.getMinutes()).padStart(2, '0')
-
-    const formatted = `${y}-${m}-${d} ${hh}:${mm}:00`
-
-    onChange(formatted)
-  }, [selectedDate, onChange])
+  const { selectedDate, setSelectedDate } = useDateInputState({
+    value,
+    onChange,
+  })
 
   return (
     <div className="flex items-center gap-3">
@@ -77,7 +50,11 @@ export default function DateInput({ value, onChange }: DateInputProps) {
             return
           }
 
-          const updated = new Date(selectedDate!)
+          if (!selectedDate) {
+            return
+          }
+
+          const updated = new Date(selectedDate)
 
           updated.setHours(date.getHours())
           updated.setMinutes(date.getMinutes())
