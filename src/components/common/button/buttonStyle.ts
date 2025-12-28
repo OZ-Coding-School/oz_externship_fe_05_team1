@@ -12,8 +12,9 @@ export const buttonVariants = cva(
         'white-outline':
           'bg-bg-primary border border-neutral-200 text-neutral-500 hover:bg-neutral-300 hover:text-white',
         success:
-          'bg-success text-white hover:bg-success-light hover:text-success',
-        danger: 'bg-error text-white hover:bg-error-light hover:text-error',
+          'bg-[#66bb6a] text-white hover:bg-success-light hover:text-[#66bb6a] border border-transparent hover:border-[#66bb6a]',
+        danger:
+          'bg-[#d32f2f] text-white hover:bg-error-light hover:text-[#d32f2f] border border-transparent hover:border-[#d32f2f]',
         'success-light':
           'bg-success-light text-success hover:bg-success hover:text-success-light',
       },

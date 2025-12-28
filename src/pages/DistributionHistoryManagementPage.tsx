@@ -1,5 +1,9 @@
-import { BaseModal, type DropdownConfig, FilterSection } from '@components'
-import { type Distribution, DistributionList } from '@features/exams'
+import { type DropdownConfig, FilterSection } from '@components'
+import {
+  DeploymentHistoryModal,
+  type Distribution,
+  DistributionList,
+} from '@features/exams'
 import { COURSE_LIST_DROPDOWN, SUBJECT_LIST_DROPDOWN } from '@mocks'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router'
@@ -96,16 +100,11 @@ export default function DistributionHistoryManagementPage() {
         </div>
       </div>
 
-      {isModalOpen && selectedItem && (
-        <BaseModal
-          title="쪽지시험 배포 상세 조회"
-          size="xl"
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-        >
-          modal
-        </BaseModal>
-      )}
+      <DeploymentHistoryModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        data={selectedItem}
+      />
     </section>
   )
 }
