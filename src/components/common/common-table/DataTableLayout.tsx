@@ -1,4 +1,4 @@
-import { type Table } from '@tanstack/react-table'
+import type { Table } from '@tanstack/react-table'
 
 import { DataTable } from './DataTable'
 import { TablePagination } from './TablePagination'
@@ -16,6 +16,7 @@ export type DataTableLayoutProps<TData> = {
  *
  * @param table - TanStack Table 인스턴스
  * @param actionButtons - 테이블 하단 액션 버튼 (선택)
+ * @param onRowClick - 행 클릭 시 실행할 콜백
  */
 export function DataTableLayout<TData>({
   table,
@@ -24,11 +25,7 @@ export function DataTableLayout<TData>({
 }: DataTableLayoutProps<TData>) {
   return (
     <div className="space-y-4">
-      <DataTable
-        columns={table.options.columns}
-        onRowClick={onRowClick}
-        data={table.getRowModel().rows.map((row) => row.original)}
-      />
+      <DataTable table={table} onRowClick={onRowClick} />
       {actionButtons && <div>{actionButtons}</div>}
       <TablePagination table={table} />
     </div>

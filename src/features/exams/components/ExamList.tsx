@@ -28,13 +28,15 @@ export default function ExamList({
   })
 
   return (
-    <>
-      <DataTableLayout table={table} />
-      <div className="mt-4 flex justify-end pr-2">
-        <Button variant="primary" size="md" onClick={onButtonClick}>
-          생성
-        </Button>
-      </div>
-    </>
+    <DataTableLayout
+      table={table}
+      actionButtons={
+        <div className="flex justify-end pr-2">
+          <Button variant="primary" size="md" onClick={onButtonClick}>
+            생성
+          </Button>
+        </div>
+      }
+    />
   )
 }

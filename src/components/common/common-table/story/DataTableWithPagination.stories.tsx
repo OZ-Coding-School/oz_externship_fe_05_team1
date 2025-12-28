@@ -33,10 +33,7 @@ export const Default: Story = {
 
     return (
       <div className="space-y-4">
-        <DataTable
-          columns={userColumns}
-          data={table.getRowModel().rows.map((r) => r.original)}
-        />
+        <DataTable table={table} />
         <TablePagination table={table} />
       </div>
     )
