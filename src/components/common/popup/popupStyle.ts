@@ -1,6 +1,6 @@
-import modalSize from '../modal/modalSize'
+import type { MODAL_SIZE } from '@components'
 
-export type ModalSizeKey = keyof typeof modalSize
+export type ModalSizeKey = keyof typeof MODAL_SIZE
 
 export type PopupModalProps = {
   size?: ModalSizeKey
