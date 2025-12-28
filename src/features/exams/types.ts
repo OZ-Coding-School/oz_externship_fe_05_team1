@@ -36,6 +36,19 @@ export type DeploymentDetailResponse = {
   }
 }
 
+export type Submission = {
+  id: number
+  title: string
+  subjectName: string
+  nickname: string
+  courseName: string
+  generation: number
+  cheatingCount: number
+  score: number
+  startedAt: string
+  endedAt: string
+}
+
 export type Distribution = {
   deploymentId: number
   examTitle: string
