@@ -16,4 +16,9 @@ export { default as ExamDeletePopupModal } from '../exams/questions/components/d
 export { default as DistributionList } from './deployments/components/DistributionList.tsx'
 export { default as SubmissionList } from './submissions/components/SubmissionList.tsx'
 export type { Exam, Distribution, Submission } from './types.ts'
+
 export { useExamDeleteMutation } from './hooks/useExamDeleteMutation.ts'
+
+export { useExamDeploymentsMutation } from './hooks/useExamDeploymentsMutation.ts'
+
+export { examDeploymentsSchema } from './schemas/examDeploymentsSchema.ts'

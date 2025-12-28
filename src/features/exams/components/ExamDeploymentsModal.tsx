@@ -1,13 +1,19 @@
-import { BaseModal, Button, TwoSplitInput } from '@components'
+import { BaseModal, Button, showToast, TwoSplitInput } from '@components'
+import {
+  examDeploymentsSchema,
+  useExamDeploymentsMutation,
+} from '@features/exams'
 import { cn } from '@utils'
+import { useState } from 'react'
 
-import { CREATE_INPUT_FIELDS } from './ExamDeploymentsModalConfig'
+import { createInputFields } from './ExamDeploymentsModalConfig'
 
 type ExamDeploymentsModalProps = {
   examName: string
   subjectName: string
   isOpen: boolean
   onClose: () => void
+  examId: number
 }
 
 /**
@@ -22,12 +28,50 @@ export default function ExamDeploymentsModal({
   subjectName,
   isOpen,
   onClose,
+  examId,
 }: ExamDeploymentsModalProps) {
-  const handleDeployments = () => {
-    /**
-     * TODO: 쪽지시험 배포 로직 구현
-     */
+  const [values, setValues] = useState({
+    cohortId: '',
+    durationTime: '',
+    openAt: '',
+    closeAt: '',
+  })
+
+  const updateValue = (key: keyof typeof values, value: string) => {
+    setValues((prev) => ({ ...prev, [key]: value }))
   }
+
+  const { mutate: examDeploymentsRequest, isPending } =
+    useExamDeploymentsMutation(onClose)
+
+  const handleDeployments = () => {
+    const schemaResult = examDeploymentsSchema.safeParse({
+      examId,
+      ...values,
+    })
+
+    if (!schemaResult.success) {
+      const message = schemaResult.error.issues[0].message
+
+      showToast(message, 'fail')
+
+      return
+    }
+    const parsed = schemaResult.data
+
+    examDeploymentsRequest({
+      examId,
+      cohortId: parsed.cohortId,
+      durationTime: parsed.durationTime,
+      openAt: parsed.openAt,
+      closeAt: parsed.closeAt,
+    })
+  }
+
+  const FIELDS = createInputFields({
+    values,
+    updateValue,
+  })
 
   return (
     <BaseModal
@@ -37,27 +81,25 @@ export default function ExamDeploymentsModal({
       title="쪽지시험 배포"
     >
       <div className="px-4">
-        <div className="px-1 pb-2.5">
+        <div className="px-1 py-3 pb-5">
           <p className="text-sm text-neutral-400">시험명 : {examName}</p>
           <p className="text-sm text-neutral-400">과목명 : {subjectName}</p>
         </div>
-        <div className="py-4">
-          {CREATE_INPUT_FIELDS.map((field, index) => (
+        <div className="py-4 pb-10">
+          {FIELDS.map((field, index) => (
             <TwoSplitInput
               key={index}
               label={field.label}
               labelHeight={field.labelHeight}
-              rightSide={field.rightSide}
+              rightSide={field.rightSide()}
               size={field.size}
-              className={cn(
-                index === CREATE_INPUT_FIELDS.length - 1 && 'border-b'
-              )}
+              className={cn(index === FIELDS.length - 1 && 'border-b')}
             />
           ))}
         </div>
-        <div className="flex justify-end pt-2.5 pr-4 pb-6 pl-2.5">
+        <div className="flex justify-end pt-10 pr-4 pb-6 pl-2.5">
           <Button variant="success" size="md" onClick={handleDeployments}>
-            배포
+            {isPending ? '배포중' : '배포'}
           </Button>
         </div>
       </div>

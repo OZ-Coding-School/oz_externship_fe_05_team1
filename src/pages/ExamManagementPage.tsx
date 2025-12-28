@@ -1,12 +1,11 @@
-import type { Exam } from '@exams'
-
 import { type DropdownConfig, FilterSection } from '@components'
 import {
   EmptyState,
+  type Exam,
   ExamCreateModal,
   ExamList,
   ExamQuestionDetailModal,
-} from '@exams'
+} from '@features/exams'
 import { COURSE_LIST_DROPDOWN, SUBJECT_LIST_DROPDOWN } from '@mocks'
 import { useState } from 'react'
 

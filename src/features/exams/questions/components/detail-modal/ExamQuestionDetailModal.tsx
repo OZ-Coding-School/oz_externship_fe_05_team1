@@ -193,6 +193,7 @@ export default function ExamQuestionDetailModal({
           subjectName={exam.subjectName}
           isOpen={isDeploymentsOpen}
           onClose={() => setIsDeploymentsOpen(false)}
+          examId={examId}
         />
       </ExamQuestionDetailModal.Footer>
     </BaseModal>

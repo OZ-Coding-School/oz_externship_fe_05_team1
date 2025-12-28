@@ -1,5 +1,5 @@
 import { BaseModal, type DropdownConfig, FilterSection } from '@components'
-import { type Distribution, DistributionList } from '@exams'
+import { type Distribution, DistributionList } from '@features/exams'
 import { COURSE_LIST_DROPDOWN, SUBJECT_LIST_DROPDOWN } from '@mocks'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router'

@@ -1,5 +1,5 @@
 import { BaseModal, type DropdownConfig, FilterSection } from '@components'
-import { type Submission, SubmissionList } from '@exams'
+import { type Submission, SubmissionList } from '@features/exams'
 import {
   COURSE_LIST_DROPDOWN,
   GENERATION_LIST_DROPDOWN,
@@ -37,7 +37,9 @@ export default function SubmissionHistoryManagementPage() {
     const updatedParams = { ...current, ...newParams }
 
     Object.keys(updatedParams).forEach((key) => {
-      if (!updatedParams[key]) delete updatedParams[key]
+      if (!updatedParams[key]) {
+        delete updatedParams[key]
+      }
     })
 
     setSearchParams(updatedParams)

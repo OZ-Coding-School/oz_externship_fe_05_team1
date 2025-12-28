@@ -24,3 +24,14 @@ export const AllSizes: Story = {
     </div>
   ),
 }
+
+export const DebugRender: Story = {
+  args: {
+    value: '2025-01-01 10:00:00',
+  },
+  argTypes: {
+    value: { control: 'text' },
+    onChange: { action: 'changed' },
+  },
+  render: (args) => <DateInput {...args} />,
+}

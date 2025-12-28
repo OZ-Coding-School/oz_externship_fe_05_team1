@@ -1,4 +1,4 @@
-import { examDeleteRequest } from '@api'
+import { examDeleteRequest } from '@api/exams'
 import { showToast } from '@components'
 import { useMutation } from '@tanstack/react-query'
 

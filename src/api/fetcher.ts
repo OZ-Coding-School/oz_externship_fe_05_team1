@@ -1,7 +1,6 @@
+import { API_BASE_URL } from '@constants'
 import { useAuthStore } from '@stores'
 import axios from 'axios'
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 /**
  * Axios 인스턴스 생성

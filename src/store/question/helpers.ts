@@ -1,4 +1,4 @@
-import type { Question, QuestionType } from '@exams'
+import type { Question, QuestionType } from '@features/exams'
 
 /**
  * 문제 유형별 빈 문제 생성
