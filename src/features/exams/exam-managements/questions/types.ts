@@ -1,18 +1,9 @@
-/**
- * 문제 유형
- * */
-
-export type QuestionType =
-  | 'multiple'
-  | 'trueFalse'
-  | 'shortAnswer'
-  | 'essay'
-  | 'fillBlank'
+import type { QuestionType } from '@constants'
+export type { QuestionType } from '@constants'
 
 /**
  * 문제 데이터
  */
-
 export type Question = {
   // 임시데이터: API전송 시 제외
 
@@ -21,11 +12,11 @@ export type Question = {
 
   // API
   type: QuestionType
+  question: string
   prompt: string
   options: string[] | null
   blank_count: number | null
-  correct_answer: string | string[] | boolean
-  question: string
+  correct_answer: string | string[] | number | number[] | boolean
   point: number
   explanation: string
 }
@@ -37,7 +28,7 @@ export type QuestionPayload = {
   prompt: string
   options: string[] | null
   blank_count: number | null
-  correct_answer: string | string[] | boolean
+  correct_answer: number | string | string[] | number[] | boolean
   point: number
   explanation: string
 }
