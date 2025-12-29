@@ -1,10 +1,9 @@
 import { BaseModal, Button, InfoSection } from '@components'
-
-import { type Distribution } from '../types'
 import {
+  type Distribution,
   getDeploymentInfoRows,
   getExamInfoRows,
-} from './deploymentHistoryModalConfig'
+} from '@features/exams'
 
 type DeploymentsHistoryModalProps = {
   isOpen: boolean

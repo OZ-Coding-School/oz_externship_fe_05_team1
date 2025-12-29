@@ -1,5 +1,5 @@
 import { TwoSplitInfo } from '@components'
-import { type DetailRow } from '@features/exams/components/deploymentHistoryModalConfig'
+import { type DetailRow } from '@features/exams/shared/components/deploymentHistoryModalConfig'
 
 type InfoSectionProps = {
   title: string

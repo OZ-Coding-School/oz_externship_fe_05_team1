@@ -1,4 +1,4 @@
-import type { Distribution } from '../types'
+import type { Distribution } from '@features/exams'
 
 export type DetailRow = {
   label: string

@@ -1,11 +1,11 @@
+import type { Exam } from '@features/exams'
+
 import { Button, DataTableLayout } from '@components'
 import {
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-
-import type { Exam } from '../types.ts'
 
 import { ExamColumns } from './examConfig.tsx'
 
