@@ -4,7 +4,10 @@ export { ExamColumns } from './shared/components/examConfig.tsx'
 export { mockExamList } from '../../mocks/mockExamList.ts'
 export { default as ExamCreateModal } from './shared/components/ExamCreateModal.tsx'
 export { createExamDropdown } from './utils/createExamDropdown.ts'
-export type { ExamQuestion, ExamQuestionResponse } from './types.ts'
+export type {
+  ExamQuestion,
+  ExamQuestionResponse,
+} from './exam-managements/questions/types.ts'
 export { ExamQuestionDetailBody } from './shared/components/detail-modal/ExamQuestionDetailBody.tsx'
 export { ExamQuestionDetailFooter } from './shared/components/detail-modal/ExamQuestionDetailFooter.tsx'
 export { ExamQuestionDetailSide } from './shared/components/detail-modal/ExamQuestionDetailSide.tsx'
@@ -16,14 +19,17 @@ export { default as ExamDeletePopupModal } from './exam-managements/questions/co
 export { default as DistributionList } from './deployments/components/DistributionList.tsx'
 export { default as SubmissionList } from './submissions/components/SubmissionList.tsx'
 export type { Exam, Distribution, Submission } from './types.ts'
-
 export { useExamDeleteMutation } from './queries/useExamDeleteMutation.ts'
-
 export { useExamDeploymentsMutation } from './queries/useExamDeploymentsMutation.ts'
-
 export { examDeploymentsSchema } from './schemas/examDeploymentsSchema.ts'
 export { default as DeploymentHistoryModal } from './shared/components/DeploymentHistoryModal.tsx'
 export * from './shared/components/deploymentHistoryModalConfig.tsx'
 export * from './types.ts'
-
 export { default as QuestionNav } from './shared/components/QuestionNav.tsx'
+export { default as FillBlank } from './shared/components/detail-modal/question-option-renderer/FillBlank.tsx'
+export { default as MultipleChoice } from './shared/components/detail-modal/question-option-renderer/MultipleChoice.tsx'
+export { default as Ordering } from './shared/components/detail-modal/question-option-renderer/Ordering.tsx'
+export { default as Ox } from './shared/components/detail-modal/question-option-renderer/Ox.tsx'
+export { default as ShortAnswer } from './shared/components/detail-modal/question-option-renderer/ShortAnswer.tsx'
+export { default as SingleChoice } from './shared/components/detail-modal/question-option-renderer/SingleChoice.tsx'
+export { default as QuestionOptionRenderer } from './shared/components/detail-modal/question-option-renderer/QuestionOptionRenderer.tsx'

@@ -8,27 +8,29 @@ const meta: Meta<typeof ExamQuestionDetailModal> = {
   tags: ['autodocs'],
   argTypes: {
     isOpen: { control: 'boolean', description: '모달 열림 여부' },
-    examId: { control: 'number', description: '시험 ID' },
+    examId: { control: 'number', description: '시험 ID (Mock에서 사용 안 함)' },
     onClose: { action: 'close', description: '모달 닫기 이벤트' },
+  },
+  parameters: {
+    layout: 'fullscreen',
   },
 }
 
 export default meta
-
 type Story = StoryObj<typeof ExamQuestionDetailModal>
 
 export const Default: Story = {
   args: {
     isOpen: true,
     examId: 1,
+    onClose: () => {},
   },
-  render: (args) => <ExamQuestionDetailModal {...args} />,
 }
 
 export const FiveQuestions: Story = {
   args: {
     isOpen: true,
     examId: 1,
+    onClose: () => {},
   },
-  render: (args) => <ExamQuestionDetailModal {...args} />,
 }

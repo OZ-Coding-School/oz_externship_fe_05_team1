@@ -1,6 +1,9 @@
-import type { ExamQuestionResponse } from '@features/exams'
-
 import { ClosingAngleIcon, OpeningAngleIcon } from '@assets'
+import { QUESTION_TYPE_LABEL } from '@constants'
+import {
+  type ExamQuestionResponse,
+  QuestionOptionRenderer,
+} from '@features/exams'
 
 type ExamQuestionDetailBodyProps = {
   exam: ExamQuestionResponse
@@ -28,45 +31,24 @@ export function ExamQuestionDetailBody({
   return (
     <>
       <div className="mb-2 text-[16px] font-medium text-neutral-400">
-        {question.questionType === 'MULTIPLE_CHOICE'
-          ? '다지선다형'
-          : question.questionType}
+        <span>{QUESTION_TYPE_LABEL[question.type] ?? question.type}</span>
       </div>
       <div className="mb-10 text-lg leading-snug font-semibold">
-        {currentIndex + 1}. {question.question}
+        {currentIndex + 1}. {question.question} {`(${question.point}점)`}
       </div>
       <div className="flex items-start">
         <div className="flex flex-col gap-5">
           <div className="text-sm font-medium text-neutral-500">
-            정답:
-            <span className="text-primary-400">
-              {String.fromCharCode(
-                65 + question.options.indexOf(question.correctAnswer)
-              )}
-            </span>
-          </div>
-          <div className="flex flex-col gap-5">
-            {question.options.map((opt, idx) => (
-              <label
-                key={idx}
-                className="flex cursor-pointer items-center gap-3"
-              >
-                <input
-                  type="radio"
-                  checked={question.correctAnswer === opt}
-                  readOnly
-                  className="h-4 w-4"
-                />
-                <span>{`${String.fromCharCode(65 + idx)}. ${opt}`}</span>
-              </label>
-            ))}
+            <div className="flex flex-col gap-5">
+              <QuestionOptionRenderer question={question} />
+            </div>
           </div>
         </div>
         <div className="ml-auto flex flex-col">
           <div className="mb-2 text-sm font-medium text-neutral-500">해설</div>
           <div className="min-h-59.5 w-83 rounded border border-neutral-200 bg-neutral-100 p-4">
             <p className="text-sm leading-relaxed whitespace-pre-line text-neutral-400">
-              {question.prompt}
+              {question.explanation}
             </p>
           </div>
         </div>
