@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { PointSelect } from '@exams'
+import { PointSelect } from '@features/exams'
 import { useState } from 'react'
 
 const meta: Meta<typeof PointSelect> = {

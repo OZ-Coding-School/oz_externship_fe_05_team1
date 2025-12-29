@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { ExplanationEditor } from '@exams'
+import { ExplanationEditor } from '@features/exams/'
 import { useState } from 'react'
 
 const meta: Meta<typeof ExplanationEditor> = {

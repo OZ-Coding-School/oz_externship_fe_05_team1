@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { QuestionInput } from '@exams'
+import { QuestionInput } from '@features/exams'
 import { useState } from 'react'
 
 const meta: Meta<typeof QuestionInput> = {
