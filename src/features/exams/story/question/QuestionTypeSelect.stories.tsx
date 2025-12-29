@@ -1,7 +1,7 @@
-import type { QuestionType } from '@features/exams/questions/types'
+import type { QuestionType } from '@constants'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { QuestionTypeSelect } from '@exams'
+import { QuestionTypeSelect } from '@features/exams'
 import { useState } from 'react'
 
 const meta: Meta<typeof QuestionTypeSelect> = {

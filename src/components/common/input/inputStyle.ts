@@ -10,13 +10,14 @@ export const inputVariant = cva(
         lg: 'w-[364px] h-[40px]',
         xl: 'w-[500px] h-[40px]',
         xxl: 'w-[690px] h-[40px]',
+        answer: 'px-3 py-2 h-10',
       },
       error: {
         true: 'border-error',
         false: 'border-neutral-200',
       },
       hasClear: {
-        true: 'pr-8',
+        true: 'pr-10',
         false: '',
       },
       twoSplitLabel: {

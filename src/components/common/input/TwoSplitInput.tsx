@@ -26,7 +26,8 @@ function extractWidthFromVariant(
     variant === 'md' ||
     variant === 'lg' ||
     variant === 'xl' ||
-    variant === 'xxl'
+    variant === 'xxl' ||
+    variant === 'answer'
   ) {
     classes = inputVariant({ size: variant })
   } else {

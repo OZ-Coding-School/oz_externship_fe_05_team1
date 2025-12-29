@@ -1,6 +1,6 @@
-import { DropdownMenu } from '@components'
+import type { QuestionType } from '@constants'
 
-import type { QuestionType } from '../../types'
+import { DropdownMenu } from '@components'
 
 // 문제유형옵션
 const QUESTION_TYPE_OPTIONS: { value: QuestionType; label: string }[] = [

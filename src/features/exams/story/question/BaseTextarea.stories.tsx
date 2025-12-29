@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { BaseTextarea } from '@exams'
+import { BaseTextarea } from '@features/exams'
 import { useState } from 'react'
 
 const meta: Meta<typeof BaseTextarea> = {
