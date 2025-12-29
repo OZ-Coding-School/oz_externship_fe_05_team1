@@ -1,8 +1,14 @@
-import type { ExamListParams, ExamListResponse } from '@features/exams'
 import type {
   CreateExamModalPayload,
   ExamDeployRequest,
   UpdateExamModalPayload,
+} from '@features/exams'
+import type {
+  DeploymentDetailResponse,
+  DeploymentListParams,
+  DeploymentListResponse,
+  ExamListParams,
+  ExamListResponse,
 } from '@features/exams'
 
 import { fetcher } from '@api/fetcher'
@@ -12,6 +18,7 @@ import { EXAM_FORM_KEYS, ROUTES_PATHS_ADMIN } from '@constants'
  * 쪽지시험 목록 조회 API
  * @param params - 페이지, 사이즈, 검색어, 과목ID, 정렬기준, 정렬순서
  */
+
 export const examListRequest = async (
   params: ExamListParams
 ): Promise<ExamListResponse> => {
@@ -65,11 +72,29 @@ export const deleteExamRequest = async (examId: number) => {
   return response.data
 }
 
-// Query Key
-export const examKeys = {
-  all: ['exams'] as const,
-  lists: () => [...examKeys.all, 'list'] as const,
-  list: (params: ExamListParams) => [...examKeys.lists(), params] as const,
+export const examDeleteRequest = async (examId: number) => {
+  const response = await fetcher.delete(`${ROUTES_PATHS_ADMIN.EXAM}/${examId}`)
+
+  return response.data
+}
+
+export const getDeploymentsRequest = async (params: DeploymentListParams) => {
+  const response = await fetcher.get<DeploymentListResponse>(
+    `${ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_HISTORY}`,
+    { params }
+  )
+
+  return response.data
+}
+
+export const getDeploymentDetailRequest = async (
+  deploymentId: number
+): Promise<DeploymentDetailResponse> => {
+  const response = await fetcher.get<DeploymentDetailResponse>(
+    `${ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_HISTORY}/${deploymentId}`
+  )
+
+  return response.data
 }
 
 /**
@@ -131,4 +156,11 @@ export const fetchExamDetailRequest = async (examId: number) => {
   const response = await fetcher.get(ROUTES_PATHS_ADMIN.EXAM_EXAMID({ examId }))
 
   return response.data
+}
+
+// Query Key
+export const examKeys = {
+  all: ['exams'] as const,
+  lists: () => [...examKeys.all, 'list'] as const,
+  list: (params: ExamListParams) => [...examKeys.lists(), params] as const,
 }

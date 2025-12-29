@@ -52,7 +52,7 @@ export const DistributionColumns: ColumnDef<Distribution>[] = [
     header: '배포 활성 상태',
     cell: ({ row }) => {
       const isActive =
-        row.original.status?.toLowerCase() === 'active' ||
+        row.original.status?.toLowerCase() === 'activated' ||
         row.original.status === 'activated'
 
       return (

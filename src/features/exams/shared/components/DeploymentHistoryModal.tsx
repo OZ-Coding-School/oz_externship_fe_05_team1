@@ -4,29 +4,44 @@ import {
   getDeploymentInfoRows,
   getExamInfoRows,
 } from '@features/exams'
+import { useDeploymentDetail } from '@features/exams/queries/useDeploymentDetail'
 
 type DeploymentsHistoryModalProps = {
   isOpen: boolean
   onClose: () => void
-  data: Distribution | null
+  deploymentId: number | null
 }
 
 export default function DeploymentsHistoryModal({
   isOpen,
   onClose,
-  data,
+  deploymentId,
 }: DeploymentsHistoryModalProps) {
-  if (!data) {
+  const { data, isLoading } = useDeploymentDetail(deploymentId)
+
+  if (!isOpen || !deploymentId || isLoading) {
     return null
   }
 
-  const infoSections = [
-    {
-      title: '쪽지시험 정보',
-      row: getExamInfoRows(data),
-    },
-    { title: '배포 정보', row: getDeploymentInfoRows(data) },
-  ]
+  const infoSections = data
+    ? [
+        {
+          title: '쪽지시험 정보',
+          row: getExamInfoRows({
+            ...data.exam,
+            deploymentId: data.deployment.deploymentId,
+          } as unknown as Distribution),
+        },
+        {
+          title: '배포 정보',
+          row: getDeploymentInfoRows({
+            ...data.deployment,
+            examTitle: data.exam.examTitle,
+            subjectName: data.exam.subjectName,
+          } as unknown as Distribution),
+        },
+      ]
+    : []
 
   return (
     <BaseModal
