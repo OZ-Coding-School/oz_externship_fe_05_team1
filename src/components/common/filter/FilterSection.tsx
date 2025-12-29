@@ -61,7 +61,7 @@ export default function FilterSection({
           items={dropdown.items}
           selectedValue={selectedValues[dropdown.key] || ''}
           onSelect={(value) => onChangeFilters(dropdown.key, value)}
-          placeHolder={dropdown.placeholder}
+          placeholder={dropdown.placeholder}
         />
       ))}
 
