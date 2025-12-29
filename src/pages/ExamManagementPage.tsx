@@ -1,22 +1,17 @@
-import { type DropdownConfig, FilterSection } from '@components'
+import { FilterSection } from '@components'
+import { EXAM_DROPDOWNS } from '@constants'
 import {
   EmptyState,
   type Exam,
   ExamCreateModal,
+  ExamDeploymentsModal,
   ExamList,
   ExamQuestionDetailModal,
+  transformExam,
+  useExamListQuery,
 } from '@features/exams'
-import { COURSE_LIST_DROPDOWN, SUBJECT_LIST_DROPDOWN } from '@mocks'
+import { useModal } from '@hooks/useModal'
 import { useState } from 'react'
-
-const EXAM_DROPDOWNS: DropdownConfig[] = [
-  { key: 'course', items: COURSE_LIST_DROPDOWN, placeholder: '과정' },
-  { key: 'subject', items: SUBJECT_LIST_DROPDOWN, placeholder: '과목' },
-]
-
-type ExamManagementPageProps = {
-  initialExamInfo?: Exam[]
-}
 
 /**
  * 쪽지시험 관리 페이지
@@ -24,40 +19,34 @@ type ExamManagementPageProps = {
  * - 시험 데이터 유무에 따라 EmptyState 또는 ExamList 렌더링
  * - 스토리북 테스트를 위해 initialInfo = [] 추가
  */
-export default function ExamManagementPage({
-  initialExamInfo = [],
-}: ExamManagementPageProps) {
-  // TODO: API 연동 시 useQuery 등으로 내부에서 시험 목록 fetch 예정
-  const [data, _setData] = useState<Exam[]>(initialExamInfo)
+export default function ExamManagementPage() {
+  const [page] = useState(1)
+  const [size] = useState(10)
+
   const [filters, setFilters] = useState<Record<string, string>>({
     course: '',
     subject: '',
   })
+
   const [search, setSearch] = useState('')
-  const [isExamCreateOpen, setIsExamCreateOpen] = useState(false)
+
+  const { data, isLoading } = useExamListQuery({
+    page,
+    size,
+    searchKeyword: search || undefined,
+    subjectId: filters.subject ? Number(filters.subject) : undefined,
+  })
+
+  // API 응답 -> 프론트타입 변환
+  const exams: Exam[] = data?.exams?.map(transformExam) ?? []
 
   /**
-   * 문제 자세히보기 모달 상태관리
+   * 모달상태
+   * - 시험 생성 페이지로 이동 또는 모달 오픈
    */
-  const [isDetailOpen, setIsDetailOpen] = useState(false)
-  const [selectedExam, setSelectedExam] = useState<Exam | null>(null)
-
-  /**
-   * 쪽지시험 자세히보기 모달 열기
-   * @param exam - 시험 정보
-   */
-  const handleDetailModalOpen = (exam: Exam) => {
-    setSelectedExam(exam)
-    setIsDetailOpen(true)
-  }
-
-  /**
-   * 쪽지시험 자세히보기 모달 닫기
-   */
-  const handleDetailModalClose = () => {
-    setIsDetailOpen(false)
-    setSelectedExam(null)
-  }
+  const createModal = useModal()
+  const detailModal = useModal<Exam>()
+  const deployModal = useModal<Exam>()
 
   /**
    * 필터 값 변경 핸들러
@@ -77,16 +66,6 @@ export default function ExamManagementPage({
     console.log('조회', { filters, search })
   }
 
-  /**
-   * 시험 생성 버튼 클릭 핸들러
-   * - 시험 생성 페이지로 이동 또는 모달 오픈
-   */
-  const handleCreate = () => {
-    // eslint-disable-next-line no-console
-    console.log('시험 생성하기')
-    setIsExamCreateOpen(true)
-  }
-
   return (
     <section className="px-15 py-11">
       <div className="h-192 bg-white px-18 py-8">
@@ -101,27 +80,41 @@ export default function ExamManagementPage({
             onSubmit={handleSearch}
           />
         </div>
-        {data.length === 0 ? (
-          <EmptyState onButtonClick={handleCreate} />
+
+        {isLoading ? (
+          <div>로딩 중...</div>
+        ) : exams.length === 0 ? (
+          <EmptyState onButtonClick={createModal.modalOpen} />
         ) : (
           <ExamList
-            data={data}
-            onButtonClick={handleCreate}
-            onDetailClick={handleDetailModalOpen}
+            data={exams}
+            onButtonClick={createModal.modalOpen}
+            onDetailClick={detailModal.modalOpen}
+            onDeployClick={deployModal.modalOpen}
           />
         )}
-        {isDetailOpen && selectedExam && (
+        {detailModal.data && (
           <ExamQuestionDetailModal
-            examId={selectedExam.id}
-            isOpen={isDetailOpen}
-            onClose={handleDetailModalClose}
+            examId={detailModal.data.id}
+            isOpen={detailModal.isOpen}
+            onClose={detailModal.modalClose}
           />
         )}
 
         <ExamCreateModal
-          isOpen={isExamCreateOpen}
-          onClose={() => setIsExamCreateOpen(false)}
+          isOpen={createModal.isOpen}
+          onClose={createModal.modalClose}
         />
+
+        {deployModal.data && (
+          <ExamDeploymentsModal
+            examId={deployModal.data.id}
+            examName={deployModal.data.title}
+            subjectName={deployModal.data.subjectName}
+            isOpen={deployModal.isOpen}
+            onClose={deployModal.modalClose}
+          />
+        )}
       </div>
     </section>
   )

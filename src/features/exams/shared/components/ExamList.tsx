@@ -13,16 +13,18 @@ type ExamListProps = {
   data: Exam[]
   onButtonClick: () => void
   onDetailClick: (exam: Exam) => void
+  onDeployClick: (exam: Exam) => void
 }
 
 export default function ExamList({
   data,
   onButtonClick,
   onDetailClick,
+  onDeployClick,
 }: ExamListProps) {
   const table = useReactTable({
     data,
-    columns: ExamColumns(onDetailClick),
+    columns: ExamColumns(onDetailClick, onDeployClick),
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   })

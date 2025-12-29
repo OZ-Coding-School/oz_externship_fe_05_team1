@@ -10,7 +10,8 @@ import { Button } from '@components'
  * - 함수형으로 변경 모달 활성화
  */
 export const ExamColumns = (
-  handleDetailModalOpen: (exam: Exam) => void
+  handleDetailModalOpen: (exam: Exam) => void,
+  handleDeployModalOpen: (exam: Exam) => void
 ): ColumnDef<Exam>[] => [
   {
     accessorKey: 'id',
@@ -27,6 +28,7 @@ export const ExamColumns = (
   {
     accessorKey: 'subjectName',
     header: '과목명',
+    cell: ({ row }) => row.index + 1,
   },
   {
     accessorKey: 'questionCount',
@@ -49,15 +51,13 @@ export const ExamColumns = (
     header: '',
     cell: ({ row }) => (
       <div className="flex flex-row gap-3">
-        {row.original.status === 'deployed' ? (
-          <Button variant="success-light" size="sm">
-            배포중
-          </Button>
-        ) : (
-          <Button variant="success" size="sm">
-            배포
-          </Button>
-        )}
+        <Button
+          variant="success"
+          size="sm"
+          onClick={() => handleDeployModalOpen(row.original)}
+        >
+          배포
+        </Button>
         <Button
           variant="primary-light"
           size="sm"

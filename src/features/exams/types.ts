@@ -6,7 +6,34 @@ export type Exam = {
   submissionCount: number
   createdAt: string
   updatedAt: string
-  status: 'deployed' | 'pending'
+  detail_url: string
+}
+
+export type ExamListParams = {
+  page: number
+  size: number
+  searchKeyword?: string
+  subjectId?: number
+  sort?: string
+  order?: 'asc' | 'desc'
+}
+
+export type ExamListResponse = {
+  page: number
+  size: number
+  total_count: number
+  exams: ExamApiItem[]
+}
+
+export type ExamApiItem = {
+  exam_id: number
+  exam_title: string
+  subject_name: string
+  question_count: number
+  submit_count: number
+  created_at: string
+  updated_at: string
+  detail_url: string
 }
 
 export type DeploymentDetailResponse = {
