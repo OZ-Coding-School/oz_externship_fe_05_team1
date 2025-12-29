@@ -1,8 +1,7 @@
+import type { Exam } from '@features/exams'
 import type { ColumnDef } from '@tanstack/react-table'
 
 import { Button } from '@components'
-
-import type { Exam } from '../types'
 
 /**
  * 쪽지시험 목록 테이블 컬럼 설정

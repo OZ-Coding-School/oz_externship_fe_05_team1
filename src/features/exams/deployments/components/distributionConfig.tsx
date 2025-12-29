@@ -1,8 +1,7 @@
+import type { Distribution } from '@features/exams'
 import type { ColumnDef } from '@tanstack/react-table'
 
 import { StatusBadge } from '@components'
-
-import type { Distribution } from '../../types'
 
 /**
  * 쪽지시험 목록 테이블 컬럼 설정

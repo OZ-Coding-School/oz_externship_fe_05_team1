@@ -1,4 +1,4 @@
-import type { Exam } from '../features/exams/types.ts'
+import type { Exam } from '@features/exams'
 
 export const mockExamList: Exam[] = [
   {

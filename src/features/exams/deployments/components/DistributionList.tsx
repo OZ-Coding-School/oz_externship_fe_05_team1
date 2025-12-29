@@ -1,8 +1,8 @@
+import type { Distribution } from '@features/exams'
+
 import { DataTableLayout, type DataTableLayoutProps } from '@components'
 import { PAGE_SIZE } from '@constants'
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
-
-import type { Distribution } from '../../types.ts'
 
 import { DistributionColumns } from './distributionConfig.tsx'
 
