@@ -41,7 +41,6 @@ export default function QuestionNav({
         ))}
       </div>
 
-      {/* 액션 버튼 */}
       {actionButton && <div className="mt-auto pt-4">{actionButton}</div>}
     </nav>
   )
