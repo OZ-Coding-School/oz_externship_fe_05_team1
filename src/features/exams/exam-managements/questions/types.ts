@@ -5,9 +5,9 @@
 export type QuestionType =
   | 'multiple_choice'
   | 'single_choice'
-  | 'ordering'
-  | 'short_answer'
   | 'ox'
+  | 'short_answer'
+  | 'ordering'
   | 'fill_blank'
 
 /**
@@ -38,7 +38,7 @@ export type QuestionPayload = {
   prompt: string
   options: string[] | null
   blank_count: number | null
-  correct_answer: number | string | string[] | number[] | boolean
+  correct_answer: string | string[] | boolean
   point: number
   explanation: string
 }

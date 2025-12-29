@@ -18,6 +18,7 @@ export const createEmptyQuestion = (type: QuestionType): Question => {
 
   switch (type) {
     case 'multiple_choice':
+    case 'single_choice':
       return {
         ...base,
         options: ['', '', '', ''], // 4지선다 기본
