@@ -5,7 +5,7 @@ import { ExamDeploymentsModal } from '@features/exams'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { http, HttpResponse } from 'msw'
 import { useState } from 'react'
-import { MemoryRouter } from 'react-router'
+import { Toaster } from 'react-hot-toast'
 
 const meta: Meta<typeof ExamDeploymentsModal> = {
   title: 'Features/Exam/ExamDeploymentsModal',
@@ -58,7 +58,8 @@ export const Default: Story = {
     const queryClient = new QueryClient()
 
     return (
-      <MemoryRouter>
+      <>
+        <Toaster position="top-right" />
         <QueryClientProvider client={queryClient}>
           <div className="h-200 bg-neutral-100 p-10">
             <button
@@ -77,7 +78,7 @@ export const Default: Story = {
             />
           </div>
         </QueryClientProvider>
-      </MemoryRouter>
+      </>
     )
   },
 }

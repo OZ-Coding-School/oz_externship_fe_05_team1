@@ -155,3 +155,11 @@ export type DeploymentListParams = {
   subjectId?: string
   cohortId?: string
 }
+
+export type ExamDeploymentsPayload = {
+  examId: number
+  cohortId: number
+  durationTime: number
+  openAt: string
+  closeAt: string
+}

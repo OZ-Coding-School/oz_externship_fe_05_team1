@@ -60,7 +60,7 @@ export default function ExamDeploymentsModal({
     const parsed = schemaResult.data
 
     createExamDeploymentsRequest({
-      examId,
+      examId: parsed.examId,
       cohortId: parsed.cohortId,
       durationTime: parsed.durationTime,
       openAt: parsed.openAt,

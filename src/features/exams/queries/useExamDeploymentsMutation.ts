@@ -1,4 +1,6 @@
-import { createExamDeploymentsRequest } from '@api'
+import type { ExamDeploymentsPayload } from '@features/exams'
+
+import { examDeploymentsRequest } from '@api'
 import { showToast } from '@components'
 import { ROUTES_PATHS } from '@constants'
 import { useMutation } from '@tanstack/react-query'
@@ -8,7 +10,8 @@ export const useExamDeploymentsMutation = (onClose: () => void) => {
   const navigate = useNavigate()
 
   return useMutation({
-    mutationFn: createExamDeploymentsRequest,
+    mutationFn: (payload: ExamDeploymentsPayload) =>
+      examDeploymentsRequest(payload),
 
     onSuccess: (data) => {
       // eslint-disable-next-line no-console

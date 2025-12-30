@@ -7,11 +7,13 @@ export const examDeploymentsSchema = z
       .string()
       .trim()
       .min(1, '기수를 입력해주세요.')
+      .regex(/^\d+$/, '기수는 숫자로 입력해주세요.')
       .transform((v) => Number(v)),
     durationTime: z
       .string()
       .trim()
       .min(1, '시험 시간을 입력해주세요.')
+      .regex(/^\d+$/, '시험 시간은 숫자로 입력해주세요.')
       .transform((v) => Number(v)),
     openAt: z.string().min(1, '시작일시를 선택해주세요.'),
     closeAt: z.string().min(1, '종료일시를 선택해주세요.'),
