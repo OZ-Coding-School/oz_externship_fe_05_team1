@@ -2,7 +2,7 @@ import { cn } from '@utils'
 import { useId, useRef } from 'react'
 
 import { DropdownList } from './DropdownList'
-import { getSelectedLabel } from './dropdownMenuStyle'
+import { type DropdownSize, getSelectedLabel } from './dropdownMenuStyle'
 import { DropdownTrigger } from './DropdownTrigger'
 import { useDropdown } from './useDropdown'
 
@@ -15,7 +15,8 @@ export type DropdownMenuProps = {
   items: DropdownItem[]
   selectedValue: string
   onSelect: (value: string) => void
-  placeHolder?: string
+  placeholder?: string
+  size?: DropdownSize
   className?: string
 }
 
@@ -23,8 +24,9 @@ export default function DropdownMenu({
   items,
   selectedValue,
   onSelect,
-  placeHolder,
+  placeholder,
   className,
+  size = 'md',
 }: DropdownMenuProps) {
   const menuId = useId()
   const buttonRef = useRef<HTMLButtonElement | null>(null)
@@ -45,7 +47,7 @@ export default function DropdownMenu({
     buttonRef,
   })
 
-  const displayLabel = getSelectedLabel(items, selectedValue, placeHolder)
+  const displayLabel = getSelectedLabel(items, selectedValue, placeholder)
 
   return (
     <div
@@ -63,6 +65,7 @@ export default function DropdownMenu({
         isOpen={isOpen}
         onClick={() => setIsOpen((prev) => !prev)}
         buttonRef={buttonRef}
+        size={size}
       />
       {isOpen && (
         <DropdownList
@@ -73,6 +76,7 @@ export default function DropdownMenu({
           onItemClick={handleItemClick}
           onMouseEnterItem={setFocusedIndex}
           itemRefs={itemRefs}
+          size={size}
         />
       )}
     </div>

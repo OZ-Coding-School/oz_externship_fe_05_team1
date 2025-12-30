@@ -63,7 +63,7 @@ const createInputFields = ({
           items={SUBJECT_LIST_DROPDOWN}
           selectedValue={subjectId}
           onSelect={setSubjectId}
-          placeHolder="과목을 선택하세요"
+          placeholder="과목을 선택하세요"
           className="w-full"
         />
       ),

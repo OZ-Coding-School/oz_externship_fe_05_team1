@@ -4,7 +4,10 @@ import { cn } from '@utils'
 
 import type { DropdownItem } from './DropdownMenu'
 
-import { DROPDOWN_STYLE_CLASSNAMES } from './dropdownMenuStyle'
+import {
+  DROPDOWN_STYLE_CLASSNAMES,
+  type DropdownSize,
+} from './dropdownMenuStyle'
 
 export type DropdownListProps = {
   id: string
@@ -14,16 +17,17 @@ export type DropdownListProps = {
   onItemClick: (value: string) => void
   onMouseEnterItem: (index: number) => void
   itemRefs: React.MutableRefObject<Array<HTMLDivElement | null>>
+  size?: DropdownSize
 }
 
-export const DropdownList = ({
+export function DropdownList({
   items,
   selectedValue,
   focusedIndex,
   onItemClick,
   onMouseEnterItem,
   itemRefs,
-}: DropdownListProps) => {
+}: DropdownListProps) {
   const handleSelect = (item: DropdownItem) => {
     onItemClick(item.value)
   }

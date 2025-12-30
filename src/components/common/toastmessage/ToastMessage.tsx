@@ -1,10 +1,4 @@
-import {
-  CheckIcon,
-  ErrorIcon,
-  FailCloseIcon,
-  SuccessCloseIcon,
-  XbuttonIcon,
-} from '@assets'
+import { CheckIcon, ErrorIcon, FailCloseIcon, SuccessCloseIcon } from '@assets'
 import { cn } from '@utils'
 import { toast } from 'react-hot-toast'
 
@@ -26,22 +20,19 @@ const getStyles = (variant: ToastVariant) => {
       return {
         mainIcon: <CheckIcon />,
         closeIcon: <SuccessCloseIcon />,
-        color: 'bg-white',
-        messageColor: 'text-gray-900',
+        barColor: 'bg-[#1BD171]',
       }
     case 'fail':
       return {
         mainIcon: <ErrorIcon />,
         closeIcon: <FailCloseIcon />,
-        color: 'bg-white',
-        messageColor: 'text-gray-900',
+        barColor: 'bf-[#ff5a5a]',
       }
     default:
       return {
         mainIcon: null,
-        closeIcon: <XbuttonIcon />,
-        color: 'bg-white',
-        messageColor: 'text-gray-900',
+        closeIcon: <SuccessCloseIcon />,
+        color: 'bg-gray-400',
       }
   }
 }
@@ -56,26 +47,37 @@ const ToastMessage = ({
   return (
     <div
       className={cn(
-        'ring-opacity-5 flex w-full max-w-md transform items-center rounded-lg p-4 shadow-lg ring-1 ring-black transition-all duration-300',
-        styles.color
+        'flex items-center transition-all duration-300 ease-out',
+        toastInstance.visible
+          ? 'translate-y-0 opacity-100'
+          : '-translate-y-5 opacity-0'
       )}
-      style={{
-        opacity: toastInstance.visible ? 1 : 0,
-        transform: `translateY(${toastInstance.visible ? 0 : -100}%)`,
-      }}
     >
-      <div className="shrink-0">{styles.mainIcon}</div>
-      <div className="ml-3 flex-1">
-        <p className={cn(`text-sm font-medium`, styles.messageColor)}>
-          {message}
-        </p>
-      </div>
-      <div className="ml-4 flex shrink-0">
+      <div
+        className={cn(
+          `relative flex h-12 min-w-100 items-center gap-3`,
+          'rounded-2xl border border-[#fbfbfb] bg-white',
+          'py-3 pr-4 pl-5',
+          'shadow-[0px_16px_20px_8px_rgba(3,5,18,0.1)]',
+          'overflow-hidden'
+        )}
+      >
+        <div
+          className={cn(
+            'absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2',
+            'h-12 w-4 shrink-0 rounded-full',
+            styles.barColor
+          )}
+        />
+
+        <div className="shrink-0">{styles.mainIcon}</div>
+
+        <p className="flex-1 text-sm font-medium text-gray-900">{message}</p>
+
         <button
           onClick={() => toast.dismiss(toastInstance.id)}
-          className={`rounded-md p-1 transition duration-150 ease-in-out focus:outline-none`}
+          className="shrink-0"
         >
-          <span className="sr-only">Close</span>
           {styles.closeIcon}
         </button>
       </div>
