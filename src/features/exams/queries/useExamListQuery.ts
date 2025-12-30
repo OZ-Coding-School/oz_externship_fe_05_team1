@@ -1,4 +1,4 @@
-import { examListRequest } from '@api/exams'
+import { examKeys, examListRequest } from '@api/exams'
 import { useQuery } from '@tanstack/react-query'
 
 import type { ExamListParams } from '../types'
@@ -8,6 +8,6 @@ import type { ExamListParams } from '../types'
  */
 export const useExamListQuery = (params: ExamListParams) =>
   useQuery({
-    queryKey: ['examList', params],
+    queryKey: examKeys.list(params),
     queryFn: () => examListRequest(params),
   })

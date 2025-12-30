@@ -6,7 +6,7 @@ export type Exam = {
   submissionCount: number
   createdAt: string
   updatedAt: string
-  detail_url: string
+  detailUrl: string
 }
 
 export type ExamListParams = {

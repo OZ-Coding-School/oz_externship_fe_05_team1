@@ -31,7 +31,9 @@ export const useModal = <T = null>() => {
   const [data, setData] = useState<T | null>(null)
 
   const modalOpen = (item?: T) => {
-    if (item !== undefined) setData(item)
+    if (item !== undefined) {
+      setData(item)
+    }
     setIsOpen(true)
   }
 

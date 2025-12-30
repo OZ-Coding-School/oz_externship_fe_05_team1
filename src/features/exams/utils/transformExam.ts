@@ -8,5 +8,5 @@ export const transformExam = (item: ExamApiItem): Exam => ({
   submissionCount: item.submit_count,
   createdAt: item.created_at,
   updatedAt: item.updated_at,
-  detail_url: item.detail_url,
+  detailUrl: item.detail_url,
 })
