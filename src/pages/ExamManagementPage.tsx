@@ -3,8 +3,8 @@ import { EXAM_DROPDOWNS, PAGE_SIZE } from '@constants'
 import {
   EmptyState,
   type Exam,
-  ExamCreateModal,
   ExamDeploymentsModal,
+  ExamFormModal,
   ExamList,
   ExamQuestionDetailModal,
   transformExam,
@@ -63,6 +63,7 @@ export default function ExamManagementPage() {
   const createModal = useModal()
   const detailModal = useModal<Exam>()
   const deployModal = useModal<Exam>()
+  const updateModal = useModal<Exam>()
 
   /**
    * 필터 값 변경 핸들러
@@ -101,6 +102,7 @@ export default function ExamManagementPage() {
         pageIndex={Number(page) - 1}
         onPageChange={(index) => updateParams({ page: String(index + 1) })}
         onButtonClick={createModal.modalOpen}
+        onExamUpdateClick={updateModal.modalOpen}
         onDetailClick={detailModal.modalOpen}
         onDeployClick={deployModal.modalOpen}
       />
@@ -130,9 +132,14 @@ export default function ExamManagementPage() {
           />
         )}
 
-        <ExamCreateModal
-          isOpen={createModal.isOpen}
-          onClose={createModal.modalClose}
+        <ExamFormModal
+          isOpen={createModal.isOpen || updateModal.isOpen}
+          onClose={() => {
+            createModal.modalClose()
+            updateModal.modalClose()
+          }}
+          modalMode={updateModal.isOpen ? 'update' : 'create'}
+          examId={updateModal.data?.id}
         />
 
         {deployModal.data && (

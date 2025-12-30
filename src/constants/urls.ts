@@ -3,6 +3,7 @@ export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 export const ROUTES_PATHS = {
   MAIN: '/',
   EXAM: '/exams',
+  EXAM_QUESTIONS: '/exams/questions',
   EXAM_DISTRIBUTION_HISTORY: '/exams/deployments',
   EXAM_SUBMISSION_HISTORY: '/exams/submissions',
   NOT_FOUND: '*',
@@ -12,6 +13,7 @@ export const ROUTES_PATHS = {
  * API 호출할 때 사용하는 상수
  */
 export const ROUTES_PATHS_ADMIN = {
+  EXAM_EXAMID: ({ examId }: { examId: number }) => `/admin/exams/${examId}`,
   EXAM: '/admin/exams',
   EXAM_DISTRIBUTION_HISTORY: '/admin/exams/deployments',
   EXAM_SUBMISSION_HISTORY: '/admin/exams/submissions',

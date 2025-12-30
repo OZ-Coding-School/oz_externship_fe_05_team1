@@ -58,13 +58,30 @@ export function TableBody<TData>({
             onRowClick && 'cursor-pointer',
             row.getIsSelected() && 'bg-primary-light'
           )}
-          onClick={() => onRowClick?.(row.original)}
         >
-          {row.getVisibleCells().map((cell) => (
-            <td key={cell.id} className={tdVariants({ size })}>
-              {flexRender(cell.column.columnDef.cell, cell.getContext())}
-            </td>
-          ))}
+          {row.getVisibleCells().map((cell) => {
+            const isTitleColumn = cell.column.id === 'title'
+
+            return (
+              <td
+                key={cell.id}
+                className={cn(
+                  tdVariants({ size }),
+                  isTitleColumn &&
+                    'hover:text-primary-700 cursor-pointer text-primary-400 underline'
+                )}
+                onClick={(e) => {
+                  if (!isTitleColumn) {
+                    return
+                  }
+                  e.stopPropagation()
+                  onRowClick?.(row.original)
+                }}
+              >
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              </td>
+            )
+          })}
         </tr>
       ))}
     </tbody>

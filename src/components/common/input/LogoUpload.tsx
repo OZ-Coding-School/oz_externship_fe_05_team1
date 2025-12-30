@@ -4,15 +4,23 @@ import UploadIcon from './UploadIcon'
 
 type LogoUploadProps = {
   onChange?: (file: File | null, previewUrl: string | null) => void
+  initialPreview?: string
 }
 
 /**
  * 로고 업로드
  * @param onChange - 파일 선택 시 콜백
+ * @param initialPreview - 최초 이미지파일 URL
  */
-export default function LogoUpload({ onChange, ...props }: LogoUploadProps) {
+export default function LogoUpload({
+  onChange,
+  initialPreview,
+  ...props
+}: LogoUploadProps) {
   const { fileInputRef, preview, fileName, handleOpenFile, handleFileChange } =
     useImageUpload(onChange)
+
+  const logoPreview = preview ?? initialPreview ?? null
 
   return (
     <div className="flex flex-col justify-center gap-3">
@@ -20,8 +28,12 @@ export default function LogoUpload({ onChange, ...props }: LogoUploadProps) {
         className="flex h-33 w-35 cursor-pointer items-center justify-center border border-neutral-300 bg-neutral-200"
         onClick={handleOpenFile}
       >
-        {preview ? (
-          <img src={preview} alt="logo preview" className="object-cover p-4" />
+        {logoPreview ? (
+          <img
+            src={logoPreview}
+            alt="logo preview"
+            className="object-cover p-4"
+          />
         ) : (
           <UploadIcon />
         )}

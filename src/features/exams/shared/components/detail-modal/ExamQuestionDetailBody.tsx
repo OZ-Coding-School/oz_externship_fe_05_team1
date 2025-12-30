@@ -1,5 +1,5 @@
 import { ClosingAngleIcon, OpeningAngleIcon } from '@assets'
-import { QUESTION_TYPE_LABEL } from '@constants'
+import { QUESTION_TYPE_OPTIONS } from '@constants'
 import {
   type ExamQuestionResponse,
   QuestionOptionRenderer,
@@ -28,10 +28,14 @@ export function ExamQuestionDetailBody({
 }: ExamQuestionDetailBodyProps) {
   const question = exam.questions[currentIndex]
 
+  const typeLabel =
+    QUESTION_TYPE_OPTIONS.find((opt) => opt.value === question.type)?.label ??
+    question.type
+
   return (
     <>
       <div className="mb-2 text-[16px] font-medium text-neutral-400">
-        <span>{QUESTION_TYPE_LABEL[question.type] ?? question.type}</span>
+        <span>{typeLabel}</span>
       </div>
       <div className="mb-10 text-lg leading-snug font-semibold">
         {currentIndex + 1}. {question.question} {`(${question.point}점)`}

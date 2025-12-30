@@ -18,11 +18,11 @@ export default function ExamDeletePopupModal({
   onClose,
   examId,
 }: ExamDeletePopupModalProps) {
-  const { mutate: examDeleteRequest, isPending } =
+  const { mutate: deleteExamRequest, isPending } =
     useExamDeleteMutation(onClose)
 
   const handleExamDeleteClick = () => {
-    examDeleteRequest(examId)
+    deleteExamRequest(examId)
   }
 
   return (

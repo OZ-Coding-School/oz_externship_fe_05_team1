@@ -1,19 +1,19 @@
-import { createExamDeploymentsRequest } from '@api'
+import { updateExamRequest } from '@api/exams'
 import { showToast } from '@components'
 import { ROUTES_PATHS } from '@constants'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 
-export const useExamDeploymentsMutation = (onClose: () => void) => {
+export const useExamUpdateMutation = (onClose: () => void) => {
   const navigate = useNavigate()
 
   return useMutation({
-    mutationFn: createExamDeploymentsRequest,
+    mutationFn: updateExamRequest,
 
     onSuccess: (data) => {
       // eslint-disable-next-line no-console
       console.log(data)
-      showToast('배포가 완료되었습니다.', 'success')
+      showToast('시험이 수정 되었습니다.', 'success')
 
       onClose()
 
@@ -23,7 +23,7 @@ export const useExamDeploymentsMutation = (onClose: () => void) => {
     onError: (error) => {
       // eslint-disable-next-line no-console
       console.error(error)
-      showToast('배포 중 오류가 발생했습니다.', 'fail')
+      showToast('시험 수정 중 오류가 발생했습니다.', 'fail')
     },
   })
 }

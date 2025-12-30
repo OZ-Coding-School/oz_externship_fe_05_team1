@@ -96,3 +96,23 @@ export type Distribution = {
   closeAt?: string
   questionCount: number
 }
+
+export type ExamDetailResponse = {
+  examId: number
+  examTitle: string
+  subjectId: number
+  thumbnailImg: string | null
+}
+
+export type CreateExamModalPayload = {
+  title: string
+  subjectId: string
+  logoFile: File
+}
+
+export type UpdateExamModalPayload = {
+  examId: number
+  title: string
+  subjectId: string
+  logoFile: File
+}

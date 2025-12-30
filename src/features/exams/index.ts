@@ -2,7 +2,7 @@ export { default as EmptyState } from './shared/components/EmptyState.tsx'
 export { default as ExamList } from './shared/components/ExamList.tsx'
 export { ExamColumns } from './shared/components/examConfig.tsx'
 export { mockExamList } from '../../mocks/mockExamList.ts'
-export { default as ExamCreateModal } from './shared/components/ExamCreateModal.tsx'
+export { default as ExamFormModal } from './shared/components/ExamFormModal.tsx'
 export { createExamDropdown } from './utils/createExamDropdown.ts'
 export type {
   ExamQuestion,
@@ -40,3 +40,6 @@ export { default as QuestionInput } from '../exams/questions/components/editor/Q
 export { default as QuestionTypeSelect } from '../exams/questions/components/editor/QuestionTypeSelect.tsx'
 export { transformExam } from './utils/transformExam.ts'
 export { useExamListQuery } from './queries/useExamListQuery.ts'
+export { useExamCreateMutation } from './queries/useExamCreateMutation.ts'
+export { useExamUpdateMutation } from './queries/useExamUpdateMutation.ts'
+export { useExamDetailQuery } from './queries/useExamDetailQuery.ts'
