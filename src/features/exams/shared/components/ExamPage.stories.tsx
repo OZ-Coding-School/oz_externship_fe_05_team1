@@ -24,7 +24,7 @@ const mockExams: Exam[] = [
     submissionCount: 10,
     createdAt: '2025.02.01 11:22:28',
     updatedAt: '2025.02.28 11:22:28',
-    detail_url: '/exams/1',
+    detailUrl: '/exams/1',
   },
   {
     id: 2,
@@ -34,7 +34,7 @@ const mockExams: Exam[] = [
     submissionCount: 25,
     createdAt: '2025.02.05 09:00:00',
     updatedAt: '2025.02.27 14:30:00',
-    detail_url: '/exams/2',
+    detailUrl: '/exams/2',
   },
   {
     id: 3,
@@ -44,7 +44,7 @@ const mockExams: Exam[] = [
     submissionCount: 15,
     createdAt: '2025.02.10 10:00:00',
     updatedAt: '2025.02.26 16:00:00',
-    detail_url: '/exams/3',
+    detailUrl: '/exams/3',
   },
 ]
 
