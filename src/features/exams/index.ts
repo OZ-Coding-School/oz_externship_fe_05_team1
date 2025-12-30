@@ -49,3 +49,7 @@ export * from './queries/useDeploymentList.ts'
 export * from './queries/useDeploymentDetail.ts'
 export { useExamDetailState } from './shared/hooks/useExamDetailState.ts'
 export * from './queries/useCourseCohortListQuery.ts'
+export {
+  getExamDetailRows,
+  getSubmissionDetailRows,
+} from '../exams/shared/components/submissionDetailModalConfig.tsx'

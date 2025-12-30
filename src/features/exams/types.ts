@@ -38,15 +38,25 @@ export type ExamApiItem = {
 
 export type Submission = {
   id: number
+  submissionId: number
   title: string
+  examTitle: string
   subjectName: string
   nickname: string
+  userName: string
   courseName: string
   generation: number
+  generationNumber: number
   cheatingCount: number
   score: number
+  correctCount: number
+  totalCount: number
+  timeLimit: number
+  openedAt: string
+  closedAt: string
   startedAt: string
   endedAt: string
+  spentTime: string
 }
 
 export type Distribution = {
