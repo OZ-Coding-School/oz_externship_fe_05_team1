@@ -12,7 +12,8 @@
     "preview": "vite preview",
     "prepare": "husky",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "chromatic": "chromatic"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -60,6 +61,7 @@
     "@vitejs/plugin-react": "^4.4.1",
     "@vitest/browser-playwright": "^4.0.15",
     "@vitest/coverage-v8": "^4.0.15",
+    "chromatic": "^13.3.4",
     "eslint": "^9.25.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-jsx-a11y": "^6.10.2",
