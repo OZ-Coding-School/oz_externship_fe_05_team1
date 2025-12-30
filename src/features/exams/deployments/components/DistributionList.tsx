@@ -3,8 +3,9 @@ import type { Distribution } from '@features/exams'
 import { DataTableLayout, type DataTableLayoutProps } from '@components'
 import { PAGE_SIZE } from '@constants'
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import { useMemo } from 'react'
 
-import { DistributionColumns } from './distributionConfig.tsx'
+import { getDistributionColumns } from './distributionConfig.tsx'
 
 type DistributionListProps = {
   data: Distribution[]
@@ -23,9 +24,11 @@ export default function DistributionList({
   onRowClick,
   isLoading,
 }: DistributionListProps) {
+  const columns = useMemo(() => getDistributionColumns(), [])
+
   const table = useReactTable({
     data,
-    columns: DistributionColumns,
+    columns,
     pageCount,
     state: {
       pagination: {
@@ -45,7 +48,7 @@ export default function DistributionList({
   })
 
   return (
-    <div className="flex flex-col">
+    <div className="relative flex flex-col">
       {isLoading && (
         <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/60 backdrop-blur-[1px]">
           <div className="flex flex-col items-center gap-2">

@@ -18,7 +18,6 @@ import { EXAM_FORM_KEYS, ROUTES_PATHS_ADMIN } from '@constants'
  * 쪽지시험 목록 조회 API
  * @param params - 페이지, 사이즈, 검색어, 과목ID, 정렬기준, 정렬순서
  */
-
 export const examListRequest = async (
   params: ExamListParams
 ): Promise<ExamListResponse> => {
@@ -74,6 +73,22 @@ export const deleteExamRequest = async (examId: number) => {
 
 export const examDeleteRequest = async (examId: number) => {
   const response = await fetcher.delete(`${ROUTES_PATHS_ADMIN.EXAM}/${examId}`)
+
+  return response.data
+}
+
+export const examDeploymentsRequest = async (body: ExamDeployRequest) => {
+  const payload = {
+    exam_id: body.examId,
+    cohort_id: body.cohortId,
+    duration_time: body.durationTime,
+    open_at: body.openAt,
+    close_at: body.closeAt,
+  }
+  const response = await fetcher.post(
+    `${ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_HISTORY}`,
+    payload
+  )
 
   return response.data
 }
@@ -163,4 +178,36 @@ export const examKeys = {
   all: ['exams'] as const,
   lists: () => [...examKeys.all, 'list'] as const,
   list: (params: ExamListParams) => [...examKeys.lists(), params] as const,
+}
+
+export const updateDeploymentRequest = async (
+  deploymentId: number,
+  body: { openAt: string; closeAt: string; durationTime: number }
+) => {
+  const response = await fetcher.patch(
+    `${ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_HISTORY}/${deploymentId}`,
+    body
+  )
+
+  return response.data
+}
+
+export const updateDeploymentStatusRequest = async (
+  deploymentId: number,
+  status: string
+) => {
+  const response = await fetcher.patch(
+    `${ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_HISTORY}/${deploymentId}/status`,
+    { status }
+  )
+
+  return response.data
+}
+
+export const deleteDeploymentRequest = async (deploymentId: number) => {
+  const response = await fetcher.delete(
+    `${ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_HISTORY}/${deploymentId}`
+  )
+
+  return response.data
 }

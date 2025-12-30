@@ -11,6 +11,7 @@ export const inputVariant = cva(
         xl: 'w-[500px] h-[40px]',
         xxl: 'w-[690px] h-[40px]',
         answer: 'px-3 py-2 h-10',
+        full: 'w-[830px] h-[40px]',
       },
       error: {
         true: 'border-error',

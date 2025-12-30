@@ -6,5 +6,4 @@ export const useDeploymentDetail = (deploymentId: number | null) =>
     queryKey: ['deployments', 'detail', deploymentId],
     queryFn: () => getDeploymentDetailRequest(deploymentId as number),
     enabled: !!deploymentId,
-    staleTime: 5 * 60 * 1000,
   })

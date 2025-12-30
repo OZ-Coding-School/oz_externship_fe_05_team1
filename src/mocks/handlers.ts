@@ -156,7 +156,10 @@ export const storyHandlers = {
   manyItems: [examListHandlers.manyItems],
 }
 
+import { examHandlers } from './examHandlers'
+
 export const handlers = [
+  ...examHandlers,
   http.get('/api/hello', () =>
     HttpResponse.json({ message: 'Hello, world!', code: 200 })
   ),

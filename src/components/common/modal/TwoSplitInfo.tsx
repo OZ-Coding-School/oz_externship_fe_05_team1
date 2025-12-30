@@ -10,6 +10,7 @@ type TwoSplitInfoProps = {
   labelHeight?: number
   className?: string
   isLink?: boolean
+  isFullWidth?: boolean
 }
 
 /**
@@ -18,15 +19,10 @@ type TwoSplitInfoProps = {
 function extractWidthFromVariant(
   variant: InputVariant['size'] | InputVariant['twoSplitLabel']
 ) {
-  const classes =
-    variant === 'sm' ||
-    variant === 'md' ||
-    variant === 'lg' ||
-    variant === 'xl' ||
-    variant === 'xxl' ||
-    variant === 'answer'
-      ? inputVariant({ size: variant })
-      : inputVariant({ twoSplitLabel: variant })
+  const classes = inputVariant({
+    size: (variant === 'primary' ? 'md' : variant) as InputVariant['size'],
+    twoSplitLabel: variant === 'primary' ? 'primary' : undefined,
+  })
 
   const match = classes.match(/w-\[(\d+)px]/)
 
@@ -40,9 +36,12 @@ export default function TwoSplitInfo({
   labelHeight = 45,
   className,
   isLink = false,
+  isFullWidth = false,
 }: TwoSplitInfoProps) {
+  const labelWidth = extractWidthFromVariant('primary')
   const baseWidth = extractWidthFromVariant(size)
-  const computedWidth = baseWidth + extractWidthFromVariant('primary')
+
+  const computedWidth = isFullWidth ? baseWidth : baseWidth + labelWidth
 
   return (
     <div
@@ -52,10 +51,9 @@ export default function TwoSplitInfo({
       )}
       style={{ width: `${computedWidth}px` }}
     >
-      {/* 왼쪽 라벨 영역: bg-neutral-50 적용 */}
       <div
         className={cn(
-          `flex items-center border-r border-neutral-200 bg-neutral-50 px-4 text-[13px] font-medium text-neutral-500`,
+          `flex items-center border-neutral-200 bg-neutral-50 px-4 text-[13px] font-medium text-neutral-500`,
           inputVariant({ twoSplitLabel: 'primary' })
         )}
         style={{ height: `${labelHeight}px` }}
