@@ -27,7 +27,7 @@ export default function ExplanationEditor({
       <div>
         <MDEditor
           value={value}
-          onChange={(v) => onChange(v || '')}
+          onChange={(value) => onChange(value || '')}
           height={210}
           preview="edit"
           hideToolbar={false}

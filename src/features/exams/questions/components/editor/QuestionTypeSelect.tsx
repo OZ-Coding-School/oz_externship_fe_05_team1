@@ -1,15 +1,5 @@
-import type { QuestionType } from '@constants'
-
 import { DropdownMenu } from '@components'
-
-// 문제유형옵션
-const QUESTION_TYPE_OPTIONS: { value: QuestionType; label: string }[] = [
-  { value: 'multiple_choice', label: '다지선다형' },
-  { value: 'ox', label: '참/거짓형 (O/X)' },
-  { value: 'ordering', label: '순서 정렬' },
-  { value: 'short_answer', label: '주관식 단답형' },
-  { value: 'fill_blank', label: '빈칸 채우기' },
-]
+import { QUESTION_TYPE_OPTIONS, type QuestionType } from '@constants'
 
 type QuestionTypeSelectProps = {
   value: QuestionType

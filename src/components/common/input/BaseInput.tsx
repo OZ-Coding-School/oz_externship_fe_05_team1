@@ -7,7 +7,7 @@ export type BaseInputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   'size'
 > &
-  InputVariant & {
+  Omit<InputVariant, 'hasClear'> & {
     className?: string
     value?: string
     onChange?: React.ChangeEventHandler<HTMLInputElement>
@@ -18,7 +18,7 @@ export type BaseInputProps = Omit<
  * 베이스 인풋 컴포넌트
  * @param size - 인풋 사이즈 ('sm' | 'md' | 'lg' | 'xl')
  * @param error - 인풋 에러 불린
- * @param hasClear - 인풋 x 버튼 - 인풋 내용 삭제
+ * @param hasClear - 인풋 x 버튼 - 인풋 내용 삭제(내부에서만사용)
  * @param onClear - x 버튼 클릭 시 인풋 내용 삭제
  */
 export default function BaseInput({

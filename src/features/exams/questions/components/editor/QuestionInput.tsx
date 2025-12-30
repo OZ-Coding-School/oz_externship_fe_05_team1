@@ -12,10 +12,13 @@ type QuestionInputProps = {
 /**
  * 문제 내용 입력
  */
+
+const DEFAULT_PLACEHOLDER = '문제를 입력하세요'
+
 export default function QuestionInput({
   value,
   onChange,
-  placeholder = '문제를 입력하세요',
+  placeholder = DEFAULT_PLACEHOLDER,
   className,
   error = false,
 }: QuestionInputProps) {
