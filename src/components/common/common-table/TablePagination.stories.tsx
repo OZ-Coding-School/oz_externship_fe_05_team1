@@ -6,8 +6,8 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 
-import { TablePagination } from '../TablePagination'
 import { mockUsers, userColumns } from './table-mock-data'
+import { TablePagination } from './TablePagination'
 
 const meta: Meta = {
   title: 'Components/TablePagination',

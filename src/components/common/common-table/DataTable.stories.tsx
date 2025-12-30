@@ -6,7 +6,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 
-import { DataTable } from '../DataTable'
+import { DataTable } from './DataTable'
 import { mockUsers, userColumns } from './table-mock-data'
 
 const meta: Meta = {
