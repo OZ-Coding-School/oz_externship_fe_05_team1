@@ -32,7 +32,7 @@ export default function PointSelect({
       items={POINT_OPTIONS}
       selectedValue={String(value)}
       onSelect={(v) => onChange(Number(v))}
-      placeHolder="배점"
+      placeholder="배점"
       className={className}
     />
   )

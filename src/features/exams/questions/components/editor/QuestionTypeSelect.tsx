@@ -30,7 +30,7 @@ export default function QuestionTypeSelect({
       items={QUESTION_TYPE_OPTIONS}
       selectedValue={value}
       onSelect={(v) => onChange(v as QuestionType)}
-      placeHolder="문제 유형"
+      placeholder="문제 유형"
       className={className}
     />
   )

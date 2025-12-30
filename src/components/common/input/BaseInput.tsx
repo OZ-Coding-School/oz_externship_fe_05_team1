@@ -49,7 +49,6 @@ export default function BaseInput({
       />
       {showClear && (
         <button
-          type="button"
           onClick={onClear}
           className="absolute top-1/2 right-2 -translate-0.5"
         >
