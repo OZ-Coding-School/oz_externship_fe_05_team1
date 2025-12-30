@@ -38,3 +38,5 @@ export { default as ExplanationEditor } from '../exams/questions/components/edit
 export { default as PointSelect } from '../exams/questions/components/editor/PointSelect.tsx'
 export { default as QuestionInput } from '../exams/questions/components/editor/QuestionInput.tsx'
 export { default as QuestionTypeSelect } from '../exams/questions/components/editor/QuestionTypeSelect.tsx'
+export { transformExam } from './utils/transformExam.ts'
+export { useExamListQuery } from './queries/useExamListQuery.ts'
