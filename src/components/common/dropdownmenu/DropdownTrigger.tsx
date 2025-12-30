@@ -23,7 +23,6 @@ export const DropdownTrigger = ({
   size = 'md',
 }: DropdownTriggerProps) => (
   <button
-    type="button"
     ref={buttonRef}
     onClick={onClick}
     aria-expanded={isOpen}
