@@ -57,9 +57,14 @@ export default function DistributionHistoryManagementPage() {
     updateParams({ page: '1' })
   }
 
-  const handleRowClick = (item: Distribution) => {
-    setSelectedItem(item)
-    setIsModalOpen(true)
+  // DistributionList에서 넘겨주는 id(number)를 받도록 수정
+  const handleRowClick = (id: number) => {
+    const item = data?.deployments.find((d) => d.deploymentId === id)
+
+    if (item) {
+      setSelectedItem(item)
+      setIsModalOpen(true)
+    }
   }
 
   return (
