@@ -5,6 +5,5 @@ export const QUESTION_TYPE_OPTIONS = [
   { value: 'ordering', label: '순서 정렬' },
   { value: 'short_answer', label: '주관식 단답형' },
   { value: 'fill_blank', label: '빈칸 채우기' },
-] as const
-
+]
 export type QuestionType = (typeof QUESTION_TYPE_OPTIONS)[number]['value']

@@ -33,3 +33,8 @@ export { default as Ox } from './shared/components/detail-modal/question-option-
 export { default as ShortAnswer } from './shared/components/detail-modal/question-option-renderer/ShortAnswer.tsx'
 export { default as SingleChoice } from './shared/components/detail-modal/question-option-renderer/SingleChoice.tsx'
 export { default as QuestionOptionRenderer } from './shared/components/detail-modal/question-option-renderer/QuestionOptionRenderer.tsx'
+export { default as BaseTextarea } from '../exams/questions/components/editor/BaseTextarea.tsx'
+export { default as ExplanationEditor } from '../exams/questions/components/editor/ExplanationEditor.tsx'
+export { default as PointSelect } from '../exams/questions/components/editor/PointSelect.tsx'
+export { default as QuestionInput } from '../exams/questions/components/editor/QuestionInput.tsx'
+export { default as QuestionTypeSelect } from '../exams/questions/components/editor/QuestionTypeSelect.tsx'
