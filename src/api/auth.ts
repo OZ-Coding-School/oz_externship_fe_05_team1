@@ -19,7 +19,6 @@ type LoginError = {
       }
     | {
         detail: string
-        expire_at?: string
       }
 }
 

@@ -7,14 +7,14 @@ import { useState } from 'react'
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
-  const loginMutation = useLogin()
+  const { mutate, isPending } = useLogin()
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // mutate 실행 -> onSuccess/onError 자동처리
-    loginMutation.mutate({ email, password })
+    mutate({ email, password })
   }
+
+  const buttonText = isPending ? '로그인 중' : '로그인'
 
   const inputStyle =
     'rounded-md border-[#bdbdbd] font-[14px] text-[#bdbdbd] w-82 h-12 tracking-[-3%] placeholder:text-sm px-2 py-1 focus:placeholder:opacity-0'
@@ -50,9 +50,9 @@ export default function AdminLoginPage() {
           className="h-12 w-82"
           variant="primary"
           type="submit"
-          disabled={loginMutation.isPending}
+          disabled={isPending}
         >
-          로그인
+          {buttonText}
         </Button>
       </div>
       <div className="w-1/2" />
