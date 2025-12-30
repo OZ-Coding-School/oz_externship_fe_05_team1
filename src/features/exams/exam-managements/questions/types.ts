@@ -1,5 +1,6 @@
 import type { QuestionType } from '@constants'
 export type { QuestionType } from '@constants'
+import type { QUESTION_TYPE_LABEL } from '@constants'
 
 /**
  * 문제 데이터
@@ -31,4 +32,32 @@ export type QuestionPayload = {
   correct_answer: number | string | string[] | number[] | boolean
   point: number
   explanation: string
+}
+
+type ExamQuestionType = keyof typeof QUESTION_TYPE_LABEL
+
+export type ExamQuestion = {
+  questionId: number
+  type: ExamQuestionType
+  question: string
+  prompt: string
+  point: number
+  options: string[]
+  correctAnswer: string | string[] | boolean | number | number[]
+  explanation: string
+}
+
+export type ExamSubject = {
+  id: number
+  title: string
+}
+
+export type ExamQuestionResponse = {
+  id: number
+  title: string
+  subject: ExamSubject
+  createdAt: string
+  updatedAt: string
+  thumbnailImgUrl: string
+  questions: ExamQuestion[]
 }

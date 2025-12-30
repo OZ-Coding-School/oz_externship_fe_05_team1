@@ -156,9 +156,9 @@ export default function ExamQuestionDetailModal({
         <ExamQuestionDetailModal.Header>
           <Thumbnail src={exam.thumbnailImgUrl} />
           <TitleGroup
-            title={exam.examTitle}
-            subject={exam.subjectName}
-            total={exam.questionCount}
+            title={exam.title}
+            subject={exam.subject.title}
+            total={exam.questions.length}
           />
         </ExamQuestionDetailModal.Header>
       }
@@ -184,13 +184,13 @@ export default function ExamQuestionDetailModal({
       <ExamQuestionDetailModal.Footer>
         <ExamQuestionDetailFooter
           currentIndex={currentIndex}
-          total={exam.questionCount}
+          total={exam.questions.length}
           openDeploymentsModal={() => setIsDeploymentsOpen(true)}
           onClose={() => setIsDeploymentsOpen(false)}
         />
         <ExamDeploymentsModal
-          examName={exam.examTitle}
-          subjectName={exam.subjectName}
+          examName={exam.title}
+          subjectName={exam.subject.title}
           isOpen={isDeploymentsOpen}
           onClose={() => setIsDeploymentsOpen(false)}
           examId={examId}
