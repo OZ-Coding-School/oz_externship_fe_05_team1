@@ -1,3 +1,5 @@
+import { ROUTES_PATHS_ADMIN } from '@constants'
+
 import { fetcher } from './fetcher'
 
 /** 로그인 요청 */
@@ -30,7 +32,7 @@ type LoginError = {
  * @returns access_token
  */
 export const login = async (data: LoginRequest): Promise<LoginResponse> => {
-  const { data: response } = await fetcher.post('/accounts/login', data)
+  const { data: response } = await fetcher.post(ROUTES_PATHS_ADMIN.LOGIN, data)
 
   return response
 }

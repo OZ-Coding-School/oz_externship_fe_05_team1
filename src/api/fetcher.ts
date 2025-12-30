@@ -1,4 +1,4 @@
-import { API_BASE_URL } from '@constants'
+import { API_BASE_URL, ROUTES_PATHS } from '@constants'
 import { useAuthStore } from '@stores'
 import axios from 'axios'
 
@@ -34,7 +34,7 @@ fetcher.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       useAuthStore.getState().logout()
-      window.location.href = '/login'
+      window.location.href = ROUTES_PATHS.LOGIN
     }
 
     return Promise.reject(error)

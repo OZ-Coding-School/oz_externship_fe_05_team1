@@ -39,7 +39,7 @@ function App() {
     <>
       <GlobalToaster />
       <Routes>
-        <Route path="/login" element={<AdminLoginPage />} />
+        <Route path={ROUTES_PATHS.LOGIN} element={<AdminLoginPage />} />
         <Route element={<ProtectedRoute />}>
           <Route element={<MainLayout />}>
             {ROUTES.map((route) => (

@@ -4,6 +4,7 @@ export const ROUTES_PATHS = {
   MAIN: '/',
   EXAM: '/exams',
   EXAM_QUESTIONS: '/exams/questions',
+  LOGIN: '/login',
   EXAM_DISTRIBUTION_HISTORY: '/exams/deployments',
   EXAM_SUBMISSION_HISTORY: '/exams/submissions',
   NOT_FOUND: '*',
@@ -14,6 +15,7 @@ export const ROUTES_PATHS = {
  */
 export const ROUTES_PATHS_ADMIN = {
   EXAM_EXAMID: ({ examId }: { examId: number }) => `/admin/exams/${examId}`,
+  LOGIN: '/account/login',
   EXAM: '/admin/exams',
   EXAM_DISTRIBUTION_HISTORY: '/admin/exams/deployments',
   EXAM_SUBMISSION_HISTORY: '/admin/exams/submissions',
