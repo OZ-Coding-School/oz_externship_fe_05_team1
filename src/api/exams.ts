@@ -8,6 +8,11 @@ import type {
   ExamListResponse,
   UpdateExamModalPayload,
 } from '@features/exams'
+import type {
+  SubmissionDetailResponse,
+  SubmissionListParams,
+  SubmissionListResponse,
+} from '@features/exams'
 
 import { fetcher } from '@api'
 import { EXAM_FORM_KEYS, ROUTES_PATHS_ADMIN } from '@constants'
@@ -190,20 +195,63 @@ export const deleteDeploymentRequest = async (deploymentId: number) => {
   return response.data
 }
 
-/**
- * 과정 리스트 API 요청
- */
 export const fetchCourseList = async () => {
   const response = await fetcher.get(ROUTES_PATHS_ADMIN.COURSE)
+  return response.data
+}
 
+/**
+ * 과정 리스트 API 요청
+ * 쪽지시험 응시 내역 목록 조회
+ */
+export const getSubmissionsRequest = async (
+  params: SubmissionListParams
+): Promise<SubmissionListResponse> => {
+  const response = await fetcher.get<SubmissionListResponse>(
+    ROUTES_PATHS_ADMIN.EXAM_SUBMISSION_HISTORY,
+    {
+      params: {
+        page: params.page,
+        size: params.size,
+        search_keyword: params.searchKeyword,
+        subject_id: params.subjectId,
+        cohort_id: params.cohortId,
+        generation_id: params.generationId,
+        sort: params.sort,
+        order: params.order,
+      },
+    }
+  )
+
+  return response.data
+}
+
+export const fetchCohortsList = async (courseId: number) => {
+  const response = await fetcher.get(ROUTES_PATHS_ADMIN.COHORTS({ courseId }))
   return response.data
 }
 
 /**
  * 기수 리스트 API 요청
+ * 쪽지시험 응시 내역 상세 조회
  */
-export const fetchCohortsList = async (courseId: number) => {
-  const response = await fetcher.get(ROUTES_PATHS_ADMIN.COHORTS({ courseId }))
+export const getSubmissionDetailRequest = async (
+  submissionId: number
+): Promise<SubmissionDetailResponse> => {
+  const response = await fetcher.get<SubmissionDetailResponse>(
+    `${ROUTES_PATHS_ADMIN.EXAM_SUBMISSION_HISTORY}/${submissionId}`
+  )
+
+  return response.data
+}
+
+/**
+ * 쪽지시험 응시 내역 삭제
+ */
+export const deleteSubmissionRequest = async (submissionId: number) => {
+  const response = await fetcher.delete(
+    `${ROUTES_PATHS_ADMIN.EXAM_SUBMISSION_HISTORY}/${submissionId}`
+  )
 
   return response.data
 }

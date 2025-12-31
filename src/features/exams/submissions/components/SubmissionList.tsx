@@ -12,6 +12,7 @@ type SubmissionListProps = {
   pageIndex: number
   onPageChange: (index: number) => void
   onRowClick?: DataTableLayoutProps<Submission>['onRowClick']
+  isLoading: boolean
 }
 
 export default function SubmissionList({

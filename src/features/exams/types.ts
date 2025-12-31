@@ -187,3 +187,71 @@ export type Cohorts = {
   number: number
   status: string
 }
+export type SubmissionListParams = {
+  page: number
+  size: number
+  searchKeyword?: string
+  subjectId?: string
+  cohortId?: string
+  generationId?: string
+  sort?: string
+  order?: 'asc' | 'desc'
+}
+
+export type SubmissionApiItem = {
+  submissionId: number
+  nickname: string
+  name: string
+  courseName: string
+  generationNumber: number
+  examTitle: string
+  subjectName: string
+  score: number
+  cheatingCount: number
+  startedAt: string
+  finishedAt: string
+}
+
+export type SubmissionListResponse = {
+  page: number
+  size: number
+  totalCount: number
+  submissions: SubmissionApiItem[]
+}
+
+/** --- Submission Detail (API 79) --- */
+export type SubmissionDetailResponse = {
+  exam: {
+    examTitle: string
+    subjectName: string
+    durationTime: number
+    openAt: string
+    closeAt: string
+  }
+  student: {
+    nickname: string
+    name: string
+    courseName: string
+    cohortNumber: number
+  }
+  result: {
+    score: number
+    correctAnswerCount: number
+    totalQuestionCount: number
+    cheatingCount: number
+    elapsedTime: number
+  }
+  questions: Array<{
+    questionId: number
+    number: number
+    type: string
+    question: string
+    prompt: string
+    options: string[]
+    point: number
+    submittedAnswer: string | number | null
+    correctAnswer: string | number | null
+    isCorrect: boolean
+    explanation: string
+  }>
+}

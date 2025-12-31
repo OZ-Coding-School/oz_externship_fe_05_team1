@@ -6,7 +6,11 @@ import {
   SubmissionList,
   useSubmissionList,
 } from '@features/exams'
-import { COURSE_LIST_DROPDOWN, SUBJECT_LIST_DROPDOWN } from '@mocks'
+import {
+  COURSE_LIST_DROPDOWN,
+  GENERATION_LIST_DROPDOWN,
+  SUBJECT_LIST_DROPDOWN,
+} from '@mocks'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router'
 
@@ -24,15 +28,16 @@ export default function SubmissionManagementPage() {
   const page = searchParams.get('page') || '1'
   const course = searchParams.get('course') || ''
   const subject = searchParams.get('subject') || ''
+  const generation = searchParams.get('generation') || ''
   const search = searchParams.get('search') || ''
 
-  // Fetching data based on current URL states
   const { data, isLoading } = useSubmissionList({
     page: Number(page),
     size: PAGE_SIZE,
     searchKeyword: search || undefined,
     subjectId: subject || undefined,
     cohortId: course || undefined,
+    generationId: generation || undefined,
   })
 
   const updateParams = (newParams: Record<string, string>) => {
@@ -40,9 +45,7 @@ export default function SubmissionManagementPage() {
     const updatedParams = { ...current, ...newParams }
 
     Object.keys(updatedParams).forEach((key) => {
-      if (!updatedParams[key]) {
-        delete updatedParams[key]
-      }
+      if (!updatedParams[key]) delete updatedParams[key]
     })
     setSearchParams(updatedParams)
   }
@@ -59,12 +62,9 @@ export default function SubmissionManagementPage() {
     updateParams({ page: '1' })
   }
 
-  // Row click logic using submission ID
-  const handleRowClick = (id: number) => {
-    const item = data?.submissions.find((s) => s.id === id)
-
-    if (item) {
-      setSelectedItem(item)
+  const handleRowClick = (data: Submission) => {
+    {
+      setSelectedItem(data)
       setIsModalOpen(true)
     }
   }
@@ -79,7 +79,7 @@ export default function SubmissionManagementPage() {
         <div className="mb-3">
           <FilterSection
             dropdowns={SUBMISSION_DROPDOWNS}
-            selectedValues={{ course, subject }}
+            selectedValues={{ course, subject, generation }}
             onChangeFilters={handleChangeFilters}
             search={search}
             onChangeSearch={handleChangeSearch}
