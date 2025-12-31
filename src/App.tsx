@@ -1,4 +1,4 @@
-import { MainLayout } from '@components'
+import { GlobalToaster, MainLayout } from '@components'
 import { ROUTES_PATHS } from '@constants'
 import ProtectedRoute from '@features/auth/components/ProtectedRoute'
 import {
@@ -36,16 +36,23 @@ function App() {
   ]
 
   return (
-    <Routes>
-      <Route path="/login" element={<AdminLoginPage />} />
-      <Route element={<ProtectedRoute />}>
-        <Route element={<MainLayout />}>
-          {ROUTES.map((route) => (
-            <Route key={route.path} path={route.path} element={route.element} />
-          ))}
+    <>
+      <GlobalToaster />
+      <Routes>
+        <Route path={ROUTES_PATHS.LOGIN} element={<AdminLoginPage />} />
+        <Route element={<ProtectedRoute />}>
+          <Route element={<MainLayout />}>
+            {ROUTES.map((route) => (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={route.element}
+              />
+            ))}
+          </Route>
         </Route>
-      </Route>
-    </Routes>
+      </Routes>
+    </>
   )
 }
 
