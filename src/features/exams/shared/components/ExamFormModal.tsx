@@ -8,7 +8,7 @@ import {
   TwoSplitInput,
 } from '@components'
 import {
-  type ExamDetailResponse,
+  type ExamQuestionResponse,
   useExamCreateMutation,
   useExamDetailQuery,
   useExamUpdateMutation,
@@ -26,10 +26,10 @@ type ExamFormModalProps = {
   examId?: number
 }
 
-function parseExamDetail(detail: ExamDetailResponse) {
+function parseExamDetail(detail: ExamQuestionResponse) {
   return {
-    examTitle: detail.examTitle ?? '',
-    examSubjectId: String(detail.subjectId ?? ''),
+    examTitle: detail.title ?? '',
+    examSubjectId: String(detail.subject.id ?? ''),
   }
 }
 
@@ -150,7 +150,7 @@ export default function ExamFormModal({
         <LogoUpload
           onChange={handleLogoChange}
           initialPreview={
-            modalMode === 'update' ? examDetail?.thumbnail_img_url : undefined
+            modalMode === 'update' ? examDetail?.thumbnailImgUrl : undefined
           }
         />
       ),

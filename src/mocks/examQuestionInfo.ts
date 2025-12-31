@@ -7,7 +7,7 @@ export const ExamQuestionInfo: ExamQuestionResponse = {
     id: 1,
     title: 'Python',
   },
-  thumbnailImgUrl: 'https://cdn.exam/python.png',
+  thumbnailImgUrl: './src/assets/images/react.png',
   createdAt: '2025-02-01 13:20:33',
   updatedAt: '2025-02-05 15:10:20',
 
@@ -20,8 +20,7 @@ export const ExamQuestionInfo: ExamQuestionResponse = {
       point: 2,
       options: ['{}', '[]', '()', '<>'],
       correctAnswer: '[]',
-      explanation:
-        '해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설',
+      explanation: '해설해설해설...',
     },
     {
       questionId: 1002,
@@ -31,8 +30,7 @@ export const ExamQuestionInfo: ExamQuestionResponse = {
       point: 5,
       options: ['O', 'X'],
       correctAnswer: 'O',
-      explanation:
-        '해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설',
+      explanation: '해설해설해설...',
     },
     {
       questionId: 1003,
@@ -42,8 +40,7 @@ export const ExamQuestionInfo: ExamQuestionResponse = {
       point: 5,
       options: ['int', 'str', 'char', 'bool'],
       correctAnswer: ['int', 'str', 'bool'],
-      explanation:
-        '해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설',
+      explanation: '해설해설해설...',
     },
     {
       questionId: 1004,
@@ -53,20 +50,17 @@ export const ExamQuestionInfo: ExamQuestionResponse = {
       point: 5,
       options: ['가변', '불변', '정렬됨', '해시 불가능'],
       correctAnswer: '불변',
-      explanation:
-        '해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설',
+      explanation: '해설해설해설...',
     },
     {
       questionId: 1005,
       type: 'fill_blank',
       question: '다음 빈칸을 채우시오',
-      prompt:
-        'Python에서 길이를 구하는 함수는 (A)___ (B)___이다.ㅁㄴㅇㄹㄴㅁㅇㄹㄴㅇㄹㅇㄴㄹㄴㅇㄹㄴㅁㄹㄴㅁㅇㄹㄴㅇㅁㄹㄴㄹㅇㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㄴㄹㅇ',
+      prompt: 'Python에서 길이를 구하는 함수는 (A)___ (B)___이다.',
       point: 5,
       options: [],
       correctAnswer: ['len', 'len', 'asdf', 'zcv', 'zxcbv'],
-      explanation:
-        '해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설',
+      explanation: '해설해설해설...',
     },
     {
       questionId: 1006,
@@ -76,8 +70,7 @@ export const ExamQuestionInfo: ExamQuestionResponse = {
       point: 1,
       options: ['O', 'X'],
       correctAnswer: 'O',
-      explanation:
-        '해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설',
+      explanation: '해설해설해설...',
     },
     {
       questionId: 1007,
@@ -87,8 +80,7 @@ export const ExamQuestionInfo: ExamQuestionResponse = {
       point: 5,
       options: ['변수 선언', '함수 정의', 'print'],
       correctAnswer: ['함수 정의', 'print', '변수 선언'],
-      explanation:
-        '해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설',
+      explanation: '해설해설해설...',
     },
     {
       questionId: 1008,
@@ -98,8 +90,7 @@ export const ExamQuestionInfo: ExamQuestionResponse = {
       point: 5,
       options: [],
       correctAnswer: 'except',
-      explanation:
-        '해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설',
+      explanation: '해설해설해설...',
     },
     {
       questionId: 1009,
@@ -109,8 +100,7 @@ export const ExamQuestionInfo: ExamQuestionResponse = {
       point: 5,
       options: ['for', 'loop', 'while', 'iterate'],
       correctAnswer: ['for', 'while'],
-      explanation:
-        '해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설',
+      explanation: '해설해설해설...',
     },
     {
       questionId: 1010,
@@ -120,8 +110,7 @@ export const ExamQuestionInfo: ExamQuestionResponse = {
       point: 5,
       options: ['dict.key()', 'dict[key]', 'dict->key', 'dict:key'],
       correctAnswer: 'dict[key]',
-      explanation:
-        '해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설',
+      explanation: '해설해설해설...',
     },
     {
       questionId: 1011,
@@ -131,8 +120,7 @@ export const ExamQuestionInfo: ExamQuestionResponse = {
       point: 5,
       options: [],
       correctAnswer: 'py',
-      explanation:
-        '해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설',
+      explanation: '해설해설해설...',
     },
     {
       questionId: 1012,
@@ -142,8 +130,7 @@ export const ExamQuestionInfo: ExamQuestionResponse = {
       point: 5,
       options: ['O', 'X'],
       correctAnswer: 'X',
-      explanation:
-        '해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설',
+      explanation: '해설해설해설...',
     },
     {
       questionId: 1013,
@@ -153,8 +140,7 @@ export const ExamQuestionInfo: ExamQuestionResponse = {
       point: 5,
       options: ['출력', '함수 정의', '함수 호출'],
       correctAnswer: ['함수 정의', '함수 호출', '출력'],
-      explanation:
-        '해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설',
+      explanation: '해설해설해설...',
     },
     {
       questionId: 1014,
@@ -164,8 +150,7 @@ export const ExamQuestionInfo: ExamQuestionResponse = {
       point: 5,
       options: ['+', '&', 'concat()', '*'],
       correctAnswer: '+',
-      explanation:
-        '해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설',
+      explanation: '해설해설해설...',
     },
     {
       questionId: 1015,
@@ -175,8 +160,7 @@ export const ExamQuestionInfo: ExamQuestionResponse = {
       point: 5,
       options: ['0', 'None', '[]', "''", '1'],
       correctAnswer: ['0', 'None', '[]', "''"],
-      explanation:
-        '해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설',
+      explanation: '해설해설해설...',
     },
     {
       questionId: 1016,
@@ -186,8 +170,7 @@ export const ExamQuestionInfo: ExamQuestionResponse = {
       point: 5,
       options: [],
       correctAnswer: 'def',
-      explanation:
-        '해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설',
+      explanation: '해설해설해설...',
     },
     {
       questionId: 1017,
@@ -197,8 +180,7 @@ export const ExamQuestionInfo: ExamQuestionResponse = {
       point: 5,
       options: ['O', 'X'],
       correctAnswer: 'O',
-      explanation:
-        '해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설',
+      explanation: '해설해설해설...',
     },
     {
       questionId: 1018,
@@ -208,8 +190,7 @@ export const ExamQuestionInfo: ExamQuestionResponse = {
       point: 5,
       options: ['load', 'import', 'require', 'call'],
       correctAnswer: 'import',
-      explanation:
-        '해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설',
+      explanation: '해설해설해설...',
     },
     {
       questionId: 1019,
@@ -219,8 +200,7 @@ export const ExamQuestionInfo: ExamQuestionResponse = {
       point: 5,
       options: [],
       correctAnswer: 'PEP8',
-      explanation:
-        '해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설',
+      explanation: '해설해설해설...',
     },
     {
       questionId: 1020,
@@ -230,8 +210,7 @@ export const ExamQuestionInfo: ExamQuestionResponse = {
       point: 5,
       options: ['list', 'dict', 'set', 'loop'],
       correctAnswer: ['list', 'dict', 'set'],
-      explanation:
-        '해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설해설',
+      explanation: '해설해설해설...',
     },
   ],
 }

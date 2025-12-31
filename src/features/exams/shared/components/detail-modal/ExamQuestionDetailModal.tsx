@@ -6,10 +6,9 @@ import {
   ExamQuestionDetailBody,
   ExamQuestionDetailFooter,
   ExamQuestionDetailSide,
-  type ExamQuestionResponse,
+  useExamDetailState,
 } from '@features/exams'
-import { ExamQuestionInfo } from '@mocks'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 type HeaderProps = {
   children: ReactNode
@@ -127,21 +126,42 @@ export default function ExamQuestionDetailModal({
   isOpen,
   onClose,
 }: ExamQuestionDetailProps) {
-  const [exam, setExam] = useState<ExamQuestionResponse | null>(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isDeploymentsOpen, setIsDeploymentsOpen] = useState(false)
 
-  useEffect(() => {
-    if (!isOpen) {
-      return
-    }
-    setExam(ExamQuestionInfo)
-  }, [isOpen])
+  const { exam, isLoading, isError } = useExamDetailState(examId, isOpen)
 
   if (!exam) {
     return (
       <BaseModal isOpen={isOpen} onClose={onClose} size="xxl">
-        <div className="p-6 text-center">시험 정보를 불러오는 중...</div>
+        <div className="flex h-80 items-center justify-center text-lg text-neutral-400">
+          시험 정보가 없습니다...
+        </div>
+      </BaseModal>
+    )
+  }
+
+  if (isLoading) {
+    return (
+      <BaseModal isOpen={isOpen} onClose={onClose} size="xxl">
+        <div className="flex h-80 items-center justify-center text-lg text-neutral-400">
+          시험 정보를 불러오는 중입니다...
+        </div>
+      </BaseModal>
+    )
+  }
+
+  if (isError) {
+    return (
+      <BaseModal isOpen={isOpen} onClose={onClose} size="xxl">
+        <div className="flex h-80 flex-col items-center justify-center text-neutral-400">
+          <p className="text-lg">
+            시험 정보를 가져오는 중 에러가 발생하였습니다.
+          </p>
+          <p className="mt-2 text-sm text-neutral-500">
+            잠시 후 다시 시도해주세요.
+          </p>
+        </div>
       </BaseModal>
     )
   }
