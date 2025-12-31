@@ -14,6 +14,7 @@ type ExamListProps = {
   onButtonClick: () => void
   onDetailClick: (exam: Exam) => void
   onDeployClick: (exam: Exam) => void
+  onExamUpdateClick: (exam: Exam) => void
 }
 
 /**
@@ -31,6 +32,7 @@ export default function ExamList({
   onButtonClick,
   onDetailClick,
   onDeployClick,
+  onExamUpdateClick,
 }: ExamListProps) {
   const table = useReactTable({
     data,
@@ -56,6 +58,7 @@ export default function ExamList({
   return (
     <DataTableLayout
       table={table}
+      onRowClick={onExamUpdateClick}
       actionButtons={
         <div className="flex justify-end pr-2">
           <Button variant="primary" size="md" onClick={onButtonClick}>

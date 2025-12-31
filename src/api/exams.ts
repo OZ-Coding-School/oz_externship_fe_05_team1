@@ -1,15 +1,12 @@
 import type { ExamListParams, ExamListResponse } from '@features/exams'
+import type {
+  CreateExamModalPayload,
+  ExamDeployRequest,
+  UpdateExamModalPayload,
+} from '@features/exams'
 
 import { fetcher } from '@api/fetcher'
-import { ROUTES_PATHS_ADMIN } from '@constants'
-
-type ExamDeployRequest = {
-  examId: number
-  cohortId: number
-  durationTime: number
-  openAt: string
-  closeAt: string
-}
+import { EXAM_FORM_KEYS, ROUTES_PATHS_ADMIN } from '@constants'
 
 /**
  * 쪽지시험 목록 조회 API
@@ -39,7 +36,7 @@ export const examListRequest = async (
  * 쪽지시험 배포 생성 API 요청
  * @param body - ID, 기수, 시험 시간, 시작 일시, 종료 일시 전송
  */
-export const examDeploymentsRequest = async (body: ExamDeployRequest) => {
+export const createExamDeploymentsRequest = async (body: ExamDeployRequest) => {
   const payload = {
     exam_id: body.examId,
     cohort_id: body.cohortId,
@@ -48,15 +45,22 @@ export const examDeploymentsRequest = async (body: ExamDeployRequest) => {
     close_at: body.closeAt,
   }
   const response = await fetcher.post(
-    `${ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_HISTORY}`,
+    ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_HISTORY,
     payload
   )
 
   return response.data
 }
 
-export const examDeleteRequest = async (examId: number) => {
-  const response = await fetcher.delete(`${ROUTES_PATHS_ADMIN.EXAM}/${examId}`)
+/**
+ * 쪽지시험 삭제 API 요청
+ * @param examId - 시험 ID
+ * @returns
+ */
+export const deleteExamRequest = async (examId: number) => {
+  const response = await fetcher.delete(
+    ROUTES_PATHS_ADMIN.EXAM_EXAMID({ examId })
+  )
 
   return response.data
 }
@@ -66,4 +70,65 @@ export const examKeys = {
   all: ['exams'] as const,
   lists: () => [...examKeys.all, 'list'] as const,
   list: (params: ExamListParams) => [...examKeys.lists(), params] as const,
+}
+
+/**
+ * 쪽지시험 생성 API 요청
+ * @param title - 시험 제목
+ * @param subjectId - 시험 과목
+ * @param logoFile - 로고
+ */
+export const createExamRequest = async ({
+  title,
+  subjectId,
+  logoFile,
+}: CreateExamModalPayload) => {
+  const formData = new FormData()
+
+  formData.append(EXAM_FORM_KEYS.EXAM_TITLE, title)
+  formData.append(EXAM_FORM_KEYS.SUBJECT_ID, String(Number(subjectId)))
+  formData.append(EXAM_FORM_KEYS.THUMBNAIL_IMG, logoFile)
+
+  const response = await fetcher.post(ROUTES_PATHS_ADMIN.EXAM, formData)
+
+  return response.data
+}
+
+/**
+ * 쪽지시험 수정 API 요청
+ * @param title - 시험 제목
+ * @param subjectId - 시험 과목
+ * @param logoFile - 로고
+ */
+export const updateExamRequest = async ({
+  title,
+  subjectId,
+  logoFile,
+  examId,
+}: UpdateExamModalPayload) => {
+  const formData = new FormData()
+
+  formData.append(EXAM_FORM_KEYS.EXAM_TITLE, title)
+  formData.append(EXAM_FORM_KEYS.SUBJECT_ID, String(Number(subjectId)))
+
+  if (logoFile) {
+    formData.append(EXAM_FORM_KEYS.THUMBNAIL_IMG, logoFile)
+  }
+
+  const response = await fetcher.put(
+    ROUTES_PATHS_ADMIN.EXAM_EXAMID({ examId }),
+    formData
+  )
+
+  return response.data
+}
+
+/**
+ * 쪽지시험 상세조회 API 요청
+ * @param examId - 시험 id
+ */
+export const fetchExamDetailRequest = async (examId: number) => {
+  const response = await fetcher.get(ROUTES_PATHS_ADMIN.EXAM_EXAMID({ examId }))
+
+  return response.data
 }

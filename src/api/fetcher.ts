@@ -9,9 +9,6 @@ import axios from 'axios'
  */
 export const fetcher = axios.create({
   baseURL: API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
 })
 
 /**

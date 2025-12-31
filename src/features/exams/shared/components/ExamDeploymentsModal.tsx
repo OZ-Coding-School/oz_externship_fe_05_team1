@@ -41,7 +41,7 @@ export default function ExamDeploymentsModal({
     setValues((prev) => ({ ...prev, [key]: value }))
   }
 
-  const { mutate: examDeploymentsRequest, isPending } =
+  const { mutate: createExamDeploymentsRequest, isPending } =
     useExamDeploymentsMutation(onClose)
 
   const handleDeployments = () => {
@@ -59,7 +59,7 @@ export default function ExamDeploymentsModal({
     }
     const parsed = schemaResult.data
 
-    examDeploymentsRequest({
+    createExamDeploymentsRequest({
       examId,
       cohortId: parsed.cohortId,
       durationTime: parsed.durationTime,

@@ -1,3 +1,8 @@
 export * from './exams'
 export * from './auth'
 export * from './fetcher'
+export { createExamDeploymentsRequest } from './exams'
+export { createExamRequest } from './exams'
+export { updateExamRequest } from './exams'
+export { deleteExamRequest } from './exams'
+export { fetchExamDetailRequest } from './exams'
