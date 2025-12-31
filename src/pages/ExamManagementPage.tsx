@@ -15,10 +15,7 @@ import { useSearchParams } from 'react-router'
 
 /**
  * 쪽지시험 관리 페이지
- *
- * - 필터, 검색, 시험 목록을 관리하는 컨테이너 컴포넌트
- * - useSearchParams로 URL 상태 관리 (페이지 공유, 새로고침 시 상태 유지)
- * - 시험 데이터 유무에 따라 EmptyState 또는 ExamList 렌더링
+ * - useSearchParams로 URL 상태 관리 및 useExamListQuery로 서버 데이터 페칭
  */
 export default function ExamManagementPage() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -28,10 +25,6 @@ export default function ExamManagementPage() {
   const subject = searchParams.get('subject') || ''
   const search = searchParams.get('search') || ''
 
-  /**
-   * URL 쿼리 파라미터 업데이트
-   * - 빈 값은 URL에서 제거하여 깔끔한 URL 유지
-   */
   const updateParams = (newParams: Record<string, string>) => {
     const current = Object.fromEntries(searchParams.entries())
     const updated = { ...current, ...newParams }
@@ -43,7 +36,7 @@ export default function ExamManagementPage() {
     setSearchParams(updated)
   }
 
-  // 시험 목록 조회 (page 변경 시 자동 refetch)
+  // 서버 데이터 fetch
   const { data, isLoading } = useExamListQuery({
     page: Number(page),
     size: PAGE_SIZE,
@@ -51,25 +44,17 @@ export default function ExamManagementPage() {
     subjectId: subject ? Number(subject) : undefined,
   })
 
-  // API 응답 -> 프론트 타입 변환
+  // 데이터 변환
   const exams: Exam[] = data?.exams?.map(transformExam) ?? []
   const totalCount = data?.total_count ?? 0
   const pageCount = Math.ceil(totalCount / PAGE_SIZE)
 
-  /**
-   * 모달상태
-   * - 시험 생성 페이지로 이동 또는 모달 오픈
-   */
+  // 모달 제어
   const createModal = useModal()
   const detailModal = useModal<Exam>()
   const deployModal = useModal<Exam>()
   const updateModal = useModal<Exam>()
 
-  /**
-   * 필터 값 변경 핸들러
-   * @param key - 변경할 필터 키
-   * @param value - 선택된 필터 값
-   */
   const handleChangeFilters = (key: string, value: string) => {
     updateParams({ [key]: value, page: '1' })
   }
@@ -78,19 +63,16 @@ export default function ExamManagementPage() {
     updateParams({ search: value })
   }
 
-  /**
-   * 검색 버튼 클릭 핸들러
-   * - 현재 필터와 검색어를 기반으로 시험 목록 조회
-   */
   const handleSearch = () => {
     updateParams({ page: '1' })
   }
 
-  // 랜더함수호출
   const renderExamList = () => {
-    if (isLoading) {
-      return <div>로딩 중...</div>
-    }
+    if (isLoading)
+      return (
+        <div className="py-20 text-center text-neutral-400">로딩 중...</div>
+      )
+
     if (exams.length === 0) {
       return <EmptyState onButtonClick={createModal.modalOpen} />
     }
@@ -112,7 +94,10 @@ export default function ExamManagementPage() {
   return (
     <section className="px-15 py-11">
       <div className="h-192 bg-white px-18 py-8">
-        <h1 className="mb-1 text-[22px] text-neutral-500">쪽지시험 관리</h1>
+        <h1 className="mb-1 text-[22px] font-bold text-neutral-500">
+          쪽지시험 관리
+        </h1>
+
         <div className="mb-3">
           <FilterSection
             dropdowns={EXAM_DROPDOWNS}
@@ -123,7 +108,9 @@ export default function ExamManagementPage() {
             onSubmit={handleSearch}
           />
         </div>
+
         {renderExamList()}
+
         {detailModal.data && (
           <ExamQuestionDetailModal
             examId={detailModal.data.id}

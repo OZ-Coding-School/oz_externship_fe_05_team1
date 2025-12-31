@@ -1,8 +1,14 @@
-import type { ExamListParams, ExamListResponse } from '@features/exams'
 import type {
   CreateExamModalPayload,
   ExamDeployRequest,
   UpdateExamModalPayload,
+} from '@features/exams'
+import type {
+  DeploymentDetailResponse,
+  DeploymentListParams,
+  DeploymentListResponse,
+  ExamListParams,
+  ExamListResponse,
 } from '@features/exams'
 
 import { fetcher } from '@api/fetcher'
@@ -65,11 +71,45 @@ export const deleteExamRequest = async (examId: number) => {
   return response.data
 }
 
-// Query Key
-export const examKeys = {
-  all: ['exams'] as const,
-  lists: () => [...examKeys.all, 'list'] as const,
-  list: (params: ExamListParams) => [...examKeys.lists(), params] as const,
+export const examDeleteRequest = async (examId: number) => {
+  const response = await fetcher.delete(`${ROUTES_PATHS_ADMIN.EXAM}/${examId}`)
+
+  return response.data
+}
+
+export const examDeploymentsRequest = async (body: ExamDeployRequest) => {
+  const payload = {
+    exam_id: body.examId,
+    cohort_id: body.cohortId,
+    duration_time: body.durationTime,
+    open_at: body.openAt,
+    close_at: body.closeAt,
+  }
+  const response = await fetcher.post(
+    `${ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_HISTORY}`,
+    payload
+  )
+
+  return response.data
+}
+
+export const getDeploymentsRequest = async (params: DeploymentListParams) => {
+  const response = await fetcher.get<DeploymentListResponse>(
+    `${ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_HISTORY}`,
+    { params }
+  )
+
+  return response.data
+}
+
+export const getDeploymentDetailRequest = async (
+  deploymentId: number
+): Promise<DeploymentDetailResponse> => {
+  const response = await fetcher.get<DeploymentDetailResponse>(
+    `${ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_HISTORY}/${deploymentId}`
+  )
+
+  return response.data
 }
 
 /**
@@ -129,6 +169,45 @@ export const updateExamRequest = async ({
  */
 export const fetchExamDetailRequest = async (examId: number) => {
   const response = await fetcher.get(ROUTES_PATHS_ADMIN.EXAM_EXAMID({ examId }))
+
+  return response.data
+}
+
+// Query Key
+export const examKeys = {
+  all: ['exams'] as const,
+  lists: () => [...examKeys.all, 'list'] as const,
+  list: (params: ExamListParams) => [...examKeys.lists(), params] as const,
+}
+
+export const updateDeploymentRequest = async (
+  deploymentId: number,
+  body: { openAt: string; closeAt: string; durationTime: number }
+) => {
+  const response = await fetcher.patch(
+    `${ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_HISTORY}/${deploymentId}`,
+    body
+  )
+
+  return response.data
+}
+
+export const updateDeploymentStatusRequest = async (
+  deploymentId: number,
+  status: string
+) => {
+  const response = await fetcher.patch(
+    `${ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_HISTORY}/${deploymentId}/status`,
+    { status }
+  )
+
+  return response.data
+}
+
+export const deleteDeploymentRequest = async (deploymentId: number) => {
+  const response = await fetcher.delete(
+    `${ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_HISTORY}/${deploymentId}`
+  )
 
   return response.data
 }

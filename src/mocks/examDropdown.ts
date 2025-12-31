@@ -22,7 +22,7 @@ const SUBJECT_LIST = [
   },
   {
     value: '2',
-    label: 'JAVESCRIPT',
+    label: 'JAVASCRIPT',
   },
 ]
 

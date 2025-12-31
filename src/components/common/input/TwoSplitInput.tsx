@@ -31,7 +31,9 @@ function extractWidthFromVariant(
   ) {
     classes = inputVariant({ size: variant })
   } else {
-    classes = inputVariant({ twoSplitLabel: variant })
+    classes = inputVariant({
+      twoSplitLabel: variant as 'primary',
+    })
   }
 
   const match = classes.match(/w-\[(\d+)px]/)

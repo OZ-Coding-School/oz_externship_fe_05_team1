@@ -8,7 +8,7 @@ import { StatusBadge } from '@components'
  * - TanStack Table(ColumnDef)을 기반으로 시험 목록 컬럼 정의
  * - 시험 상태에 따라 액션 버튼(배포/배포중) 분기 처리
  */
-export const DistributionColumns: ColumnDef<Distribution>[] = [
+export const getDistributionColumns = (): ColumnDef<Distribution>[] => [
   {
     accessorKey: 'deploymentId',
     header: 'ID',
@@ -18,7 +18,9 @@ export const DistributionColumns: ColumnDef<Distribution>[] = [
     accessorKey: 'examTitle',
     header: '제목',
     cell: ({ row }) => (
-      <span className="cursor-pointer underline">{row.original.examTitle}</span>
+      <span className="cursor-pointer underline decoration-neutral-300 underline-offset-4 hover:text-blue-600">
+        {row.original.examTitle}
+      </span>
     ),
   },
   {
@@ -39,7 +41,11 @@ export const DistributionColumns: ColumnDef<Distribution>[] = [
   {
     accessorKey: 'averageScore',
     header: '평균',
-    cell: ({ row }) => <span>{row.original.averageScore.toFixed(1) ?? 0}</span>,
+    cell: ({ row }) => {
+      const score = row.original.averageScore
+
+      return <span>{score?.toFixed(1) ?? '0.0'}</span>
+    },
     enableSorting: true,
   },
   {
@@ -51,9 +57,7 @@ export const DistributionColumns: ColumnDef<Distribution>[] = [
     accessorKey: 'status',
     header: '배포 활성 상태',
     cell: ({ row }) => {
-      const isActive =
-        row.original.status?.toLowerCase() === 'active' ||
-        row.original.status === 'activated'
+      const isActive = row.original.status === 'activated'
 
       return (
         <StatusBadge variant={isActive ? 'success' : 'neutral'}>

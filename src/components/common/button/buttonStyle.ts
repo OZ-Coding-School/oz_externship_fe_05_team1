@@ -9,7 +9,7 @@ export const buttonVariants = cva(
         'primary-light':
           'bg-primary-light text-primary-500 hover:bg-primary-400 hover:text-white',
         'primary-outline': 'border border-primary-400',
-        secondary: 'bg-neutral-300 text-white hover:bg-neutral-400',
+        secondary: 'bg-neutral-200 text-white hover:bg-neutral-400',
         'white-outline':
           'bg-bg-primary border border-neutral-200 text-neutral-500 hover:bg-neutral-300 hover:text-white',
         success:
@@ -21,12 +21,12 @@ export const buttonVariants = cva(
         'danger-outline': 'border border-danger',
       },
       size: {
-        sm: 'w-[48px] h-[24px] text-[14px]',
-        md: 'w-[64px] h-[36px]',
-        lg: 'w-[72px] h-[36px]',
-        xl: 'w-[100px] h-[36px]',
-        xxl: 'w-[160px] h-[48px] text-[16px] font-semibold',
-        action: 'w-[156px] h-[36px] text-[14px] font-semibold ',
+        sm: 'min-w-[48px] h-[24px] text-[14px]',
+        md: 'min-w-[64px] h-[36px]',
+        lg: 'min-w-[72px] h-[36px]',
+        xl: 'min-w-[100px] h-[36px]',
+        xxl: 'min-w-[160px] h-[48px] text-[16px] font-semibold',
+        action: 'min-w-[156px] h-[36px] text-[14px] font-semibold ',
       },
     },
     defaultVariants: {
