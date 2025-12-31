@@ -58,3 +58,11 @@ export type ExamQuestionResponse = {
   thumbnailImgUrl: string
   questions: ExamQuestion[]
 }
+
+export type ExamDeployRequest = {
+  examId: number
+  cohortId: number
+  durationTime: number
+  openAt: string
+  closeAt: string
+}
