@@ -22,6 +22,7 @@ export default function QuestionTypeSelect({
       onSelect={(v) => onChange(v as QuestionType)}
       placeholder="문제 유형"
       className={className}
+      size="md"
     />
   )
 }
