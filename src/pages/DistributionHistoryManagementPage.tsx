@@ -1,19 +1,13 @@
-import { type DropdownConfig, FilterSection } from '@components'
-import { PAGE_SIZE } from '@constants'
+import { FilterSection } from '@components'
+import { EXAM_DROPDOWNS, PAGE_SIZE } from '@constants'
 import {
   DeploymentHistoryModal,
   type Distribution,
   DistributionList,
   useDeploymentList,
 } from '@features/exams'
-import { COURSE_LIST_DROPDOWN, SUBJECT_LIST_DROPDOWN } from '@mocks'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router'
-
-const EXAM_DROPDOWNS: DropdownConfig[] = [
-  { key: 'course', items: COURSE_LIST_DROPDOWN, placeholder: '과정' },
-  { key: 'subject', items: SUBJECT_LIST_DROPDOWN, placeholder: '과목' },
-]
 
 export default function DistributionHistoryManagementPage() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -58,13 +52,9 @@ export default function DistributionHistoryManagementPage() {
   }
 
   // DistributionList에서 넘겨주는 id(number)를 받도록 수정
-  const handleRowClick = (id: number) => {
-    const item = data?.deployments.find((d) => d.deploymentId === id)
-
-    if (item) {
-      setSelectedItem(item)
-      setIsModalOpen(true)
-    }
+  const handleRowClick = (data: Distribution) => {
+    setSelectedItem(data)
+    setIsModalOpen(true)
   }
 
   return (
