@@ -219,7 +219,6 @@ export type SubmissionListResponse = {
   submissions: SubmissionApiItem[]
 }
 
-/** --- Submission Detail (API 79) --- */
 export type SubmissionDetailResponse = {
   exam: {
     examTitle: string

@@ -4,8 +4,9 @@ import {
   getSubmissionDetailRows,
   type Submission,
   // SubmissionCheckModal,
+  SubmissionDeletePopupModal,
 } from '@features/exams'
-// import { useState } from 'react'
+import { useState } from 'react'
 
 type SubmissionDetailModalProps = {
   isOpen: boolean
@@ -19,6 +20,7 @@ export default function SubmissionDetailModal({
   data,
 }: SubmissionDetailModalProps) {
   // const [isCheckModalOpen, setIsCheckModalOpen] = useState(false)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
   if (!data) {
     return null
@@ -31,7 +33,7 @@ export default function SubmissionDetailModal({
       action: (
         <Button
           variant="primary-outline"
-          size="sm"
+          size="md"
           // onClick={() => setIsCheckModalOpen(true)}
           className="flex items-center gap-1 border-primary-100 bg-primary-light px-2 py-1 text-[12px] text-primary-500 transition-all hover:bg-primary-400 hover:text-white"
         >
@@ -47,29 +49,54 @@ export default function SubmissionDetailModal({
   ]
 
   return (
-    <BaseModal
-      size="xl"
-      isOpen={isOpen}
-      onClose={onClose}
-      title="쪽지시험 응시 상세 조회"
-    >
-      <div className="space-y-8 p-6">
-        {infoSections.map(({ title, rows, action }) => (
-          <InfoSection key={title} title={title} rows={rows} action={action} />
-        ))}
-      </div>
+    <>
+      <BaseModal
+        size="xl"
+        isOpen={isOpen}
+        onClose={onClose}
+        title="쪽지시험 응시 상세 조회"
+      >
+        <div className="w-full space-y-8 overflow-x-hidden p-6 pb-20">
+          {infoSections.map(({ title, rows, action }) => (
+            <div key={title} className="flex flex-col gap-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-[18px] font-bold text-neutral-800">
+                  {title}
+                </h3>
+                {action}
+              </div>
+              <div className="w-full overflow-hidden border-neutral-200">
+                <div className="max-w-full overflow-x-hidden">
+                  <InfoSection rows={rows} title={''} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
 
-      <div className="flex justify-end p-6 pt-0">
-        <Button variant="danger" size="md" className="px-8 font-bold">
-          삭제
-        </Button>
-      </div>
+        <div className="flex justify-end p-6 pt-0">
+          <Button
+            variant="danger"
+            size="md"
+            className="px-8 font-bold"
+            onClick={() => setIsDeleteModalOpen(true)}
+          >
+            삭제
+          </Button>
+        </div>
+      </BaseModal>
 
       {/* <SubmissionCheckModal
         isOpen={isCheckModalOpen}
         onClose={() => setIsCheckModalOpen(false)}
         submissionId={data.submissionId}
       /> */}
-    </BaseModal>
+
+      <SubmissionDeletePopupModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        submissionId={data.submissionId}
+      />
+    </>
   )
 }

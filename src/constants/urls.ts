@@ -7,8 +7,9 @@ export const ROUTES_PATHS = {
   LOGIN: '/login',
   EXAM_DISTRIBUTION_HISTORY: '/exams/deployments',
   EXAM_SUBMISSION_HISTORY: '/exams/submissions',
-  EXAM_SUBMISSION_DETAIL: '/exams/submissions',
-  NOT_FOUND: '*',
+  EXAM_SUBMISSION_ID: ({ submissionId }: { submissionId: number }) =>
+    `/exams/submissions/${submissionId}`,
+  PAGE_NOT_FOUND: '*',
 }
 
 /**
@@ -22,5 +23,6 @@ export const ROUTES_PATHS_ADMIN = {
   COURSE: '/course',
   EXAM_DISTRIBUTION_HISTORY: '/admin/exams/deployments',
   EXAM_SUBMISSION_HISTORY: '/admin/exams/submissions',
-  EXAM_SUBMISSION_DETAIL: '/admin/exams/submissions',
+  EXAM_SUBMISSION_ID: ({ submissionId }: { submissionId: number }) =>
+    `/admin/exams/submissions/${submissionId}`,
 }

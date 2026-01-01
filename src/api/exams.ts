@@ -237,7 +237,7 @@ export const getSubmissionDetailRequest = async (
   submissionId: number
 ): Promise<SubmissionDetailResponse> => {
   const response = await fetcher.get<SubmissionDetailResponse>(
-    `${ROUTES_PATHS_ADMIN.EXAM_SUBMISSION_DETAIL}/${submissionId}`
+    ROUTES_PATHS_ADMIN.EXAM_SUBMISSION_ID({ submissionId })
   )
 
   return response.data
@@ -248,7 +248,7 @@ export const getSubmissionDetailRequest = async (
  */
 export const deleteSubmissionRequest = async (submissionId: number) => {
   const response = await fetcher.delete(
-    `${ROUTES_PATHS_ADMIN.EXAM_SUBMISSION_DETAIL}/${submissionId}`
+    ROUTES_PATHS_ADMIN.EXAM_SUBMISSION_ID({ submissionId })
   )
 
   return response.data

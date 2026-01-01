@@ -1,5 +1,6 @@
 import { getSubmissionsRequest } from '@api/exams'
 import { useQuery } from '@tanstack/react-query'
+// import { MOCK_SUBMISSION_LIST } from '@mocks/mockSubmissionData'
 
 import type {
   Submission,
@@ -15,6 +16,7 @@ export const useSubmissionListQuery = (params: SubmissionListParams) =>
   useQuery({
     queryKey: ['submissions', 'list', params],
     queryFn: () => getSubmissionsRequest(params),
+    // queryFn: () => Promise.resolve(MOCK_SUBMISSION_LIST),
     select: (data: SubmissionListResponse) => ({
       totalCount: data.totalCount,
       submissions: data.submissions.map(

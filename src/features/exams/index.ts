@@ -56,3 +56,8 @@ export {
 export { default as SubmissionDetailModal } from './submissions/components/SubmissionDetailModal.tsx'
 export { useSubmissionListQuery } from './queries/useSubmissionList.ts'
 // export { useSubmissionDetail } from './queries/useSubmissionDetail.ts'
+export { default as SubmissionDeletePopupModal } from './submissions/components/SubmissionDeletePopupModal.tsx'
+export type {
+  SubmissionListResponse,
+  SubmissionDetailResponse,
+} from './types.ts'

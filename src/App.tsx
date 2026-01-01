@@ -30,7 +30,7 @@ function App() {
       element: <SubmissionManagementPage />,
     },
     {
-      path: ROUTES_PATHS.NOT_FOUND,
+      path: ROUTES_PATHS.PAGE_NOT_FOUND,
       element: <NotFound />,
     },
   ]
