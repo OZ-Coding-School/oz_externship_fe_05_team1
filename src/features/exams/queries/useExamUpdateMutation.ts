@@ -10,9 +10,7 @@ export const useExamUpdateMutation = (onClose: () => void) => {
   return useMutation({
     mutationFn: updateExamRequest,
 
-    onSuccess: (data) => {
-      // eslint-disable-next-line no-console
-      console.log(data)
+    onSuccess: () => {
       showToast('시험이 수정 되었습니다.', 'success')
 
       onClose()
@@ -20,9 +18,7 @@ export const useExamUpdateMutation = (onClose: () => void) => {
       navigate(ROUTES_PATHS.EXAM, { replace: true })
     },
 
-    onError: (error) => {
-      // eslint-disable-next-line no-console
-      console.error(error)
+    onError: () => {
       showToast('시험 수정 중 오류가 발생했습니다.', 'fail')
     },
   })

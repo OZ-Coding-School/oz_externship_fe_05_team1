@@ -10,19 +10,15 @@ export const useExamCreateMutation = (onClose: () => void) => {
   return useMutation({
     mutationFn: createExamRequest,
 
-    onSuccess: (data) => {
-      // eslint-disable-next-line no-console
-      console.log(data)
+    onSuccess: () => {
       showToast('시험이 생성 되었습니다.', 'success')
 
       onClose()
 
-      navigate(ROUTES_PATHS.EXAM_QUESTIONS, { replace: true })
+      navigate(ROUTES_PATHS.EXAM_QUESTIONS_CREATE(1), { replace: true })
     },
 
-    onError: (error) => {
-      // eslint-disable-next-line no-console
-      console.error(error)
+    onError: () => {
       showToast('시험 생성 중 오류가 발생했습니다.', 'fail')
     },
   })

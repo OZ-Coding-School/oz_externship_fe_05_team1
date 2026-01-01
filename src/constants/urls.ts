@@ -4,6 +4,8 @@ export const ROUTES_PATHS = {
   MAIN: '/',
   EXAM: '/exams',
   EXAM_QUESTIONS: '/exams/questions',
+  EXAM_QUESTIONS_CREATE: (questionsId: number | string) =>
+    `/exams/questions/${questionsId}`,
   LOGIN: '/login',
   EXAM_DISTRIBUTION_HISTORY: '/exams/deployments',
   EXAM_SUBMISSION_HISTORY: '/exams/submissions',
@@ -25,4 +27,5 @@ export const ROUTES_PATHS_ADMIN = {
   EXAM_SUBMISSION_HISTORY: '/admin/exams/submissions',
   EXAM_SUBMISSION_ID: ({ submissionId }: { submissionId: number }) =>
     `/admin/exams/submissions/${submissionId}`,
+  SUBJECTS: ({ courseId }: { courseId: number }) => `/${courseId}/subjects`,
 }

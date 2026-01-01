@@ -253,3 +253,11 @@ export const deleteSubmissionRequest = async (submissionId: number) => {
 
   return response.data
 }
+/*
+ * 과목 리스트 API 요청
+ */
+export const fetchSubjectsList = async (courseId: number) => {
+  const response = await fetcher.get(ROUTES_PATHS_ADMIN.SUBJECTS({ courseId }))
+
+  return response.data
+}

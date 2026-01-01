@@ -1,4 +1,4 @@
-import { fetchCohortsList, fetchCourseList } from '@api'
+import { fetchCohortsList, fetchCourseList, fetchSubjectsList } from '@api'
 import { useQuery } from '@tanstack/react-query'
 
 export const useCourseList = () =>
@@ -17,5 +17,18 @@ export const useCohortsList = (courseId: number) =>
       }
 
       return fetchCohortsList(courseId)
+    },
+  })
+
+export const useSubjectsList = (courseId: number) =>
+  useQuery({
+    queryKey: ['subjectsList', courseId],
+    enabled: !!courseId,
+    queryFn: () => {
+      if (!courseId) {
+        throw new Error('courseId가 필요합니다.')
+      }
+
+      return fetchSubjectsList(courseId)
     },
   })
