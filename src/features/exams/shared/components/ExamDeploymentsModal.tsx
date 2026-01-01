@@ -1,6 +1,8 @@
 import { BaseModal, Button, showToast, TwoSplitInput } from '@components'
 import {
   examDeploymentsSchema,
+  useCohortsList,
+  useCourseList,
   useExamDeploymentsMutation,
 } from '@features/exams'
 import { cn } from '@utils'
@@ -31,6 +33,7 @@ export default function ExamDeploymentsModal({
   examId,
 }: ExamDeploymentsModalProps) {
   const [values, setValues] = useState({
+    courseId: '',
     cohortId: '',
     durationTime: '',
     openAt: '',
@@ -68,9 +71,14 @@ export default function ExamDeploymentsModal({
     })
   }
 
+  const { data: courseRes } = useCourseList()
+  const { data: cohortRes } = useCohortsList(Number(values.courseId))
+
   const FIELDS = createInputFields({
     values,
     updateValue,
+    courseList: courseRes?.data ?? [],
+    cohortList: cohortRes?.data ?? [],
   })
 
   return (
@@ -81,7 +89,7 @@ export default function ExamDeploymentsModal({
       title="쪽지시험 배포"
     >
       <div className="px-4">
-        <div className="px-1 py-3 pb-5">
+        <div className="px-1 py-2 pb-5">
           <p className="text-sm text-neutral-400">시험명 : {examName}</p>
           <p className="text-sm text-neutral-400">과목명 : {subjectName}</p>
         </div>
@@ -97,7 +105,7 @@ export default function ExamDeploymentsModal({
             />
           ))}
         </div>
-        <div className="flex justify-end pt-10 pr-4 pb-6 pl-2.5">
+        <div className="flex justify-end pr-4">
           <Button variant="success" size="md" onClick={handleDeployments}>
             {isPending ? '배포중' : '배포'}
           </Button>

@@ -1,6 +1,6 @@
 import type { ExamDeploymentsPayload } from '@features/exams'
 
-import { examDeploymentsRequest } from '@api'
+import { createExamDeploymentsRequest } from '@api'
 import { showToast } from '@components'
 import { ROUTES_PATHS } from '@constants'
 import { useMutation } from '@tanstack/react-query'
@@ -11,11 +11,9 @@ export const useExamDeploymentsMutation = (onClose: () => void) => {
 
   return useMutation({
     mutationFn: (payload: ExamDeploymentsPayload) =>
-      examDeploymentsRequest(payload),
+      createExamDeploymentsRequest(payload),
 
-    onSuccess: (data) => {
-      // eslint-disable-next-line no-console
-      console.log(data)
+    onSuccess: () => {
       showToast('배포가 완료되었습니다.', 'success')
 
       onClose()
@@ -23,9 +21,7 @@ export const useExamDeploymentsMutation = (onClose: () => void) => {
       navigate(ROUTES_PATHS.EXAM, { replace: true })
     },
 
-    onError: (error) => {
-      // eslint-disable-next-line no-console
-      console.error(error)
+    onError: () => {
       showToast('배포 중 오류가 발생했습니다.', 'fail')
     },
   })

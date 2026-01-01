@@ -163,3 +163,17 @@ export type ExamDeploymentsPayload = {
   openAt: string
   closeAt: string
 }
+
+export type Course = {
+  id: number
+  name: string
+  tag: string
+  thumbnailImgUrl: string
+}
+
+export type Cohorts = {
+  id: number
+  courseId: number
+  number: number
+  status: string
+}
