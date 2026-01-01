@@ -1,18 +1,17 @@
 import type {
   CreateExamModalPayload,
-  ExamDeployRequest,
-  UpdateExamModalPayload,
-} from '@features/exams'
-import type {
   DeploymentDetailResponse,
   DeploymentListParams,
   DeploymentListResponse,
+  ExamDeployRequest,
   ExamListParams,
   ExamListResponse,
+  UpdateExamModalPayload,
 } from '@features/exams'
 
-import { fetcher } from '@api/fetcher'
+import { fetcher } from '@api'
 import { EXAM_FORM_KEYS, ROUTES_PATHS_ADMIN } from '@constants'
+import { convertToCamelCase } from '@utils/convertToCamelCase'
 
 /**
  * 쪽지시험 목록 조회 API
@@ -71,12 +70,9 @@ export const deleteExamRequest = async (examId: number) => {
   return response.data
 }
 
-export const examDeleteRequest = async (examId: number) => {
-  const response = await fetcher.delete(`${ROUTES_PATHS_ADMIN.EXAM}/${examId}`)
-
-  return response.data
-}
-
+/**
+ * 쪽지시험 배포생성 API 요청
+ */
 export const examDeploymentsRequest = async (body: ExamDeployRequest) => {
   const payload = {
     exam_id: body.examId,
@@ -169,8 +165,9 @@ export const updateExamRequest = async ({
  */
 export const fetchExamDetailRequest = async (examId: number) => {
   const response = await fetcher.get(ROUTES_PATHS_ADMIN.EXAM_EXAMID({ examId }))
+  const raw = response.data
 
-  return response.data
+  return convertToCamelCase(raw)
 }
 
 // Query Key

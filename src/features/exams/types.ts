@@ -70,13 +70,6 @@ export type Distribution = {
   questionCount: number
 }
 
-export type ExamDetailResponse = {
-  examId: number
-  examTitle: string
-  subjectId: number
-  thumbnailImg: string | null
-}
-
 export type CreateExamModalPayload = {
   title: string
   subjectId: string

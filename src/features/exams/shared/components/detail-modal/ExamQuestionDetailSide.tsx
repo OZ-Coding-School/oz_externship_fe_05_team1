@@ -1,9 +1,9 @@
-import { ExamDeletePopupModal } from '@features/exams'
+import { ExamDeletePopupModal, type ExamQuestion } from '@features/exams'
 import { cn } from '@utils'
 import { useState } from 'react'
 
 type ExamQuestionDetailSideProps = {
-  questions: { questionId: number; question: string }[]
+  questions: ExamQuestion[]
   currentIndex: number
   onSelect: (index: number) => void
   examId: number
