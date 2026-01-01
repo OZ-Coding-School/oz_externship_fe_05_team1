@@ -5,7 +5,6 @@ import axios from 'axios'
 /**
  * Axios 인스턴스 생성
  * - baseURL: API 서버 주소
- * - headers: 기본 Content-Type 설정
  */
 export const fetcher = axios.create({
   baseURL: API_BASE_URL,
