@@ -26,7 +26,7 @@ const getStyles = (variant: ToastVariant) => {
       return {
         mainIcon: <ErrorIcon />,
         closeIcon: <FailCloseIcon />,
-        barColor: 'bf-[#ff5a5a]',
+        barColor: 'bg-[#ff5a5a]',
       }
     default:
       return {

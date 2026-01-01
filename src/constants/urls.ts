@@ -16,7 +16,7 @@ export const ROUTES_PATHS = {
 export const ROUTES_PATHS_ADMIN = {
   EXAM_EXAMID: ({ examId }: { examId: number }) => `/admin/exams/${examId}`,
   COHORTS: ({ courseId }: { courseId: number }) => `/${courseId}/cohorts`,
-  LOGIN: '/account/login',
+  LOGIN: '/accounts/login',
   EXAM: '/admin/exams',
   COURSE: '/course',
   EXAM_DISTRIBUTION_HISTORY: '/admin/exams/deployments',
