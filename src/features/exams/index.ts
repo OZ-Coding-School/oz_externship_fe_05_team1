@@ -22,8 +22,8 @@ export type { Exam, Distribution, Submission } from './types.ts'
 export { useExamDeleteMutation } from './queries/useExamDeleteMutation.ts'
 export { useExamDeploymentsMutation } from './queries/useExamDeploymentsMutation.ts'
 export { examDeploymentsSchema } from './schemas/examDeploymentsSchema.ts'
-export { default as DeploymentHistoryModal } from './shared/components/DeploymentHistoryModal.tsx'
-export * from './shared/components/deploymentHistoryModalConfig.tsx'
+export { default as DeploymentHistoryModal } from './deployments/components/DeploymentHistoryModal.tsx'
+export * from './deployments/components/deploymentHistoryModalConfig.tsx'
 export * from './types.ts'
 export { default as QuestionNav } from './shared/components/QuestionNav.tsx'
 export { default as FillBlank } from './shared/components/detail-modal/question-option-renderer/FillBlank.tsx'
@@ -49,3 +49,15 @@ export * from './queries/useDeploymentList.ts'
 export * from './queries/useDeploymentDetail.ts'
 export { useExamDetailState } from './shared/hooks/useExamDetailState.ts'
 export * from './queries/useCourseCohortListQuery.ts'
+export {
+  getExamDetailRows,
+  getSubmissionDetailRows,
+} from './submissions/components/submissionDetailModalConfig.tsx'
+export { default as SubmissionDetailModal } from './submissions/components/SubmissionDetailModal.tsx'
+export { useSubmissionListQuery } from './queries/useSubmissionList.ts'
+// export { useSubmissionDetail } from './queries/useSubmissionDetail.ts'
+export { default as SubmissionDeletePopupModal } from './submissions/components/SubmissionDeletePopupModal.tsx'
+export type {
+  SubmissionListResponse,
+  SubmissionDetailResponse,
+} from './types.ts'

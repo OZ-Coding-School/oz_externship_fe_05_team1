@@ -64,7 +64,11 @@ export default function DeploymentsHistoryModal({
                 <h3 className="text-lg font-medium text-neutral-800">
                   {section.title}
                 </h3>
-                <InfoSection title="" rows={section.row} />
+                <div className="w-full overflow-hidden border-neutral-200">
+                  <div className="max-w-full overflow-x-hidden">
+                    <InfoSection rows={section.row} title={''} />
+                  </div>
+                </div>
               </div>
             ))}
           </div>

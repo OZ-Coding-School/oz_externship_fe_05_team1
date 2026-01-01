@@ -1,12 +1,13 @@
 import { TwoSplitInfo } from '@components'
-import { type DetailRow } from '@features/exams/shared/components/deploymentHistoryModalConfig'
+import { type DetailRow } from '@features/exams/deployments/components/deploymentHistoryModalConfig'
 
 type InfoSectionProps = {
   title: string
   rows: DetailRow[]
+  action?: React.ReactNode
 }
 
-export default function InfoSection({ title, rows }: InfoSectionProps) {
+export default function InfoSection({ title, rows, action }: InfoSectionProps) {
   const elements: React.ReactNode[] = []
 
   for (let i = 0; i < rows.length; i++) {
@@ -34,7 +35,7 @@ export default function InfoSection({ title, rows }: InfoSectionProps) {
           key={current.label}
           label={current.label}
           value={current.value}
-          size="xl"
+          size="xxl"
           isLink={current.isLink}
         />
       )
@@ -43,7 +44,10 @@ export default function InfoSection({ title, rows }: InfoSectionProps) {
 
   return (
     <section>
-      <h3 className="mb-2 text-[13px] font-bold text-neutral-400">{title}</h3>
+      <div className="mb-2 flex items-center justify-between">
+        <h3 className="mb-2 text-[13px] font-bold text-neutral-400">{title}</h3>
+        {action}
+      </div>
       <div className="border-b border-neutral-200">{elements}</div>
     </section>
   )
