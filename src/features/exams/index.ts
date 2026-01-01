@@ -54,5 +54,5 @@ export {
   getSubmissionDetailRows,
 } from './submissions/components/submissionDetailModalConfig.tsx'
 export { default as SubmissionDetailModal } from './submissions/components/SubmissionDetailModal.tsx'
-export { useSubmissionList } from './queries/useSubmissionList.ts'
+export { useSubmissionListQuery } from './queries/useSubmissionList.ts'
 // export { useSubmissionDetail } from './queries/useSubmissionDetail.ts'

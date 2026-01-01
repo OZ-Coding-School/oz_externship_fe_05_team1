@@ -4,7 +4,7 @@ import {
   type Submission,
   SubmissionDetailModal,
   SubmissionList,
-  useSubmissionList,
+  useSubmissionListQuery,
 } from '@features/exams'
 import {
   COURSE_LIST_DROPDOWN,
@@ -31,7 +31,7 @@ export default function SubmissionManagementPage() {
   const generation = searchParams.get('generation') || ''
   const search = searchParams.get('search') || ''
 
-  const { data, isLoading } = useSubmissionList({
+  const { data, isLoading } = useSubmissionListQuery({
     page: Number(page),
     size: PAGE_SIZE,
     searchKeyword: search || undefined,
@@ -45,7 +45,9 @@ export default function SubmissionManagementPage() {
     const updatedParams = { ...current, ...newParams }
 
     Object.keys(updatedParams).forEach((key) => {
-      if (!updatedParams[key]) delete updatedParams[key]
+      if (!updatedParams[key]) {
+        delete updatedParams[key]
+      }
     })
     setSearchParams(updatedParams)
   }

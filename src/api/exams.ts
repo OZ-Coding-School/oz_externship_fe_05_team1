@@ -6,12 +6,10 @@ import type {
   ExamDeployRequest,
   ExamListParams,
   ExamListResponse,
-  UpdateExamModalPayload,
-} from '@features/exams'
-import type {
   SubmissionDetailResponse,
   SubmissionListParams,
   SubmissionListResponse,
+  UpdateExamModalPayload,
 } from '@features/exams'
 
 import { fetcher } from '@api'
@@ -201,7 +199,6 @@ export const fetchCourseList = async () => {
 }
 
 /**
- * 과정 리스트 API 요청
  * 쪽지시험 응시 내역 목록 조회
  */
 export const getSubmissionsRequest = async (
@@ -232,14 +229,13 @@ export const fetchCohortsList = async (courseId: number) => {
 }
 
 /**
- * 기수 리스트 API 요청
  * 쪽지시험 응시 내역 상세 조회
  */
 export const getSubmissionDetailRequest = async (
   submissionId: number
 ): Promise<SubmissionDetailResponse> => {
   const response = await fetcher.get<SubmissionDetailResponse>(
-    `${ROUTES_PATHS_ADMIN.EXAM_SUBMISSION_HISTORY}/${submissionId}`
+    `${ROUTES_PATHS_ADMIN.EXAM_SUBMISSION_DETAIL}/${submissionId}`
   )
 
   return response.data
@@ -250,7 +246,7 @@ export const getSubmissionDetailRequest = async (
  */
 export const deleteSubmissionRequest = async (submissionId: number) => {
   const response = await fetcher.delete(
-    `${ROUTES_PATHS_ADMIN.EXAM_SUBMISSION_HISTORY}/${submissionId}`
+    `${ROUTES_PATHS_ADMIN.EXAM_SUBMISSION_DETAIL}/${submissionId}`
   )
 
   return response.data

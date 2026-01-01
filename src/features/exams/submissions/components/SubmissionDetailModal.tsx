@@ -3,7 +3,9 @@ import {
   getExamDetailRows,
   getSubmissionDetailRows,
   type Submission,
+  // SubmissionCheckModal,
 } from '@features/exams'
+// import { useState } from 'react'
 
 type SubmissionDetailModalProps = {
   isOpen: boolean
@@ -16,7 +18,11 @@ export default function SubmissionDetailModal({
   onClose,
   data,
 }: SubmissionDetailModalProps) {
-  if (!data) return null
+  // const [isCheckModalOpen, setIsCheckModalOpen] = useState(false)
+
+  if (!data) {
+    return null
+  }
 
   const infoSections = [
     {
@@ -26,6 +32,7 @@ export default function SubmissionDetailModal({
         <Button
           variant="primary-outline"
           size="sm"
+          // onClick={() => setIsCheckModalOpen(true)}
           className="flex items-center gap-1 border-primary-100 bg-primary-light px-2 py-1 text-[12px] text-primary-500 transition-all hover:bg-primary-400 hover:text-white"
         >
           <span className="text-[14px] leading-none">🔍</span>
@@ -47,13 +54,8 @@ export default function SubmissionDetailModal({
       title="쪽지시험 응시 상세 조회"
     >
       <div className="space-y-8 p-6">
-        {infoSections.map((section) => (
-          <InfoSection
-            key={section.title}
-            title={section.title}
-            rows={section.rows}
-            action={section.action}
-          />
+        {infoSections.map(({ title, rows, action }) => (
+          <InfoSection key={title} title={title} rows={rows} action={action} />
         ))}
       </div>
 
@@ -62,6 +64,12 @@ export default function SubmissionDetailModal({
           삭제
         </Button>
       </div>
+
+      {/* <SubmissionCheckModal
+        isOpen={isCheckModalOpen}
+        onClose={() => setIsCheckModalOpen(false)}
+        submissionId={data.submissionId}
+      /> */}
     </BaseModal>
   )
 }
