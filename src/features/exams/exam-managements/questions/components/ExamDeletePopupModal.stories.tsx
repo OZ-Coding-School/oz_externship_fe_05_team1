@@ -5,7 +5,6 @@ import { ExamDeletePopupModal } from '@features/exams'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { http, HttpResponse } from 'msw'
 import { useState } from 'react'
-import { BrowserRouter } from 'react-router-dom'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
@@ -34,22 +33,20 @@ const renderModal: Story['render'] = (args) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <div className="h-150 bg-neutral-100 p-10">
-          <button
-            className="rounded bg-primary-500 px-4 py-2 text-white"
-            onClick={() => setIsOpen(true)}
-          >
-            삭제 모달 열기
-          </button>
+      <div className="h-150 bg-neutral-100 p-10">
+        <button
+          className="rounded bg-primary-500 px-4 py-2 text-white"
+          onClick={() => setIsOpen(true)}
+        >
+          삭제 모달 열기
+        </button>
 
-          <ExamDeletePopupModal
-            {...args}
-            isOpen={isOpen}
-            onClose={() => setIsOpen(false)}
-          />
-        </div>
-      </BrowserRouter>
+        <ExamDeletePopupModal
+          {...args}
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+        />
+      </div>
     </QueryClientProvider>
   )
 }

@@ -5,12 +5,12 @@ import { ExamDeploymentsModal } from '@features/exams'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { http, HttpResponse } from 'msw'
 import { useState } from 'react'
-import { MemoryRouter } from 'react-router'
+import { Toaster } from 'react-hot-toast'
 
 const meta: Meta<typeof ExamDeploymentsModal> = {
   title: 'Features/Exam/ExamDeploymentsModal',
   component: ExamDeploymentsModal,
-
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     msw: {
@@ -26,25 +26,81 @@ const meta: Meta<typeof ExamDeploymentsModal> = {
               close_at: string
             }
 
-            // eslint-disable-next-line no-console
-            console.log('[MSW MOCK 배포 요청]', body)
-
             return HttpResponse.json(
               {
-                distribution_id: 101,
+                distribution_id: 123,
                 exam_id: body.exam_id,
-                cohort_id: body.cohort_id,
+                cohorts_id: body.cohort_id,
                 created_at: new Date().toISOString(),
               },
               { status: 201 }
             )
           }
         ),
+        http.get(`https://api.ozcodingschool.site/api/v1/course`, () =>
+          HttpResponse.json({
+            message: 'success',
+            data: [
+              {
+                id: 1,
+                name: '14기 백엔드',
+                tag: '1',
+                thumbnail_img_url: 'https://www.test.com',
+              },
+              {
+                id: 2,
+                name: '14기 프론트',
+                tag: '2',
+                thumbnail_img_url: 'https://www.test.com',
+              },
+            ],
+          })
+        ),
+        http.get(
+          `https://api.ozcodingschool.site/api/v1/:courseId/cohorts`,
+          ({ params }) => {
+            const { courseId } = params
+
+            const cohorts =
+              courseId === '1'
+                ? [
+                    {
+                      id: 7,
+                      course_id: 1,
+                      number: 12,
+                      status: 'IN_PROGRESS',
+                    },
+                    {
+                      id: 8,
+                      course_id: 1,
+                      number: 1,
+                      status: 'IN_PROGRESS',
+                    },
+                  ]
+                : [
+                    {
+                      id: 9,
+                      course_id: 2,
+                      number: 14,
+                      status: 'IN_PROGRESS',
+                    },
+                    {
+                      id: 10,
+                      course_id: 2,
+                      number: 15,
+                      status: 'IN_PROGRESS',
+                    },
+                  ]
+
+            return HttpResponse.json({
+              message: 'success',
+              data: cohorts,
+            })
+          }
+        ),
       ],
     },
   },
-
-  tags: ['autodocs'],
 }
 
 export default meta
@@ -54,13 +110,14 @@ type Story = StoryObj<typeof ExamDeploymentsModal>
 export const Default: Story = {
   render: () => {
     const [isOpen, setIsOpen] = useState(true)
-
     const queryClient = new QueryClient()
 
     return (
-      <MemoryRouter>
+      <>
+        <Toaster position="top-right" />
+
         <QueryClientProvider client={queryClient}>
-          <div className="h-200 bg-neutral-100 p-10">
+          <div className="h-[200vh] bg-neutral-100 p-10">
             <button
               className="rounded bg-primary-500 px-4 py-2 text-white"
               onClick={() => setIsOpen(true)}
@@ -70,14 +127,14 @@ export const Default: Story = {
 
             <ExamDeploymentsModal
               examId={1}
-              examName="Sample Exam"
-              subjectName="Sample Subject"
+              examName="프론트엔드 모의고사"
+              subjectName="React 심화"
               isOpen={isOpen}
               onClose={() => setIsOpen(false)}
             />
           </div>
         </QueryClientProvider>
-      </MemoryRouter>
+      </>
     )
   },
 }

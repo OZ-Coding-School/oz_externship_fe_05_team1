@@ -70,25 +70,6 @@ export const deleteExamRequest = async (examId: number) => {
   return response.data
 }
 
-/**
- * 쪽지시험 배포생성 API 요청
- */
-export const examDeploymentsRequest = async (body: ExamDeployRequest) => {
-  const payload = {
-    exam_id: body.examId,
-    cohort_id: body.cohortId,
-    duration_time: body.durationTime,
-    open_at: body.openAt,
-    close_at: body.closeAt,
-  }
-  const response = await fetcher.post(
-    `${ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_HISTORY}`,
-    payload
-  )
-
-  return response.data
-}
-
 export const getDeploymentsRequest = async (params: DeploymentListParams) => {
   const response = await fetcher.get<DeploymentListResponse>(
     `${ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_HISTORY}`,
@@ -205,6 +186,24 @@ export const deleteDeploymentRequest = async (deploymentId: number) => {
   const response = await fetcher.delete(
     `${ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_HISTORY}/${deploymentId}`
   )
+
+  return response.data
+}
+
+/**
+ * 과정 리스트 API 요청
+ */
+export const fetchCourseList = async () => {
+  const response = await fetcher.get(ROUTES_PATHS_ADMIN.COURSE)
+
+  return response.data
+}
+
+/**
+ * 기수 리스트 API 요청
+ */
+export const fetchCohortsList = async (courseId: number) => {
+  const response = await fetcher.get(ROUTES_PATHS_ADMIN.COHORTS({ courseId }))
 
   return response.data
 }

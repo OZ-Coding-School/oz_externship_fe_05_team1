@@ -18,6 +18,7 @@ export type DropdownMenuProps = {
   placeholder?: string
   size?: DropdownSize
   className?: string
+  disabled?: boolean
 }
 
 export default function DropdownMenu({
@@ -27,6 +28,7 @@ export default function DropdownMenu({
   placeholder,
   className,
   size = 'md',
+  disabled = false,
 }: DropdownMenuProps) {
   const menuId = useId()
   const buttonRef = useRef<HTMLButtonElement | null>(null)
@@ -63,9 +65,16 @@ export default function DropdownMenu({
       <DropdownTrigger
         displayLabel={displayLabel}
         isOpen={isOpen}
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={() => {
+          if (disabled) {
+            return
+          }
+
+          setIsOpen((prev) => !prev)
+        }}
         buttonRef={buttonRef}
         size={size}
+        disabled={disabled}
       />
       {isOpen && (
         <DropdownList

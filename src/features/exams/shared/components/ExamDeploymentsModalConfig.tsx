@@ -1,6 +1,12 @@
+import type { Cohorts, Course } from '@features/exams/types'
 import type { ReactNode } from 'react'
 
-import { BaseInput, DateInput, type InputVariant } from '@components'
+import {
+  BaseInput,
+  DateInput,
+  DropdownMenu,
+  type InputVariant,
+} from '@components'
 
 type InputField = {
   label: string
@@ -11,6 +17,7 @@ type InputField = {
 
 type CreateInputFieldsProp = {
   values: {
+    courseId: string
     cohortId: string
     durationTime: string
     openAt: string
@@ -20,20 +27,51 @@ type CreateInputFieldsProp = {
     key: keyof CreateInputFieldsProp['values'],
     value: string
   ) => void
+
+  courseList: Course[]
+  cohortList: Cohorts[]
 }
 
 export const createInputFields = ({
   values,
   updateValue,
+  courseList,
+  cohortList,
 }: CreateInputFieldsProp): InputField[] => [
+  {
+    label: '과정',
+    size: 'xl',
+    rightSide: () => (
+      <DropdownMenu
+        items={courseList.map((course) => ({
+          label: course.name,
+          value: String(course.id),
+        }))}
+        selectedValue={String(values.courseId)}
+        onSelect={(value) => updateValue('courseId', value)}
+        placeholder="과정을 선택하세요"
+        className="w-full"
+        size="xl"
+      />
+    ),
+  },
   {
     label: '기수',
     size: 'xl',
     rightSide: () => (
-      <BaseInput
-        value={values.cohortId}
-        onChange={(e) => updateValue('cohortId', e.target.value)}
-        placeholder="기수 선택하세요"
+      <DropdownMenu
+        items={cohortList.map((cohort) => ({
+          label: `${cohort.number}기`,
+          value: String(cohort.id),
+        }))}
+        selectedValue={String(values.cohortId)}
+        onSelect={(value) => updateValue('cohortId', value)}
+        placeholder={
+          values.courseId ? '기수를 선택하세요' : '과정을 먼저 선택하세요'
+        }
+        className="w-full"
+        disabled={!values.courseId}
+        size="xl"
       />
     ),
   },
@@ -57,7 +95,7 @@ export const createInputFields = ({
 
             updateValue('durationTime', e.target.value)
           }}
-          className="w-20"
+          className="!focus:border-primary-300 !focus:ring-primary-300 w-20 focus:ring-1"
         />
         <span className="text-neutral-400">분</span>
       </div>
@@ -69,7 +107,7 @@ export const createInputFields = ({
     rightSide: () => (
       <DateInput
         value={values.openAt}
-        onChange={(v) => updateValue('openAt', v)}
+        onChange={(value) => updateValue('openAt', value)}
       />
     ),
   },
@@ -79,7 +117,7 @@ export const createInputFields = ({
     rightSide: () => (
       <DateInput
         value={values.closeAt}
-        onChange={(v) => updateValue('closeAt', v)}
+        onChange={(value) => updateValue('closeAt', value)}
       />
     ),
   },
