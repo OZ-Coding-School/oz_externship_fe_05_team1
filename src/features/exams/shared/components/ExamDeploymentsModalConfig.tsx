@@ -1,19 +1,6 @@
-import type { Cohorts, Course } from '@features/exams/types'
-import type { ReactNode } from 'react'
+import type { Cohorts, Course, ModalInputField } from '@features/exams'
 
-import {
-  BaseInput,
-  DateInput,
-  DropdownMenu,
-  type InputVariant,
-} from '@components'
-
-type InputField = {
-  label: string
-  size: InputVariant['size']
-  rightSide: () => ReactNode
-  labelHeight?: number
-}
+import { BaseInput, DateInput, DropdownMenu } from '@components'
 
 type CreateInputFieldsProp = {
   values: {
@@ -37,7 +24,7 @@ export const createInputFields = ({
   updateValue,
   courseList,
   cohortList,
-}: CreateInputFieldsProp): InputField[] => [
+}: CreateInputFieldsProp): ModalInputField[] => [
   {
     label: '과정',
     size: 'xl',

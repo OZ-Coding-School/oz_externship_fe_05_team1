@@ -1,3 +1,6 @@
+import type { InputVariant } from '@components'
+import type { ReactNode } from 'react'
+
 export type Exam = {
   id: number
   title: string
@@ -90,7 +93,7 @@ export type UpdateExamModalPayload = {
   examId: number
   title: string
   subjectId: string
-  logoFile: File
+  logoFile?: File | null
 }
 
 export type ExamQuestion = {
@@ -254,3 +257,20 @@ export type SubmissionDetailResponse = {
     explanation: string
   }>
 }
+
+export type Subjects = {
+  id: number
+  courseId: number
+  title: string
+  status: string
+  thumbnailImgUrl: string
+}
+
+export type ModalInputField = {
+  label: string
+  size: InputVariant['size']
+  rightSide: () => ReactNode
+  labelHeight?: number
+}
+
+export type ModalMode = 'create' | 'update'

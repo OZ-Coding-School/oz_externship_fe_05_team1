@@ -48,7 +48,6 @@ export { useDeploymentDetail } from './queries/useDeploymentDetail.ts'
 export * from './queries/useDeploymentList.ts'
 export * from './queries/useDeploymentDetail.ts'
 export { useExamDetailState } from './shared/hooks/useExamDetailState.ts'
-export * from './queries/useCourseCohortListQuery.ts'
 export {
   getExamDetailRows,
   getSubmissionDetailRows,
@@ -61,3 +60,9 @@ export type {
   SubmissionListResponse,
   SubmissionDetailResponse,
 } from './types.ts'
+export * from './queries/useCourseCohortsListQuery.ts'
+export * from './queries/useCourseSubjectsListQuery.ts'
+export { examFormSchema } from './schemas/examFormSchema.ts'
+export { examFormModalConfig } from './shared/components/examFormModalConfig.tsx'
+export { useExamForm } from './shared/hooks/useExamForm.ts'
+export type { ModalMode } from './types.ts'
