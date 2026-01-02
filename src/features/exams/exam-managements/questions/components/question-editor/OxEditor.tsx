@@ -1,9 +1,8 @@
 import { cn } from '@utils'
 
 type CreateOxProps = {
-  value: boolean
+  value: boolean | undefined
   onChange: (value: boolean) => void
-  disabled?: boolean
 }
 
 const answerOptions = [
@@ -15,16 +14,9 @@ const answerOptions = [
  * OX형 정답 선택 에디터
  * O(true) 또는 X(false) 선택
  */
-export default function CreateOx({
-  value,
-  onChange,
-  disabled = false,
-}: CreateOxProps) {
-  const handleToggle = (optValue: boolean) => {
-    if (disabled) {
-      return
-    }
-    onChange(optValue)
+export default function OxEditor({ value, onChange }: CreateOxProps) {
+  const handleToggle = (optionValue: boolean) => {
+    onChange(optionValue)
   }
 
   return (
@@ -57,11 +49,8 @@ export default function CreateOx({
                 type="checkbox"
                 checked={isSelected}
                 onChange={() => handleToggle(optValue)}
-                disabled={disabled}
                 className={cn(
-                  'h-5 w-5 cursor-pointer rounded accent-primary-400',
-                  disabled &&
-                    'cursor-not-allowed border border-neutral-200 bg-white'
+                  'h-5 w-5 cursor-pointer rounded accent-primary-400'
                 )}
               />
             </div>
