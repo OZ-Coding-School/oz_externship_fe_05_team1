@@ -60,7 +60,9 @@ export type {
   SubmissionListResponse,
   SubmissionDetailResponse,
 } from './types.ts'
-export * from './queries/useCourseListQuery.ts'
+export * from './queries/useCourseCohortsListQuery.ts'
+export * from './queries/useCourseSubjectsListQuery.ts'
 export { examFormSchema } from './schemas/examFormSchema.ts'
 export { examFormModalConfig } from './shared/components/examFormModalConfig.tsx'
 export { useExamForm } from './shared/hooks/useExamForm.ts'
+export type { ModalMode } from './types.ts'

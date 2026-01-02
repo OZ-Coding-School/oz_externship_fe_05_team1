@@ -4,12 +4,13 @@ import {
   examFormSchema,
   type ExamQuestionResponse,
   type ModalMode,
-  useCourseList,
+  useCourseSubjectsList,
   useExamCreateMutation,
   useExamDetailQuery,
   useExamUpdateMutation,
   useSubjectsList,
 } from '@features/exams'
+import { MOCK_SUBJECT_LIST } from '@mocks'
 import { useEffect, useState } from 'react'
 
 type UseExamFormProps = {
@@ -75,10 +76,16 @@ export function useExamForm({ modalMode, examId, onClose }: UseExamFormProps) {
   useEffect(() => {
     if (modalMode === 'update' && examDetail) {
       const parsed = parseExamDetail(examDetail as ExamQuestionResponse)
+      const matchedSubject = MOCK_SUBJECT_LIST.find(
+        (s) => s.id === Number(parsed.parseSubjectId)
+      )
 
       setValues((prev) => ({
         ...prev,
-        ...parsed,
+        examTitle: parsed.parseTitle,
+        subjectId: parsed.parseSubjectId,
+        thumbnailImg: parsed.parseThumbnailImg,
+        courseId: matchedSubject ? String(matchedSubject.course_id) : '',
       }))
     }
   }, [modalMode, examDetail])
@@ -144,8 +151,10 @@ export function useExamForm({ modalMode, examId, onClose }: UseExamFormProps) {
     onClose()
   }
 
-  const { data: courseRes } = useCourseList()
-  const { data: subjectsRes } = useSubjectsList(Number(values.courseId))
+  const { data: courseRes } = useCourseSubjectsList({ mode: modalMode })
+  const { data: subjectsRes } = useSubjectsList(Number(values.courseId), {
+    mode: modalMode,
+  })
 
   const FIELDS = examFormModalConfig({
     values,
