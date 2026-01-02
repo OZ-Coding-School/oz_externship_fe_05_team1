@@ -40,13 +40,15 @@ export const ROUTES_PATHS_ADMIN = {
     examId: number
     questionId: number
   }) => `/admin/exams/${examId}/questions/${questionId}`,
-  COHORTS: ({ courseId }: { courseId: number }) => `/${courseId}/cohorts`,
+  COHORTS: ({ courseId }: { courseId: number }) =>
+    `/courses${courseId}/cohorts`,
   LOGIN: '/accounts/login',
   EXAM: '/admin/exams',
-  COURSE: '/course',
+  COURSE: '/courses',
   EXAM_DISTRIBUTION_HISTORY: '/admin/exams/deployments',
   EXAM_SUBMISSION_HISTORY: '/admin/exams/submissions',
   EXAM_SUBMISSION_ID: ({ submissionId }: { submissionId: number }) =>
     `/admin/exams/submissions/${submissionId}`,
-  SUBJECTS: ({ courseId }: { courseId: number }) => `/${courseId}/subjects`,
+  SUBJECTS: ({ courseId }: { courseId: number }) =>
+    `/courses/${courseId}/subjects`,
 }
