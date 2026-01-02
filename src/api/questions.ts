@@ -31,7 +31,7 @@ export const fetchQuestionApi = {
     data: ApiRawQuestionPayload
   ) => {
     const response = await fetcher.put<ApiUpdateQuestionResponse>(
-      ROUTES_PATHS_ADMIN.EXAM_QUESTIONS({ examId, questionId }),
+      ROUTES_PATHS_ADMIN.QUESTION_ID({ examId, questionId }),
       data
     )
 
@@ -43,7 +43,7 @@ export const fetchQuestionApi = {
    * */
   delete: async (examId: number, questionId: number) => {
     const response = await fetcher.delete<ApiDeleteQuestionResponse>(
-      ROUTES_PATHS_ADMIN.EXAM_QUESTIONS({ examId, questionId })
+      ROUTES_PATHS_ADMIN.QUESTION_ID({ examId, questionId })
     )
 
     return response.data
@@ -53,9 +53,7 @@ export const fetchQuestionApi = {
    * 시험에 속한 문제 조회
    * */
   getByExamId: async (examId: number) => {
-    const response = await fetcher.get(
-      ROUTES_PATHS_ADMIN.EXAM_EXAMID({ examId })
-    )
+    const response = await fetcher.get(ROUTES_PATHS_ADMIN.QUESTIONS({ examId }))
 
     return response.data
   },

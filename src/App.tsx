@@ -23,7 +23,7 @@ function App() {
       element: <ExamManagementPage />,
     },
     {
-      path: ROUTES_PATHS.EXAM_QUESTIONS,
+      path: ROUTES_PATHS.EXAM_QUESTIONS_ROUTE,
       element: <CreateQuestionPage />,
     },
     {
