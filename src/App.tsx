@@ -3,6 +3,7 @@ import { ROUTES_PATHS } from '@constants'
 import ProtectedRoute from '@features/auth/components/ProtectedRoute'
 import {
   AdminLoginPage,
+  CreateQuestionPage,
   DistributionHistoryManagementPage,
   ExamManagementPage,
   MainPage,
@@ -20,6 +21,10 @@ function App() {
     {
       path: ROUTES_PATHS.EXAM,
       element: <ExamManagementPage />,
+    },
+    {
+      path: ROUTES_PATHS.EXAM_QUESTIONS_ROUTE,
+      element: <CreateQuestionPage />,
     },
     {
       path: ROUTES_PATHS.EXAM_DISTRIBUTION_HISTORY,
