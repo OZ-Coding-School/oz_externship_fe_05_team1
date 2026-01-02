@@ -40,6 +40,9 @@ export default function SubmissionCheckModal({
     return null
   }
 
+  const { exam, questions } = detail
+  const subjectPrefix = exam.subjectName.slice(0, 2)
+
   return (
     <BaseModal
       isOpen={isOpen}
@@ -49,15 +52,14 @@ export default function SubmissionCheckModal({
       title={
         <div className="flex items-center gap-3">
           <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary-500 text-xs font-bold text-white uppercase">
-            {detail.exam.subjectName.slice(0, 2)}
+            {subjectPrefix}
           </div>
           <div className="flex flex-col text-left leading-tight">
             <span className="text-[16px] font-semibold text-neutral-800">
-              {detail.exam.examTitle}
+              {exam.examTitle}
             </span>
             <span className="text-[14px] font-normal text-neutral-400">
-              과목: {detail.exam.subjectName} &nbsp;문제 수:{' '}
-              {detail.questions.length}
+              과목: {exam.subjectName} &nbsp;문제 수: {questions.length}
             </span>
           </div>
         </div>

@@ -2,11 +2,11 @@ import type { SubmissionQuestion } from '@features/exams/types'
 
 import { cn } from '@utils'
 
-export default function FillBlank({
-  question,
-}: {
+type FillBlankProps = {
   question: SubmissionQuestion
-}) {
+}
+
+export default function FillBlank({ question }: FillBlankProps) {
   const { correctAnswer, submittedAnswer } = question
 
   const correctAnswers = Array.isArray(correctAnswer)
@@ -27,16 +27,14 @@ export default function FillBlank({
         const submittedAnswer = submittedAnswers[i] || ''
         const isRight = submittedAnswer === ans
 
-        const statusStyles = isRight
-          ? 'border-green-100 bg-green-50'
-          : 'border-red-100 bg-red-50'
-
         return (
           <div
             key={i}
             className={cn(
               'flex w-94 items-center gap-3 rounded border p-3',
-              statusStyles
+              isRight
+                ? 'border-green-100 bg-green-50'
+                : 'border-red-100 bg-red-50'
             )}
           >
             <span className="text-xs font-bold">{i + 1}.</span>

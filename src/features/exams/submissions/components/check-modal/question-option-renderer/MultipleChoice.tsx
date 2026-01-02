@@ -1,12 +1,13 @@
 import type { SubmissionQuestion } from '@features/exams/types'
 
+import { AnswerIcon } from '@assets'
 import { cn } from '@utils'
 
-export default function MultipleChoice({
-  question,
-}: {
+type MultipleChoiceProps = {
   question: SubmissionQuestion
-}) {
+}
+
+export default function MultipleChoice({ question }: MultipleChoiceProps) {
   const { options, correctAnswer, submittedAnswer, isCorrect } = question
   const answers = Array.isArray(correctAnswer)
     ? (correctAnswer as string[])
@@ -52,7 +53,11 @@ export default function MultipleChoice({
                 iconStyles
               )}
             >
-              {isStudentOpt || isCorrectOpt ? '✓' : char}
+              {isStudentOpt || isCorrectOpt ? (
+                <AnswerIcon className="h-3 w-3" />
+              ) : (
+                char
+              )}
             </div>
             <span className={cn(textStyles)}>
               {char}. {opt}
