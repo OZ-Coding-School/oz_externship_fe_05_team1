@@ -66,3 +66,8 @@ export type ExamDeployRequest = {
   openAt: string
   closeAt: string
 }
+
+export type QuestionDefaultValues = Pick<
+  Question,
+  'options' | 'blank_count' | 'correct_answer' | 'prompt'
+>

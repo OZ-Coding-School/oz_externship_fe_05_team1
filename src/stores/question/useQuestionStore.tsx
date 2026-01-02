@@ -52,17 +52,27 @@ export const useQuestionStore = create<QuestionState>()(
           ),
         })),
 
+      // 문제 교체
+      replaceQuestion: (index: number, question: Question) => {
+        set((state) => ({
+          questions: state.questions.map((q, i) =>
+            i === index ? question : q
+          ),
+        }))
+      },
+
       // 문제 삭제
       deleteQuestion: (index) =>
         set((state) => {
           const newQuestions = state.questions.filter((_, i) => i !== index)
+          const newIndex = Math.min(
+            state.currentIndex,
+            Math.max(0, newQuestions.length - 1)
+          )
 
           return {
             questions: newQuestions,
-            currentIndex: Math.min(
-              state.currentIndex,
-              Math.max(0, newQuestions.length - 1)
-            ),
+            currentIndex: newIndex,
           }
         }),
 

@@ -1,3 +1,5 @@
+import type { QuestionPayload } from '@features/exams'
+
 export type ApiRawExamQuestion = {
   question_id: number
   type: string
@@ -22,4 +24,27 @@ export type ApiRawExamQuestionResponse = {
   updated_at: string
   thumbnail_img_url: string
   questions: ApiRawExamQuestion[]
+}
+
+export type ApiRawQuestionPayload = Omit<QuestionPayload, 'id' | 'exam_id'>
+
+export type ApiCreateQuestionResponse = {
+  exam_id: number
+  type: string
+  question: string
+  prompt: string
+  options: string[] | null
+  blank_count: number | null
+  correct_answer: unknown
+  point: number
+  explanation: string
+}
+
+export type ApiUpdateQuestionResponse = {
+  question_id: number
+} & Omit<ApiCreateQuestionResponse, 'exam_id'>
+
+export type ApiDeleteQuestionResponse = {
+  exam_id: number
+  question_id: number
 }

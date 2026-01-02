@@ -1,5 +1,7 @@
 import type { Question, QuestionType } from '@features/exams'
 
+import { QUESTION_DEFAULT_VALUES } from '@constants'
+
 /**
  * 문제 유형별 빈 문제 생성
  * @param type - 문제 유형
@@ -25,6 +27,7 @@ export const createEmptyQuestion = (type: QuestionType): Question => {
         options: ['', '', '', ''], // 4지선다 기본
         blank_count: null,
         correct_answer: '',
+        prompt: '',
       }
 
     case 'ox':
@@ -33,6 +36,7 @@ export const createEmptyQuestion = (type: QuestionType): Question => {
         options: null,
         blank_count: null,
         correct_answer: true,
+        prompt: '',
       }
 
     case 'short_answer':
@@ -41,6 +45,7 @@ export const createEmptyQuestion = (type: QuestionType): Question => {
         options: null,
         blank_count: null,
         correct_answer: '',
+        prompt: '',
       }
     case 'ordering':
       return {
@@ -48,6 +53,7 @@ export const createEmptyQuestion = (type: QuestionType): Question => {
         options: ['', '', '', ''],
         blank_count: null,
         correct_answer: [1, 2, 3, 4],
+        prompt: '',
       }
 
     case 'fill_blank':
@@ -56,14 +62,13 @@ export const createEmptyQuestion = (type: QuestionType): Question => {
         options: null,
         blank_count: 1,
         correct_answer: [''], // 빈칸 개수만큼 배열
+        prompt: '',
       }
 
     default:
       return {
         ...base,
-        options: null,
-        blank_count: null,
-        correct_answer: '',
+        ...QUESTION_DEFAULT_VALUES[type],
       }
   }
 }
