@@ -196,7 +196,9 @@ export const deleteDeploymentRequest = async (deploymentId: number) => {
 export const fetchCourseList = async () => {
   const response = await fetcher.get(ROUTES_PATHS_ADMIN.COURSE)
 
-  return response.data
+  return {
+    courseList: response.data,
+  }
 }
 
 /**
@@ -259,5 +261,7 @@ export const deleteSubmissionRequest = async (submissionId: number) => {
 export const fetchSubjectsList = async (courseId: number) => {
   const response = await fetcher.get(ROUTES_PATHS_ADMIN.SUBJECTS({ courseId }))
 
-  return response.data
+  return {
+    subjectsList: response.data,
+  }
 }

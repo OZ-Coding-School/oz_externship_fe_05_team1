@@ -37,8 +37,8 @@ export const examFormSchema = z
       })
       .transform((v) => Number(v)),
     thumbnailImgFile: z
-      .custom<File | undefined>((file) => {
-        if (file === undefined || file instanceof File) {
+      .custom<File | null | undefined>((file) => {
+        if (file === null || file === undefined || file instanceof File) {
           return true
         }
 
@@ -55,7 +55,7 @@ export const examFormSchema = z
       if (!thumbnailImgFile) {
         ctx.addIssue({
           code: 'custom',
-          message: '로고를 업로드하세요.',
+          message: '로고를 업로드 해주세요.',
           path: ['thumbnailImgFile'],
         })
 

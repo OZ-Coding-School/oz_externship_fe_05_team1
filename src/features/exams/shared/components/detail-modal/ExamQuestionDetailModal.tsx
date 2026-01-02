@@ -128,7 +128,6 @@ export default function ExamQuestionDetailModal({
 }: ExamQuestionDetailProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isDeploymentsOpen, setIsDeploymentsOpen] = useState(false)
-
   const { exam, isLoading, isError } = useExamDetailState(examId, isOpen)
 
   if (!exam) {
@@ -164,6 +163,14 @@ export default function ExamQuestionDetailModal({
         </div>
       </BaseModal>
     )
+  }
+
+  const handleExamQuestionsUpdate = () => {
+    /**
+     * TODO: 쪽지시험 문제 페이지로 이동 api
+     * 예시 : /navigator(`${ROUTES_PATHS.EXAM_QUESTIONS_CREATE(1)}`)
+     * 디자인 수정하면서 생성 예정
+     * */
   }
 
   return (
@@ -206,7 +213,7 @@ export default function ExamQuestionDetailModal({
           currentIndex={currentIndex}
           total={exam.questions.length}
           openDeploymentsModal={() => setIsDeploymentsOpen(true)}
-          onClose={() => setIsDeploymentsOpen(false)}
+          openExamQuestionUpdate={handleExamQuestionsUpdate}
         />
         <ExamDeploymentsModal
           examName={exam.title}
