@@ -1,0 +1,6 @@
+export { default as FillBlank } from './FillBlank.tsx'
+export { default as MultipleChoice } from './MultipleChoice.tsx'
+export { default as SingleChoice } from './SingleChoice.tsx'
+export { default as Ox } from './Ox.tsx'
+export { default as ShortAnswer } from './ShortAnswer.tsx'
+export { default as Ordering } from './Ordering.tsx'

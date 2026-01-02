@@ -1,3 +1,5 @@
+import type { SubmissionQuestion } from '@features/exams/types'
+
 import { useQuestionStore } from '@stores'
 import { cn } from '@utils'
 
@@ -16,6 +18,8 @@ export default function QuestionNav({
 }: QuestionNavProps) {
   const { questions, currentIndex, setCurrentIndex } = useQuestionStore()
 
+  const submissionQuestions = questions as unknown as SubmissionQuestion[]
+
   return (
     <nav
       className={cn(
@@ -24,21 +28,27 @@ export default function QuestionNav({
       )}
     >
       <div className="grid grid-cols-4 gap-2">
-        {questions.map((_, index) => (
-          <button
-            key={index}
-            type="button"
-            onClick={() => setCurrentIndex(index)}
-            className={cn(
-              'flex h-8 w-8 items-center justify-center rounded-md text-sm font-semibold transition-colors',
-              currentIndex === index
-                ? 'bg-primary-300 text-white'
-                : 'bg-primary-light text-primary-200 hover:bg-primary-300 hover:text-white'
-            )}
-          >
-            {index + 1}
-          </button>
-        ))}
+        {submissionQuestions.map((q, index) => {
+          const isSelected = currentIndex === index
+          const isCorrect = q.isCorrect
+
+          return (
+            <button
+              key={index}
+              type="button"
+              onClick={() => setCurrentIndex(index)}
+              className={cn(
+                'flex h-8 w-8 items-center justify-center rounded-md text-sm font-semibold transition-colors',
+                isSelected ? 'ring-2 ring-primary-300 ring-offset-2' : '',
+                isCorrect
+                  ? 'bg-green-100 text-green-600'
+                  : 'bg-red-100 text-red-600'
+              )}
+            >
+              {index + 1}
+            </button>
+          )
+        })}
       </div>
 
       {actionButton && <div className="mt-auto pt-4">{actionButton}</div>}

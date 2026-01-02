@@ -222,6 +222,15 @@ export type SubmissionListResponse = {
   submissions: SubmissionApiItem[]
 }
 
+export type SubmissionQuestion = ExamQuestion & {
+  isCorrect: boolean
+  submittedAnswer: string | string[] | boolean
+  correctAnswer: string | string[] | boolean
+  explanation: string
+  number: number
+  type: string
+}
+
 export type SubmissionDetailResponse = {
   exam: {
     examTitle: string

@@ -14,6 +14,7 @@ type QuestionState = {
 
   // 액션
   setExamId: (id: number) => void
+  setQuestions: (questions: Question[]) => void
   addQuestion: (type: QuestionType) => void
   updateQuestion: (index: number, data: Partial<Question>) => void
   deleteQuestion: (index: number) => void
@@ -34,6 +35,9 @@ export const useQuestionStore = create<QuestionState>()(
 
       // 시험 ID 설정
       setExamId: (id) => set({ examId: id }),
+
+      // 구현부 추가
+      setQuestions: (questions) => set({ questions }),
 
       // 새 문제 추가
       addQuestion: (type) =>
