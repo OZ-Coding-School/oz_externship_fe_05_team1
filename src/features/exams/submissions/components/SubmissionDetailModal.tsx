@@ -3,7 +3,7 @@ import {
   getExamDetailRows,
   getSubmissionDetailRows,
   type Submission,
-  // SubmissionCheckModal,
+  SubmissionCheckModal,
   SubmissionDeletePopupModal,
 } from '@features/exams'
 import { useState } from 'react'
@@ -19,7 +19,7 @@ export default function SubmissionDetailModal({
   onClose,
   data,
 }: SubmissionDetailModalProps) {
-  // const [isCheckModalOpen, setIsCheckModalOpen] = useState(false)
+  const [isCheckModalOpen, setIsCheckModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
   if (!data) {
@@ -34,7 +34,7 @@ export default function SubmissionDetailModal({
         <Button
           variant="primary-outline"
           size="md"
-          // onClick={() => setIsCheckModalOpen(true)}
+          onClick={() => setIsCheckModalOpen(true)}
           className="flex items-center gap-1 border-primary-100 bg-primary-light px-2 py-1 text-[12px] text-primary-500 transition-all hover:bg-primary-400 hover:text-white"
         >
           <span className="text-[14px] leading-none">🔍</span>
@@ -86,11 +86,11 @@ export default function SubmissionDetailModal({
         </div>
       </BaseModal>
 
-      {/* <SubmissionCheckModal
+      <SubmissionCheckModal
         isOpen={isCheckModalOpen}
         onClose={() => setIsCheckModalOpen(false)}
         submissionId={data.submissionId}
-      /> */}
+      />
 
       <SubmissionDeletePopupModal
         isOpen={isDeleteModalOpen}
