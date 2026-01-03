@@ -10,12 +10,14 @@ export const useExamCreateMutation = (onClose: () => void) => {
   return useMutation({
     mutationFn: createExamRequest,
 
-    onSuccess: () => {
+    onSuccess: (response) => {
       showToast('시험이 생성 되었습니다.', 'success')
 
       onClose()
 
-      navigate(ROUTES_PATHS.EXAM_QUESTIONS_CREATE(1), { replace: true })
+      const examId = response.id
+
+      navigate(ROUTES_PATHS.EXAM_QUESTIONS_CREATE(examId), { replace: true })
     },
 
     onError: () => {
