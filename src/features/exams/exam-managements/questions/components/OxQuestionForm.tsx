@@ -5,6 +5,7 @@ import {
   QuestionTypeSelect,
 } from '@features/exams'
 import { createEmptyQuestion } from '@stores/question/helpers'
+import { useId } from 'react'
 
 import type { Question, QuestionType } from '../types'
 
@@ -17,6 +18,8 @@ import OxEditor from './question-editor/OxEditor'
 export default function OxQuestionForm() {
   const { questions, currentIndex, updateCurrentQuestion, replaceQuestion } =
     useQuestionForm()
+
+  const pointId = useId()
 
   const current = questions[currentIndex]
 
@@ -42,32 +45,44 @@ export default function OxQuestionForm() {
   }
 
   return (
-    <section>
-      <QuestionTypeSelect
-        value={current.type}
-        onChange={handleTypeChange}
-        className="text-md border border-neutral-200 text-neutral-400"
-      />
+    <section className="fex h-full flex-col gap-4">
+      <div className="mb-6">
+        <QuestionTypeSelect
+          value={current.type}
+          onChange={handleTypeChange}
+          className="text-sm"
+        />
+      </div>
 
-      <div>
-        <div>
-          <QuestionInput
-            value={current.question}
-            onChange={(value) => updateCurrentQuestion({ question: value })}
-          />
+      <div className="flex items-start gap-4">
+        <QuestionInput
+          value={current.question}
+          onChange={(value) => updateCurrentQuestion({ question: value })}
+        />
+        <div className="mb-6 flex flex-col gap-1">
+          <label
+            htmlFor={pointId}
+            className="invisible text-lg font-medium text-neutral-500"
+          >
+            배점
+          </label>
           <PointSelect
             value={current.point}
             onChange={(point) => updateCurrentQuestion({ point: point })}
           />
         </div>
+      </div>
 
-        <div>
+      <div className="flex gap-6">
+        <div className="w-1/2">
           <OxEditor
             value={current.correct_answer}
             onChange={(answer) =>
               updateCurrentQuestion({ correct_answer: answer })
             }
           />
+        </div>
+        <div className="w-1/2">
           <ExplanationEditor
             value={current.explanation || ''}
             onChange={(explanation) =>
