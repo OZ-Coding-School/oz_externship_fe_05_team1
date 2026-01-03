@@ -60,6 +60,7 @@ export type Submission = {
   startedAt: string
   endedAt: string
   spentTime: string
+  cohortId: number
 }
 
 export type Distribution = {
@@ -177,11 +178,19 @@ export type ExamDeploymentsPayload = {
   closeAt: string
 }
 
+export type CourseApiResponse = {
+  courseList: Course[]
+}
+
 export type Course = {
   id: number
   name: string
   tag: string
   thumbnailImgUrl: string
+}
+
+export type CohortsApiResponse = {
+  cohortsList: Cohorts[]
 }
 
 export type Cohorts = {
@@ -196,9 +205,11 @@ export type SubmissionListParams = {
   searchKeyword?: string
   subjectId?: string
   cohortId?: string
-  generationId?: string
+  courseId?: string
+  // generationId?: string
   sort?: string
   order?: 'asc' | 'desc'
+  examId?: string
 }
 
 export type SubmissionApiItem = {
@@ -213,6 +224,7 @@ export type SubmissionApiItem = {
   cheatingCount: number
   startedAt: string
   finishedAt: string
+  cohortId: number
 }
 
 export type SubmissionListResponse = {
@@ -265,6 +277,10 @@ export type SubmissionDetailResponse = {
     isCorrect: boolean
     explanation: string
   }>
+}
+
+export type SubjectsApiResponse = {
+  subjectsList: Subjects[]
 }
 
 export type Subjects = {

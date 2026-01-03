@@ -54,7 +54,6 @@ export {
 } from './submissions/components/submissionDetailModalConfig.tsx'
 export { default as SubmissionDetailModal } from './submissions/components/SubmissionDetailModal.tsx'
 export { useSubmissionListQuery } from './queries/useSubmissionList.ts'
-// export { useSubmissionDetail } from './queries/useSubmissionDetail.ts'
 export { default as SubmissionDeletePopupModal } from './submissions/components/SubmissionDeletePopupModal.tsx'
 export type {
   SubmissionListResponse,
@@ -70,7 +69,6 @@ export * from './exam-managements/questions/schemas/questionValidationSchema.ts'
 export { useSaveAllQuestions } from '@features/exams/exam-managements/questions/queries/useQuestionMutation'
 export { default as SubmissionCheckModal } from './submissions/components/check-modal/SubmissionCheckModal.tsx'
 export { useSubmissionDetail } from './queries/useSubmissionDetail.ts'
-export * from './queries/useSubmissionDetail.ts'
 export { SubmissionCheckSide } from './submissions/components/check-modal/SubmissionCheckSide.tsx'
 export { SubmissionCheckBody } from './submissions/components/check-modal/SubmissionCheckBody.tsx'
 export { SubmissionCheckFooter } from './submissions/components/check-modal/SubmissionCheckFooter.tsx'

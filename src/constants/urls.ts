@@ -14,7 +14,6 @@ export const ROUTES_PATHS = {
   }) => `${ROUTES_PATHS_ADMIN.QUESTIONS({ examId })}/${questionId}`,
   // 라우트용
   EXAM_QUESTIONS_ROUTE: `/exams/:examId/questions`,
-
   // 네비게이트용
   EXAM_QUESTIONS: ({ examId }: { examId: number }) =>
     `/exam/${examId}/questions`,
@@ -41,7 +40,7 @@ export const ROUTES_PATHS_ADMIN = {
     questionId: number
   }) => `/admin/exams/${examId}/questions/${questionId}`,
   COHORTS: ({ courseId }: { courseId: number }) =>
-    `/courses${courseId}/cohorts`,
+    `/courses/${courseId}/cohorts`,
   LOGIN: '/accounts/login',
   EXAM: '/admin/exams',
   COURSE: '/courses',

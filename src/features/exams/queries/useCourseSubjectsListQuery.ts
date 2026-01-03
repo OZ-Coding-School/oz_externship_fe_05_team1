@@ -1,8 +1,34 @@
+import type { Course, ModalMode, Subjects } from '@features/exams'
+
 import { fetchCourseList, fetchSubjectsList } from '@api'
 import { MOCK_COURSE_LIST, MOCK_SUBJECT_LIST } from '@mocks'
 import { useQuery } from '@tanstack/react-query'
 
-import type { ModalMode } from '../types'
+const normalizeSubject = (raw: {
+  id: number
+  course_id: number
+  title: string
+  status: string
+  thumbnail_img_url: string
+}): Subjects => ({
+  id: raw.id,
+  courseId: raw.course_id,
+  title: raw.title,
+  status: raw.status,
+  thumbnailImgUrl: raw.thumbnail_img_url,
+})
+
+export const normalizeCourse = (raw: {
+  id: number
+  name: string
+  tag: string
+  thumbnail_img_url: string
+}): Course => ({
+  id: raw.id,
+  name: raw.name,
+  tag: raw.tag,
+  thumbnailImgUrl: raw.thumbnail_img_url,
+})
 
 export const useCourseSubjectsList = ({ mode }: { mode: ModalMode }) =>
   useQuery({
@@ -10,7 +36,9 @@ export const useCourseSubjectsList = ({ mode }: { mode: ModalMode }) =>
     enabled: mode === 'create',
     queryFn: () => fetchCourseList(),
     initialData:
-      mode === 'update' ? { courseList: MOCK_COURSE_LIST } : undefined,
+      mode === 'update'
+        ? { courseList: MOCK_COURSE_LIST.map(normalizeCourse) }
+        : undefined,
     staleTime: Infinity,
     retry: false,
   })
@@ -28,7 +56,7 @@ export const useSubjectsList = (
         ? {
             subjectsList: MOCK_SUBJECT_LIST.filter(
               (s) => s.course_id === courseId
-            ),
+            ).map(normalizeSubject),
           }
         : undefined,
     staleTime: Infinity,

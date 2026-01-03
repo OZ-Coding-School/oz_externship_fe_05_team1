@@ -21,6 +21,7 @@ export const MOCK_SUBMISSION_LIST: SubmissionListResponse = {
       cheatingCount: 0,
       startedAt: '2026-01-02 10:00:00',
       finishedAt: '2026-01-02 11:00:00',
+      cohortId: 14,
     },
   ],
 }

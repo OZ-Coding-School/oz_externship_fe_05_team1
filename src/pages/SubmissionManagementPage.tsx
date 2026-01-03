@@ -1,67 +1,85 @@
-import { type DropdownConfig, FilterSection } from '@components'
+import {
+  type DropdownConfig,
+  type DropdownItem,
+  FilterSection,
+} from '@components'
 import { PAGE_SIZE } from '@constants'
 import {
   type Submission,
   SubmissionDetailModal,
   SubmissionList,
+  useCohortsList,
+  useCourseList,
+  useSubjectsList,
   useSubmissionListQuery,
 } from '@features/exams'
-import {
-  COURSE_LIST_DROPDOWN,
-  GENERATION_LIST_DROPDOWN,
-  SUBJECT_LIST_DROPDOWN,
-} from '@mocks'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router'
 
-const SUBMISSION_DROPDOWNS: DropdownConfig[] = [
-  { key: 'course', items: COURSE_LIST_DROPDOWN, placeholder: '과정' },
-  { key: 'subject', items: SUBJECT_LIST_DROPDOWN, placeholder: '과목' },
-  { key: 'generation', items: GENERATION_LIST_DROPDOWN, placeholder: '기수' },
-]
+export type SubmissionDropdownOption = {
+  id: string | number
+  name?: string
+  title?: string
+  number?: number
+}
+
+const toDropdownItems = <T extends SubmissionDropdownOption>(
+  list: T[],
+  getLabel: (item: T) => string
+): DropdownItem[] =>
+  list.map((item) => ({
+    label: getLabel(item),
+    value: String(item.id),
+  }))
 
 export default function SubmissionManagementPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [selectedItem, setSelectedItem] = useState<Submission | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [filters, setFilters] = useState({
+    course: '',
+    subject: '',
+    cohort: '',
+    searchKeyword: '',
+  })
 
   const page = searchParams.get('page') || '1'
-  const course = searchParams.get('course') || ''
-  const subject = searchParams.get('subject') || ''
-  const generation = searchParams.get('generation') || ''
-  const search = searchParams.get('search') || ''
+  const examId = searchParams.get('exam_id') || ''
 
   const { data, isLoading } = useSubmissionListQuery({
     page: Number(page),
     size: PAGE_SIZE,
-    searchKeyword: search || undefined,
-    subjectId: subject || undefined,
-    cohortId: course || undefined,
-    generationId: generation || undefined,
+    searchKeyword: filters.searchKeyword || undefined,
+    cohortId: filters.cohort || undefined,
+    examId: examId || undefined,
   })
 
-  const updateParams = (newParams: Record<string, string>) => {
-    const current = Object.fromEntries(searchParams.entries())
-    const updatedParams = { ...current, ...newParams }
-
-    Object.keys(updatedParams).forEach((key) => {
-      if (!updatedParams[key]) {
-        delete updatedParams[key]
-      }
-    })
-    setSearchParams(updatedParams)
-  }
-
   const handleChangeFilters = (key: string, value: string) => {
-    updateParams({ [key]: value, page: '1' })
+    if (key === 'course') {
+      setFilters((prev) => ({
+        ...prev,
+        course: value,
+        subject: '',
+        generation: '',
+      }))
+    } else {
+      setFilters((prev) => ({ ...prev, [key]: value }))
+    }
+
+    setSearchParams({ page: '1' })
   }
 
   const handleChangeSearch = (value: string) => {
-    updateParams({ search: value })
+    setFilters((prev) => ({ ...prev, searchKeyword: value }))
   }
 
   const handleSearch = () => {
-    updateParams({ page: '1' })
+    setSearchParams({
+      page: '1',
+      size: '10',
+      search_keyword: filters.searchKeyword,
+      cohort_id: filters.cohort,
+    })
   }
 
   const handleRowClick = (data: Submission) => {
@@ -70,6 +88,36 @@ export default function SubmissionManagementPage() {
       setIsModalOpen(true)
     }
   }
+
+  const { data: courseRes } = useCourseList()
+  const courseList = courseRes?.courseList ?? []
+  const selectedCourseId = filters.course ? Number(filters.course) : undefined
+
+  const { data: subjectsRes } = useSubjectsList(selectedCourseId ?? 0, {
+    mode: 'update',
+  })
+  const { data: cohortRes } = useCohortsList(selectedCourseId ?? 0)
+
+  const subjectsList = subjectsRes?.subjectsList ?? []
+  const cohortsList = cohortRes?.cohortsList ?? []
+
+  const submissionApiDropdowns: DropdownConfig[] = [
+    {
+      key: 'course',
+      items: toDropdownItems(courseList, (item) => `${item.name}`),
+      placeholder: '과정',
+    },
+    {
+      key: 'subject',
+      items: toDropdownItems(subjectsList, (item) => `${item.title}`),
+      placeholder: '과목',
+    },
+    {
+      key: 'cohort',
+      items: toDropdownItems(cohortsList, (item) => `${item.number}기`),
+      placeholder: '기수',
+    },
+  ]
 
   return (
     <section className="px-15 py-11">
@@ -80,27 +128,27 @@ export default function SubmissionManagementPage() {
 
         <div className="mb-3">
           <FilterSection
-            dropdowns={SUBMISSION_DROPDOWNS}
-            selectedValues={{ course, subject, generation }}
+            dropdowns={submissionApiDropdowns}
+            selectedValues={filters}
             onChangeFilters={handleChangeFilters}
-            search={search}
+            search={filters.searchKeyword}
             onChangeSearch={handleChangeSearch}
             onSubmit={handleSearch}
           />
         </div>
-
         <div>
           <SubmissionList
             data={data?.submissions ?? []}
             pageCount={data ? Math.ceil(data.totalCount / PAGE_SIZE) : 0}
             pageIndex={Number(page) - 1}
-            onPageChange={(index) => updateParams({ page: String(index + 1) })}
+            onPageChange={(index) =>
+              setSearchParams({ page: String(index + 1) })
+            }
             onRowClick={handleRowClick}
             isLoading={isLoading}
           />
         </div>
       </div>
-
       <SubmissionDetailModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
