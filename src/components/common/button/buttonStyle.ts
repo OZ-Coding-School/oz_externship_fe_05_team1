@@ -8,7 +8,8 @@ export const buttonVariants = cva(
         primary: 'bg-primary-400 text-white hover:bg-primary-500',
         'primary-light':
           'bg-primary-light text-primary-500 hover:bg-primary-400 hover:text-white',
-        'primary-outline': 'border border-primary-400',
+        'primary-outline':
+          'bg-transparents border border-2 text-primary-400 border-primary-400',
         secondary: 'bg-neutral-200 text-white hover:bg-neutral-400',
         'white-outline':
           'bg-bg-primary border border-neutral-200 text-neutral-500 hover:bg-neutral-300 hover:text-white',
@@ -19,6 +20,7 @@ export const buttonVariants = cva(
         danger:
           'bg-[#d32f2f] text-white hover:bg-error-light hover:text-[#d32f2f] border border-transparent hover:border-[#d32f2f]',
         'danger-outline': 'border border-danger',
+        transparency: 'bg-transparant hover:bg-neutral-100',
       },
       size: {
         sm: 'min-w-[48px] h-[24px] text-[14px]',
