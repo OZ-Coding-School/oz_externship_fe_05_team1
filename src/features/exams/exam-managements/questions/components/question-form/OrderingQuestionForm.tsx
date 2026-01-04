@@ -10,34 +10,45 @@ import {
   QuestionInput,
   QuestionTypeSelect,
 } from '../../question-inputs'
-import OxEditor from '../question-editor/OxEditor'
+import OrderingEditor from '../question-editor/OrderingEditor'
 
 /**
- * OX 문제 폼
+ * 순서 배열형 문제 폼
  */
-export default function OxQuestionForm() {
+export default function OrderingQuestionForm() {
   const { current, updateCurrentQuestion, replaceQuestion, currentIndex } =
     useQuestionForm()
 
   const pointId = useId()
 
-  const isOxQuestion = (
+  const isOrdering = (
     q: Question
-  ): q is Question & { type: 'ox'; correct_answer?: boolean } => q.type === 'ox'
+  ): q is Question & {
+    type: 'ordering'
+    options: string[]
+    correct_answer: number[]
+  } => q.type === 'ordering'
 
-  if (!current || !isOxQuestion(current)) {
+  if (!current || !isOrdering(current)) {
     return null
   }
 
-  const handleTypeChange = (type: QuestionType) =>
+  const handleTypeChange = (type: QuestionType) => {
     replaceQuestion(currentIndex, createEmptyQuestion(type))
+  }
+
+  // 기본값 설정
+  const options = current.options || ['', '']
+  const correctAnswer = current.correct_answer || [0, 1]
 
   return (
     <section className="flex h-full flex-col gap-4">
       <div className="mb-4">
         <QuestionTypeSelect
           value={current.type}
-          onChange={(type) => handleTypeChange(type)}
+          onChange={(type) => {
+            handleTypeChange(type)
+          }}
           className="text-sm"
         />
       </div>
@@ -46,7 +57,9 @@ export default function OxQuestionForm() {
         <QuestionInput
           mode="question"
           value={current.question}
-          onChange={(value) => updateCurrentQuestion({ question: value })}
+          onChange={(value) => {
+            updateCurrentQuestion({ question: value })
+          }}
         />
         <div className="mb-4 flex flex-col gap-1">
           <label
@@ -57,24 +70,33 @@ export default function OxQuestionForm() {
           </label>
           <PointSelect
             value={current.point}
-            onChange={(point) => updateCurrentQuestion({ point })}
+            onChange={(point) => {
+              updateCurrentQuestion({ point })
+            }}
           />
         </div>
       </div>
 
+      {/* 보기 & 순서 에디터 + 해설 */}
       <div className="flex gap-6">
         <div className="w-1/2">
-          <OxEditor
-            value={current.correct_answer}
-            onChange={(answer) =>
+          <OrderingEditor
+            options={options}
+            correctAnswer={correctAnswer}
+            onOptionsChange={(newOptions) => {
+              updateCurrentQuestion({ options: newOptions })
+            }}
+            onCorrectChange={(answer) => {
               updateCurrentQuestion({ correct_answer: answer })
-            }
+            }}
           />
         </div>
         <div className="w-1/2">
           <ExplanationEditor
             value={current.explanation || ''}
-            onChange={(explanation) => updateCurrentQuestion({ explanation })}
+            onChange={(explanation) => {
+              updateCurrentQuestion({ explanation })
+            }}
           />
         </div>
       </div>

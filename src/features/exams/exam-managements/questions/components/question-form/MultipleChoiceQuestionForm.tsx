@@ -44,7 +44,7 @@ export default function MultipleChoiceForm() {
 
   return (
     <section className="fex h-full flex-col gap-4">
-      <div className="mb-6">
+      <div className="mb-4">
         <QuestionTypeSelect
           value={currentQuestion.type}
           onChange={(type) => handleTypeChange(type)}
@@ -59,7 +59,7 @@ export default function MultipleChoiceForm() {
           onChange={(value) => handleUpdate({ question: value })}
         />
 
-        <div className="mb-6 flex flex-col gap-1">
+        <div className="mb-4 flex flex-col gap-1">
           <label
             htmlFor={pointId}
             className="invisible text-lg font-medium text-neutral-500"
