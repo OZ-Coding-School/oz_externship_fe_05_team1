@@ -7,10 +7,10 @@ import {
 import { createEmptyQuestion } from '@stores/question/helpers'
 import { useId } from 'react'
 
-import type { Question, QuestionType } from '../types'
+import type { Question, QuestionType } from '../../types'
 
-import { useQuestionForm } from '../hooks/useQuestionForm'
-import OxEditor from './question-editor/OxEditor'
+import { useQuestionForm } from '../../hooks/useQuestionForm'
+import OxEditor from '../question-editor/OxEditor'
 
 /**
  * OX문재 폼
@@ -56,6 +56,7 @@ export default function OxQuestionForm() {
 
       <div className="flex items-start gap-4">
         <QuestionInput
+          mode="question"
           value={current.question}
           onChange={(value) => updateCurrentQuestion({ question: value })}
         />

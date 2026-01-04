@@ -1,31 +1,61 @@
 import { BaseInput } from '@components'
 import { useId } from 'react'
 
-type QuestionInputProps = {
+type CommonInputProps = {
   value: string
   onChange: (value: string) => void
   placeholder?: string
   className?: string
   error?: boolean
+  disabled?: boolean
 }
+
+type QuestionMode = CommonInputProps & {
+  mode: 'question'
+}
+
+type AnswerMode = CommonInputProps & {
+  mode: 'answer'
+  onClear?: () => void
+}
+
+type QuestionInputProps = QuestionMode | AnswerMode
+const DEFAULT_PLACEHOLDER = '문제를 입력해주세요.'
+const DEFAULT_ANSWER_PLACEHOLDER = '보기를 입력해주세요.'
 
 /**
  * 문제 내용 입력
  */
-
-const DEFAULT_PLACEHOLDER = '문제를 입력하세요'
-
-export default function QuestionInput({
-  value,
-  onChange,
-  placeholder = DEFAULT_PLACEHOLDER,
-  className,
-  error = false,
-}: QuestionInputProps) {
+export default function QuestionInput(props: QuestionInputProps) {
+  const { value, onChange, className, error = false, mode } = props
   const inputId = useId()
 
+  const placeholder =
+    mode === 'answer'
+      ? (props.placeholder ?? DEFAULT_ANSWER_PLACEHOLDER)
+      : (props.placeholder ?? DEFAULT_PLACEHOLDER)
+
+  if (mode === 'answer') {
+    const { onClear } = props
+
+    return (
+      <div className={className}>
+        <BaseInput
+          id={inputId}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={placeholder}
+          className={className}
+          error={error}
+          size="answer"
+          onClear={onClear}
+        />
+      </div>
+    )
+  }
+
   return (
-    <div className="flex-1">
+    <div className={className || 'flex-1'}>
       <label
         htmlFor={inputId}
         className="mb-1 block text-lg font-medium text-neutral-500"
@@ -39,7 +69,7 @@ export default function QuestionInput({
         placeholder={placeholder}
         className={className}
         error={error}
-        size="xxl"
+        size="question"
       />
     </div>
   )
