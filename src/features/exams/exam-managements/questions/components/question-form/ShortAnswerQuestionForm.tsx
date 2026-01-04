@@ -24,9 +24,8 @@ export default function ShortAnswerQuestionForm() {
   // 타입가드
   const isShortAnswer = (
     q: Question
-  ): q is Question & { type: 'short_answer'; correct_answer: string } => {
-    return q.type === 'short_answer'
-  }
+  ): q is Question & { type: 'short_answer'; correct_answer: string } =>
+    q.type === 'short_answer'
 
   if (!current || !isShortAnswer(current)) {
     return null

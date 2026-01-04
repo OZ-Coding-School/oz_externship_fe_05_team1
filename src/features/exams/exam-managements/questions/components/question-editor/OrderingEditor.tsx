@@ -48,21 +48,27 @@ export default function OrderingEditor({
 
   const orderedOptions = getOrderedOptions()
 
-  // 드래그 완료 핸들러
+  // 드래그 완료 핸들러 - 조기 반환 블록화 및 reorder 호출 명시
   const handleDragEnd = (result: DropResult) => {
-    if (!result.destination || disabled) return
+    if (!result.destination || disabled) {
+      return
+    }
 
     const fromIndex = result.source.index
     const toIndex = result.destination.index
 
-    reorder(fromIndex, toIndex)
+    return reorder(fromIndex, toIndex)
   }
 
-  // onClear 핸들러 생성
+  // onClear 핸들러 생성 - 중괄호 사용 및 명시적 return
   const getOnClear = (optionIndex: number) => {
-    if (!canDelete || disabled) return undefined
+    if (!canDelete || disabled) {
+      return undefined
+    }
 
-    return () => deleteOption(optionIndex)
+    return () => {
+      deleteOption(optionIndex)
+    }
   }
 
   return (
@@ -120,9 +126,9 @@ export default function OrderingEditor({
                           <QuestionInput
                             mode="answer"
                             value={value}
-                            onChange={(newValue) =>
+                            onChange={(newValue) => {
                               updateOption(optionIndex, newValue)
-                            }
+                            }}
                             placeholder={`보기 ${alphabet} 입력`}
                             onClear={getOnClear(optionIndex)}
                             disabled={disabled}
@@ -143,7 +149,9 @@ export default function OrderingEditor({
       {canAdd && !disabled && (
         <button
           type="button"
-          onClick={addOption}
+          onClick={() => {
+            addOption()
+          }}
           className="hover:text-primary-600 self-start text-sm text-primary-500"
         >
           + 보기 추가

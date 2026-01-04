@@ -21,12 +21,10 @@ export default function OxQuestionForm() {
 
   const pointId = useId()
 
-  // 타입 가드 - 화살표 함수 블록화 및 return 추가
   const isOxQuestion = (
     q: Question
   ): q is Question & { type: 'ox'; correct_answer?: boolean } => q.type === 'ox'
 
-  // Early Return 블록화
   if (!current || !isOxQuestion(current)) {
     return null
   }

@@ -21,7 +21,6 @@ export default function OrderingQuestionForm() {
 
   const pointId = useId()
 
-  // 타입 가드
   const isOrdering = (
     q: Question
   ): q is Question & {
@@ -47,17 +46,20 @@ export default function OrderingQuestionForm() {
       <div className="mb-4">
         <QuestionTypeSelect
           value={current.type}
-          onChange={handleTypeChange}
+          onChange={(type) => {
+            handleTypeChange(type)
+          }}
           className="text-sm"
         />
       </div>
 
-      {/* 문제 입력 + 배점 */}
       <div className="flex items-start gap-4">
         <QuestionInput
           mode="question"
           value={current.question}
-          onChange={(value) => updateCurrentQuestion({ question: value })}
+          onChange={(value) => {
+            updateCurrentQuestion({ question: value })
+          }}
         />
         <div className="mb-4 flex flex-col gap-1">
           <label
@@ -68,7 +70,9 @@ export default function OrderingQuestionForm() {
           </label>
           <PointSelect
             value={current.point}
-            onChange={(point) => updateCurrentQuestion({ point })}
+            onChange={(point) => {
+              updateCurrentQuestion({ point })
+            }}
           />
         </div>
       </div>
@@ -79,18 +83,20 @@ export default function OrderingQuestionForm() {
           <OrderingEditor
             options={options}
             correctAnswer={correctAnswer}
-            onOptionsChange={(newOptions) =>
+            onOptionsChange={(newOptions) => {
               updateCurrentQuestion({ options: newOptions })
-            }
-            onCorrectChange={(answer) =>
+            }}
+            onCorrectChange={(answer) => {
               updateCurrentQuestion({ correct_answer: answer })
-            }
+            }}
           />
         </div>
         <div className="w-1/2">
           <ExplanationEditor
             value={current.explanation || ''}
-            onChange={(explanation) => updateCurrentQuestion({ explanation })}
+            onChange={(explanation) => {
+              updateCurrentQuestion({ explanation })
+            }}
           />
         </div>
       </div>
