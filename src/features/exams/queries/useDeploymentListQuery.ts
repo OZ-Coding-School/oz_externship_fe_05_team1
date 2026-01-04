@@ -21,19 +21,28 @@ export const useDeploymentListQuery = (params: DeploymentListParams) =>
     select: (data: DeploymentListResponse) => ({
       ...data,
       deployments: data.results.map(
-        (d): Distribution => ({
-          deploymentId: d.deploymentId,
-          examTitle: d.examTitle,
-          subjectName: d.subjectName,
-          generationNumber: d.cohortNumber,
-          courseName: d.courseName,
-          submitCount: d.submitCount,
-          averageScore: d.averageScore,
-          status: d.status.toLowerCase() as 'activated' | 'deactivated',
-          createdAt: d.createdAt,
-          durationTime: 0,
-          questionCount: 0,
-          nickname: '',
+        ({
+          id,
+          submit_count,
+          avg_score,
+          status,
+          exam,
+          subject,
+          cohort,
+          created_at,
+        }): Distribution => ({
+          deploymentId: id,
+          examTitle: exam.title,
+          subjectName: subject.name,
+          generationNumber: cohort.number,
+          courseName: cohort.course.name,
+          submitCount: submit_count,
+          averageScore: avg_score,
+          status: status.toLowerCase() as
+            | 'activated'
+            | 'deactivated'
+            | 'pending',
+          createdAt: created_at,
         })
       ),
     }),

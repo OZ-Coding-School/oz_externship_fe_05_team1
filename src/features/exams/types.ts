@@ -68,21 +68,18 @@ export type Distribution = {
   deploymentId: number
   examTitle: string
   subjectName: string
-  nickname: string
   courseName: string
   generationNumber: number
   submitCount: number
   averageScore: number
   createdAt: string
-  status: 'activated' | 'deactivated'
+  status: 'activated' | 'deactivated' | 'pending'
 
   examAccessUrl?: string
   accessCode?: string
   notSubmittedCount?: number
-  durationTime: number
   openedAt?: string
   closedAt?: string
-  questionCount: number
 }
 
 export type CreateExamModalPayload = {
@@ -122,28 +119,34 @@ export type ExamQuestionResponse = {
 export type DeploymentListResponse = {
   page: number
   size: number
-  totalCount: number
-  deployments: Array<{
-    deploymentId: number
-    examTitle: string
-    subjectName: string
-    cohortNumber: number
-    courseName: string
-    submitCount: number
-    averageScore: number
-    status: string
-    createdAt: string
-  }>
+  count: number
+  previous: string | null
+  next: string | null
   results: Array<{
-    deploymentId: number
-    examTitle: string
-    subjectName: string
-    cohortNumber: number
-    courseName: string
-    submitCount: number
-    averageScore: number
+    id: number
+    submit_count: number
+    avg_score: number
     status: string
-    createdAt: string
+    exam: {
+      id: number
+      title: string
+      thumbnail_img_url: string
+    }
+    subject: {
+      id: number
+      name: string
+    }
+    cohort: {
+      id: number
+      number: number
+      display: string
+      course: {
+        id: number
+        name: string
+        tag: string
+      }
+    }
+    created_at: string
   }>
 }
 

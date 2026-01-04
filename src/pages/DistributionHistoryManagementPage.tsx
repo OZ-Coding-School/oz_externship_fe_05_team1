@@ -100,7 +100,7 @@ export default function DistributionHistoryManagementPage() {
         <div>
           <DistributionList
             data={data?.deployments ?? []}
-            pageCount={data ? Math.ceil(data.totalCount / PAGE_SIZE) : 0}
+            pageCount={data ? Math.ceil(data.count / PAGE_SIZE) : 0}
             pageIndex={Number(page) - 1}
             onPageChange={(index) => changePage(index + 1)}
             onRowClick={handleRowClick}
