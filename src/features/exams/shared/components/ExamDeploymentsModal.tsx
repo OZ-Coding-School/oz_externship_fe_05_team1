@@ -72,14 +72,13 @@ export default function ExamDeploymentsModal({
   }
 
   const { data: courseRes } = useCourseList()
-
   const { data: cohortRes } = useCohortsList(Number(values.courseId))
 
   const FIELDS = createInputFields({
     values,
     updateValue,
-    courseList: courseRes?.courseList.data ?? [],
-    cohortList: cohortRes?.data ?? [],
+    courseList: courseRes?.courseList ?? [],
+    cohortList: cohortRes?.cohortsList ?? [],
   })
 
   return (

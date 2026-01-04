@@ -26,6 +26,18 @@ export function ExamQuestionDetailBody({
   onPrev,
   onNext,
 }: ExamQuestionDetailBodyProps) {
+  const totalQuestions = exam.questions.length
+  const hasValidIndex =
+    totalQuestions > 0 && currentIndex >= 0 && currentIndex < totalQuestions
+
+  if (!hasValidIndex) {
+    return (
+      <div className="flex h-full items-center justify-center text-neutral-400">
+        표시할 문제가 없습니다.
+      </div>
+    )
+  }
+
   const question = exam.questions[currentIndex]
 
   const typeLabel =

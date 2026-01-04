@@ -5,7 +5,7 @@ import { inputVariant, type InputVariant } from '../input/inputStyle'
 
 type TwoSplitInfoProps = {
   label: string
-  value: string | number
+  value: string | number | undefined
   size: InputVariant['size']
   labelHeight?: number
   className?: string

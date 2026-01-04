@@ -2,7 +2,7 @@ import type { Distribution } from '@features/exams'
 
 export type DetailRow = {
   label: string
-  value: string | number
+  value: string | number | undefined
   isLink?: boolean
   isFullWidth?: boolean
 }

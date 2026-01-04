@@ -1,4 +1,6 @@
 import type {
+  CohortsApiResponse,
+  CourseApiResponse,
   CreateExamModalPayload,
   DeploymentDetailResponse,
   DeploymentListParams,
@@ -6,6 +8,7 @@ import type {
   ExamDeployRequest,
   ExamListParams,
   ExamListResponse,
+  SubjectsApiResponse,
   SubmissionDetailResponse,
   SubmissionListParams,
   SubmissionListResponse,
@@ -193,7 +196,7 @@ export const deleteDeploymentRequest = async (deploymentId: number) => {
   return response.data
 }
 
-export const fetchCourseList = async () => {
+export const fetchCourseList = async (): Promise<CourseApiResponse> => {
   const response = await fetcher.get(ROUTES_PATHS_ADMIN.COURSE)
 
   return {
@@ -214,9 +217,8 @@ export const getSubmissionsRequest = async (
         page: params.page,
         size: params.size,
         search_keyword: params.searchKeyword,
-        subject_id: params.subjectId,
         cohort_id: params.cohortId,
-        generation_id: params.generationId,
+        exam_id: params.examId,
         sort: params.sort,
         order: params.order,
       },
@@ -226,10 +228,14 @@ export const getSubmissionsRequest = async (
   return response.data
 }
 
-export const fetchCohortsList = async (courseId: number) => {
+export const fetchCohortsList = async (
+  courseId: number
+): Promise<CohortsApiResponse> => {
   const response = await fetcher.get(ROUTES_PATHS_ADMIN.COHORTS({ courseId }))
 
-  return response.data
+  return {
+    cohortsList: response.data,
+  }
 }
 
 /**
@@ -258,7 +264,9 @@ export const deleteSubmissionRequest = async (submissionId: number) => {
 /*
  * 과목 리스트 API 요청
  */
-export const fetchSubjectsList = async (courseId: number) => {
+export const fetchSubjectsList = async (
+  courseId: number
+): Promise<SubjectsApiResponse> => {
   const response = await fetcher.get(ROUTES_PATHS_ADMIN.SUBJECTS({ courseId }))
 
   return {

@@ -46,6 +46,7 @@ export function useExamForm({ modalMode, examId, onClose }: UseExamFormProps) {
   })
 
   const [logoFile, setLogoFile] = useState<File | null>(null)
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null)
 
   const updateValue = (
     key: keyof typeof values,
@@ -55,11 +56,15 @@ export function useExamForm({ modalMode, examId, onClose }: UseExamFormProps) {
       if (value instanceof File) {
         setLogoFile(value)
 
+        const objectUrl = URL.createObjectURL(value)
+
+        setPreviewUrl(objectUrl)
         setValues((prev) => ({
           ...prev,
-          thumbnailImg: URL.createObjectURL(value),
+          thumbnailImg: objectUrl,
         }))
       } else {
+        setPreviewUrl(null)
         setValues((prev) => ({ ...prev, thumbnailImg: value as string }))
       }
 
@@ -89,6 +94,15 @@ export function useExamForm({ modalMode, examId, onClose }: UseExamFormProps) {
       }))
     }
   }, [modalMode, examDetail])
+
+  useEffect(
+    () => () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl)
+      }
+    },
+    [previewUrl]
+  )
 
   const examCreateMutation = useExamCreateMutation(onClose)
   const examUpdateMutation = useExamUpdateMutation(onClose)
@@ -148,6 +162,7 @@ export function useExamForm({ modalMode, examId, onClose }: UseExamFormProps) {
       thumbnailImg: '',
     })
     setLogoFile(null)
+    setPreviewUrl(null)
     onClose()
   }
 
