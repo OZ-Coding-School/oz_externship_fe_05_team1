@@ -1,72 +1,68 @@
-import {
-  type DropdownConfig,
-  type DropdownItem,
-  FilterSection,
-} from '@components'
+import { FilterSection } from '@components'
 import { PAGE_SIZE } from '@constants'
 import {
   type Submission,
   SubmissionDetailModal,
   SubmissionList,
-  useCohortsList,
-  useCourseList,
-  useSubjectsList,
   useSubmissionListQuery,
 } from '@features/exams'
+import { useCourseSubjectCohortDropdowns, useUrlFilters } from '@pages'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router'
 
-export type SubmissionDropdownOption = {
-  id: string | number
-  name?: string
-  title?: string
-  number?: number
-}
-
-const toDropdownItems = <T extends SubmissionDropdownOption>(
-  list: T[],
-  getLabel: (item: T) => string
-): DropdownItem[] =>
-  list.map((item) => ({
-    label: getLabel(item),
-    value: String(item.id),
-  }))
-
+/**
+ * 응시 내역 목록 관리 페이지
+ *
+ * exam_id 컨텍스트 유지
+ * - exam_id는 필터가 아닌 진입 컨텍스트
+ * - useUrlFilters의 preserveKeys 옵션을 통해
+ *   검색 및 페이지 이동 시 항상 유지되도록 처리
+ *
+ * useUrlFilters 사용
+ * - URL ↔ UI 필터 상태 동기화
+ * - 검색(updateSearchParams)과 페이지 이동(changePage) 책임 분리
+ *
+ * 공통 드롭다운 훅 사용
+ * - 과정 → 과목 → 기수 드롭다운 로직을
+ *   useCourseSubjectCohortDropdowns로 공통화
+ *
+ * 역할 분리
+ * - 페이지: 상태 조합, 이벤트 핸들링, 모달 제어
+ * - 훅: URL 상태 관리 및 데이터 조회
+ */
 export default function SubmissionManagementPage() {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [course, setCourse] = useState<string>('')
+  const [searchParams] = useSearchParams()
+  const examId = searchParams.get('exam_id') || undefined
   const [selectedItem, setSelectedItem] = useState<Submission | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [filters, setFilters] = useState({
-    course: '',
-    subject: '',
-    cohort: '',
-    searchKeyword: '',
+
+  const { dropdowns: submissionDropdowns } = useCourseSubjectCohortDropdowns({
+    course,
   })
 
-  const page = searchParams.get('page') || '1'
-  const examId = searchParams.get('exam_id') || ''
+  const { page, filters, setFilters, updateSearchParams, changePage } =
+    useUrlFilters({ preserveKeys: ['exam_id'] })
 
   const { data, isLoading } = useSubmissionListQuery({
     page: Number(page),
     size: PAGE_SIZE,
     searchKeyword: filters.searchKeyword || undefined,
-    cohortId: filters.cohort || undefined,
-    examId: examId || undefined,
+    cohortId: filters.cohortId || undefined,
+    examId,
   })
 
   const handleChangeFilters = (key: string, value: string) => {
     if (key === 'course') {
+      setCourse(value)
       setFilters((prev) => ({
         ...prev,
-        course: value,
-        subject: '',
-        generation: '',
+        subjectId: '',
+        cohortId: '',
       }))
     } else {
       setFilters((prev) => ({ ...prev, [key]: value }))
     }
-
-    setSearchParams({ page: '1' })
   }
 
   const handleChangeSearch = (value: string) => {
@@ -74,11 +70,9 @@ export default function SubmissionManagementPage() {
   }
 
   const handleSearch = () => {
-    setSearchParams({
-      page: '1',
-      size: '10',
-      search_keyword: filters.searchKeyword,
-      cohort_id: filters.cohort,
+    updateSearchParams({
+      searchKeyword: filters.searchKeyword,
+      cohortId: filters.cohortId,
     })
   }
 
@@ -89,36 +83,6 @@ export default function SubmissionManagementPage() {
     }
   }
 
-  const { data: courseRes } = useCourseList()
-  const courseList = courseRes?.courseList ?? []
-  const selectedCourseId = filters.course ? Number(filters.course) : undefined
-
-  const { data: subjectsRes } = useSubjectsList(selectedCourseId ?? 0, {
-    mode: 'update',
-  })
-  const { data: cohortRes } = useCohortsList(selectedCourseId ?? 0)
-
-  const subjectsList = subjectsRes?.subjectsList ?? []
-  const cohortsList = cohortRes?.cohortsList ?? []
-
-  const submissionApiDropdowns: DropdownConfig[] = [
-    {
-      key: 'course',
-      items: toDropdownItems(courseList, (item) => `${item.name}`),
-      placeholder: '과정',
-    },
-    {
-      key: 'subject',
-      items: toDropdownItems(subjectsList, (item) => `${item.title}`),
-      placeholder: '과목',
-    },
-    {
-      key: 'cohort',
-      items: toDropdownItems(cohortsList, (item) => `${item.number}기`),
-      placeholder: '기수',
-    },
-  ]
-
   return (
     <section className="px-15 py-11">
       <div className="h-192 bg-white px-18 py-8">
@@ -128,8 +92,8 @@ export default function SubmissionManagementPage() {
 
         <div className="mb-3">
           <FilterSection
-            dropdowns={submissionApiDropdowns}
-            selectedValues={filters}
+            dropdowns={submissionDropdowns}
+            selectedValues={{ course, ...filters }}
             onChangeFilters={handleChangeFilters}
             search={filters.searchKeyword}
             onChangeSearch={handleChangeSearch}
@@ -141,9 +105,7 @@ export default function SubmissionManagementPage() {
             data={data?.submissions ?? []}
             pageCount={data ? Math.ceil(data.totalCount / PAGE_SIZE) : 0}
             pageIndex={Number(page) - 1}
-            onPageChange={(index) =>
-              setSearchParams({ page: String(index + 1) })
-            }
+            onPageChange={(index) => changePage(index + 1)}
             onRowClick={handleRowClick}
             isLoading={isLoading}
           />

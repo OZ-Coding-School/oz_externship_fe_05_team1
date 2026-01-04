@@ -1,5 +1,5 @@
 export { useDeploymentDetail } from './useDeploymentDetail'
-export { useDeploymentList } from './useDeploymentList'
+export { useDeploymentListQuery } from './useDeploymentListQuery'
 export { useDeploymentMutation } from './useDeploymentMutation'
 export { useDeploymentDeleteMutation } from './useDeploymentDeleteMutation'
 export { useExamDeleteMutation } from './useExamDeleteMutation'
