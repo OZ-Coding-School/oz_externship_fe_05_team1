@@ -82,12 +82,12 @@ export default function DistributionHistoryManagementPage() {
   }
 
   return (
-    <section className="px-15 py-11">
-      <div className="h-192 bg-white px-18 py-8">
+    <section className="px-8 py-6">
+      <div className="min-h-200 rounded-sm bg-white px-8 py-6">
         <h1 className="mb-1 text-[22px] font-bold text-neutral-500">
           쪽지시험 배포 내역 조회
         </h1>
-        <div className="mb-3">
+        <div className="mb-4">
           <FilterSection
             dropdowns={deploymentsDropdowns}
             selectedValues={{ course, ...filters }}
@@ -100,7 +100,7 @@ export default function DistributionHistoryManagementPage() {
         <div>
           <DistributionList
             data={data?.deployments ?? []}
-            pageCount={data ? Math.ceil(data.count / PAGE_SIZE) : 0}
+            pageCount={data ? Math.ceil(data.totalCount / PAGE_SIZE) : 0}
             pageIndex={Number(page) - 1}
             onPageChange={(index) => changePage(index + 1)}
             onRowClick={handleRowClick}
@@ -108,6 +108,7 @@ export default function DistributionHistoryManagementPage() {
           />
         </div>
       </div>
+
       <DeploymentHistoryModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

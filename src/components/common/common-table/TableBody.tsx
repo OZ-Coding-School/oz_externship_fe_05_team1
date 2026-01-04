@@ -65,6 +65,7 @@ export function TableBody<TData>({
             return (
               <td
                 key={cell.id}
+                style={{ width: cell.column.getSize() }}
                 className={cn(
                   tdVariants({ size }),
                   isTitleColumn &&

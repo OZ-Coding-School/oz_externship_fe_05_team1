@@ -1,6 +1,6 @@
 import type { Exam } from '@features/exams'
 
-import { Button, DataTableLayout } from '@components'
+import { DataTableLayout } from '@components'
 import { PAGE_SIZE } from '@constants'
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
 
@@ -11,7 +11,6 @@ type ExamListProps = {
   pageCount: number
   pageIndex: number
   onPageChange: (index: number) => void
-  onButtonClick: () => void
   onDetailClick: (exam: Exam) => void
   onDeployClick: (exam: Exam) => void
   onExamUpdateClick: (exam: Exam) => void
@@ -29,7 +28,6 @@ export default function ExamList({
   pageCount,
   pageIndex,
   onPageChange,
-  onButtonClick,
   onDetailClick,
   onDeployClick,
   onExamUpdateClick,
@@ -55,17 +53,5 @@ export default function ExamList({
     },
   })
 
-  return (
-    <DataTableLayout
-      table={table}
-      onRowClick={onExamUpdateClick}
-      actionButtons={
-        <div className="flex justify-end pr-2">
-          <Button variant="primary" size="md" onClick={onButtonClick}>
-            생성
-          </Button>
-        </div>
-      }
-    />
-  )
+  return <DataTableLayout table={table} onRowClick={onExamUpdateClick} />
 }

@@ -29,13 +29,18 @@ export function TablePagination<TData>({ table }: TablePaginationProps<TData>) {
   const pageIndex = table.getState().pagination.pageIndex
   const pageCount = table.getPageCount()
 
+  if (!pageCount || pageCount <= 0) {
+    return null
+  }
+
   const { startPage, endPage } = getPaginationRange(pageIndex, pageCount)
 
   const pages = Array.from(
     { length: endPage - startPage },
     (_, i) => startPage + i
   )
-  const iconStyle = 'w-4 h-[13px] text-neutral-500'
+
+  const iconStyle = 'w-4 h-4 text-neutral-500'
 
   return (
     <div className="flex items-center justify-center py-4">
@@ -57,7 +62,7 @@ export function TablePagination<TData>({ table }: TablePaginationProps<TData>) {
       </div>
 
       {/* page numbers */}
-      <div className="flex items-center gap-3.5">
+      <div className="flex items-center gap-2 px-2">
         {pages.map((page) => {
           const isCurrent = page === pageIndex
 
@@ -67,9 +72,9 @@ export function TablePagination<TData>({ table }: TablePaginationProps<TData>) {
               onClick={() => table.setPageIndex(page)}
               aria-current={isCurrent ? 'page' : undefined}
               className={cn(
-                'pb-0.5 text-sm leading-none',
+                'px-1 py-0.5 text-sm',
                 isCurrent
-                  ? 'border-b border-black font-semibold text-black'
+                  ? 'font-semibold text-black'
                   : 'text-[#666666] hover:text-black'
               )}
             >
@@ -80,21 +85,20 @@ export function TablePagination<TData>({ table }: TablePaginationProps<TData>) {
       </div>
 
       {/* > >> */}
-      <div className="ml-2 flex items-center gap-0">
-        <PaginationIconButton
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          <ArrowRightIcon className={iconStyle} strokeWidth={1.5} />
-        </PaginationIconButton>
 
-        <PaginationIconButton
-          onClick={() => table.setPageIndex(pageCount - 1)}
-          disabled={!table.getCanNextPage()}
-        >
-          <DoubleArrowRightIcon className={iconStyle} strokeWidth={1.5} />
-        </PaginationIconButton>
-      </div>
+      <PaginationIconButton
+        onClick={() => table.nextPage()}
+        disabled={!table.getCanNextPage()}
+      >
+        <ArrowRightIcon className={iconStyle} strokeWidth={1.5} />
+      </PaginationIconButton>
+
+      <PaginationIconButton
+        onClick={() => table.setPageIndex(pageCount - 1)}
+        disabled={!table.getCanNextPage()}
+      >
+        <DoubleArrowRightIcon className={iconStyle} strokeWidth={1.5} />
+      </PaginationIconButton>
     </div>
   )
 }

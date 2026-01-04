@@ -20,8 +20,8 @@ export const thVariants = cva(
   {
     variants: {
       size: {
-        default: 'py-4 px-[60px]',
-        compact: 'py-2 px-[30px]',
+        default: 'py-4 px-2',
+        compact: 'py-2 px-1',
       },
     },
     defaultVariants: {
@@ -35,8 +35,8 @@ export const tdVariants = cva(
   {
     variants: {
       size: {
-        default: 'py-4 px-[60px]',
-        compact: 'py-2 px-[30px]',
+        default: 'py-4 px-2',
+        compact: 'py-2 px-1',
       },
     },
     defaultVariants: {
