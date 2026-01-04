@@ -28,7 +28,7 @@ function QuestionInputWithState() {
 
   return (
     <div className="flex flex-col gap-4">
-      <QuestionInput value={value} onChange={setValue} />
+      <QuestionInput value={value} onChange={setValue} mode="question" />
       <p className="text-sm text-gray-500">글자 수: {value.length}자</p>
     </div>
   )

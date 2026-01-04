@@ -27,28 +27,28 @@ const DEFAULT_ANSWER_PLACEHOLDER = '보기를 입력해주세요.'
  * 문제 내용 입력
  */
 export default function QuestionInput(props: QuestionInputProps) {
-  const {
-    value,
-    onChange,
-    placeholder = DEFAULT_PLACEHOLDER,
-    className,
-    error = false,
-    mode,
-  } = props
+  const { value, onChange, className, error = false, mode } = props
   const inputId = useId()
 
+  const placeholder =
+    mode === 'answer'
+      ? (props.placeholder ?? DEFAULT_ANSWER_PLACEHOLDER)
+      : (props.placeholder ?? DEFAULT_PLACEHOLDER)
+
   if (mode === 'answer') {
+    const { onClear } = props
+
     return (
       <div className={className}>
         <BaseInput
           id={inputId}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          placeholder={props.placeholder || DEFAULT_ANSWER_PLACEHOLDER}
+          placeholder={placeholder}
           className={className}
           error={error}
           size="answer"
-          onClear={props.onClear}
+          onClear={onClear}
         />
       </div>
     )
@@ -66,7 +66,7 @@ export default function QuestionInput(props: QuestionInputProps) {
         id={inputId}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder={props.placeholder || DEFAULT_PLACEHOLDER}
+        placeholder={placeholder}
         className={className}
         error={error}
         size="question"
