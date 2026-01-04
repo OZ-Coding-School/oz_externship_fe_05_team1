@@ -9,11 +9,18 @@ import { useQuery } from '@tanstack/react-query'
 
 export const useDeploymentListQuery = (params: DeploymentListParams) =>
   useQuery({
-    queryKey: ['deployments', 'list', params],
+    queryKey: [
+      'deployments',
+      params.page,
+      params.size,
+      params.searchKeyword,
+      params.subjectId,
+      params.cohortId,
+    ],
     queryFn: () => getDeploymentsRequest(params),
     select: (data: DeploymentListResponse) => ({
       ...data,
-      deployments: data.deployments.map(
+      deployments: data.results.map(
         (d): Distribution => ({
           deploymentId: d.deploymentId,
           examTitle: d.examTitle,

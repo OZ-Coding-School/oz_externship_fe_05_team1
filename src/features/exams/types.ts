@@ -26,11 +26,12 @@ export type ExamListResponse = {
   size: number
   total_count: number
   exams: ExamApiItem[]
+  results: ExamApiItem[]
 }
 
 export type ExamApiItem = {
-  exam_id: number
-  exam_title: string
+  id: number
+  title: string
   subject_name: string
   question_count: number
   submit_count: number
@@ -123,6 +124,17 @@ export type DeploymentListResponse = {
   size: number
   totalCount: number
   deployments: Array<{
+    deploymentId: number
+    examTitle: string
+    subjectName: string
+    cohortNumber: number
+    courseName: string
+    submitCount: number
+    averageScore: number
+    status: string
+    createdAt: string
+  }>
+  results: Array<{
     deploymentId: number
     examTitle: string
     subjectName: string

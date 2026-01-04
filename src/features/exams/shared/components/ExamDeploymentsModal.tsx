@@ -60,14 +60,16 @@ export default function ExamDeploymentsModal({
 
       return
     }
+    const toISO = (value: string) => new Date(value).toISOString()
+
     const parsed = schemaResult.data
 
     createExamDeploymentsRequest({
       examId: parsed.examId,
       cohortId: parsed.cohortId,
       durationTime: parsed.durationTime,
-      openAt: parsed.openAt,
-      closeAt: parsed.closeAt,
+      openAt: toISO(parsed.openAt),
+      closeAt: toISO(parsed.closeAt),
     })
   }
 
