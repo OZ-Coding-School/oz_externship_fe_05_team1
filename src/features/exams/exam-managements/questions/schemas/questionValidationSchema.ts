@@ -8,15 +8,11 @@ export const baseQuestionSchema = z.object({
   explanation: z.string().optional(),
 })
 
-export const validationCoiceAnswer = (
-  data: { correct_answer: number | number[]; options: string[] },
+export const validationChoiceAnswer = (
+  data: { correct_answer: number[]; options: string[] },
   ctx: z.RefinementCtx
 ) => {
-  const answer = Array.isArray(data.correct_answer)
-    ? data.correct_answer
-    : [data.correct_answer]
-
-  const isInvalid = answer.some(
+  const isInvalid = data.correct_answer.some(
     (index) => index < 0 || index >= data.options.length
   )
 
@@ -29,6 +25,7 @@ export const validationCoiceAnswer = (
   }
 }
 
+// OX형
 export const oxSchema = baseQuestionSchema.extend({
   type: z.literal('ox'),
   correct_answer: z
@@ -42,44 +39,20 @@ export const oxSchema = baseQuestionSchema.extend({
   prompt: z.string().optional(),
 })
 
-export const singleChoiceSchema = baseQuestionSchema
-  .extend({
-    type: z.literal('single_choice'),
-    options: z
-      .array(z.string().min(1, '보기를 입력해주세요.'))
-      .min(2, '보기를 최소 2개 이상 입력해주세요'),
-    correct_answer: z.number().optional(),
-    blank_count: z.null().optional(),
-    prompt: z.string().optional(),
-  })
-  .superRefine((data, ctx) => {
-    if (data.correct_answer === undefined) {
-      ctx.addIssue({
-        path: ['correct_answer'],
-        message: '정답을 선택해주세요.',
-        code: z.ZodIssueCode.custom,
-      })
-
-      return
-    }
-    validationCoiceAnswer(
-      { correct_answer: data.correct_answer, options: data.options },
-      ctx
-    )
-  })
-
+// 객관식
 export const multipleChoiceSchema = baseQuestionSchema
   .extend({
     type: z.literal('multiple_choice'),
     options: z
       .array(z.string().min(1, '보기를 입력해주세요.'))
       .min(2, '보기를 최소 2개 이상 입력해주세요'),
-    correct_answer: z.number().optional(),
+    correct_answer: z.array(z.number()),
     blank_count: z.null().optional(),
     prompt: z.string().optional(),
   })
   .superRefine((data, ctx) => {
-    if (data.correct_answer === undefined) {
+    // 최소 1개 이상 선택
+    if (!data.correct_answer || data.correct_answer.length === 0) {
       ctx.addIssue({
         path: ['correct_answer'],
         message: '정답을 최소 1개 이상 선택해주세요.',
@@ -88,12 +61,11 @@ export const multipleChoiceSchema = baseQuestionSchema
 
       return
     }
-    validationCoiceAnswer(
-      { correct_answer: data.correct_answer, options: data.options },
-      ctx
-    )
+
+    validationChoiceAnswer(data, ctx)
   })
 
+// 순서 배열형
 export const orderingSchema = baseQuestionSchema
   .extend({
     type: z.literal('ordering'),
@@ -114,10 +86,10 @@ export const orderingSchema = baseQuestionSchema
 
       return
     }
-
-    validationCoiceAnswer(data, ctx)
+    validationChoiceAnswer(data, ctx)
   })
 
+// 단답형
 export const shortAnswerSchema = baseQuestionSchema.extend({
   type: z.literal('short_answer'),
   options: z.null().optional(),
@@ -126,6 +98,7 @@ export const shortAnswerSchema = baseQuestionSchema.extend({
   prompt: z.string().optional(),
 })
 
+// 빈칸 채우기
 export const fillBlankSchema = baseQuestionSchema
   .extend({
     type: z.literal('fill_blank'),
@@ -156,6 +129,15 @@ export const fillBlankSchema = baseQuestionSchema
     }
   })
 
+export const questionSchema = z.discriminatedUnion('type', [
+  oxSchema,
+  multipleChoiceSchema,
+  orderingSchema,
+  shortAnswerSchema,
+  fillBlankSchema,
+])
+
+// Validation 함수들
 export type ValidationError = {
   questionIndex: number
   field: string
@@ -195,17 +177,7 @@ export const validateAllQuestions = (
   return questions.flatMap((q, i) => validateQuestion(q, i))
 }
 
-export const questionSchema = z.discriminatedUnion('type', [
-  oxSchema,
-  singleChoiceSchema,
-  multipleChoiceSchema,
-  orderingSchema,
-  shortAnswerSchema,
-  fillBlankSchema,
-])
-
 export type OxQuestion = z.infer<typeof oxSchema>
-export type SingleChoiceQuestion = z.infer<typeof singleChoiceSchema>
 export type MultipleChoiceQuestion = z.infer<typeof multipleChoiceSchema>
 export type OrderingQuestion = z.infer<typeof orderingSchema>
 export type ShortAnswerQuestion = z.infer<typeof shortAnswerSchema>
