@@ -21,6 +21,8 @@ export default function LogoUpload({
     useImageUpload(onChange)
 
   const logoPreview = preview ?? initialPreview ?? null
+  const shortenFileName = (name: string, max = 20) =>
+    name.length > max ? `${name.slice(0, 10)}...${name.slice(-7)}` : name
 
   return (
     <div className="flex flex-col justify-center gap-3">
@@ -43,12 +45,16 @@ export default function LogoUpload({
           96 x 96 사이즈로 등록하세요.
         </span>
 
-        {fileName && (
-          <span className="text-neutral-400 underline">{fileName}</span>
+        {shortenFileName(fileName) && (
+          <span
+            className="min-w-0 flex-1 overflow-hidden text-[14px] text-ellipsis whitespace-nowrap text-neutral-400 underline"
+            title={shortenFileName(fileName)}
+          >
+            {shortenFileName(fileName)}
+          </span>
         )}
 
         <button
-          type="button"
           className="rounded border border-neutral-200 px-3 py-1 text-[14px] text-neutral-400"
           onClick={handleOpenFile}
         >

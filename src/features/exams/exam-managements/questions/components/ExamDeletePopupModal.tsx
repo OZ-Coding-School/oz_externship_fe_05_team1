@@ -5,6 +5,7 @@ type ExamDeletePopupModalProps = {
   isOpen: boolean
   onClose: () => void
   examId: number
+  onDeleted: () => void
 }
 
 /**
@@ -17,9 +18,10 @@ export default function ExamDeletePopupModal({
   isOpen,
   onClose,
   examId,
+  onDeleted,
 }: ExamDeletePopupModalProps) {
   const { mutate: deleteExamRequest, isPending } =
-    useExamDeleteMutation(onClose)
+    useExamDeleteMutation(onDeleted)
 
   const handleExamDeleteClick = () => {
     deleteExamRequest(examId)
