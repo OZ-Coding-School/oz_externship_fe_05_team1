@@ -68,21 +68,19 @@ export type Distribution = {
   deploymentId: number
   examTitle: string
   subjectName: string
-  nickname: string
   courseName: string
   generationNumber: number
   submitCount: number
   averageScore: number
   createdAt: string
-  status: 'activated' | 'deactivated'
+  status: 'activated' | 'deactivated' | 'pending'
 
   examAccessUrl?: string
   accessCode?: string
   notSubmittedCount?: number
-  durationTime: number
   openedAt?: string
   closedAt?: string
-  questionCount: number
+  durationTime?: number
 }
 
 export type CreateExamModalPayload = {
@@ -122,55 +120,76 @@ export type ExamQuestionResponse = {
 export type DeploymentListResponse = {
   page: number
   size: number
-  totalCount: number
-  deployments: Array<{
-    deploymentId: number
-    examTitle: string
-    subjectName: string
-    cohortNumber: number
-    courseName: string
-    submitCount: number
-    averageScore: number
-    status: string
-    createdAt: string
-  }>
+  count: number
+  previous: string | null
+  next: string | null
   results: Array<{
-    deploymentId: number
-    examTitle: string
-    subjectName: string
-    cohortNumber: number
-    courseName: string
-    submitCount: number
-    averageScore: number
+    id: number
+    submit_count: number
+    avg_score: number
     status: string
-    createdAt: string
+    exam: {
+      id: number
+      title: string
+      thumbnail_img_url: string
+    }
+    subject: {
+      id: number
+      name: string
+    }
+    cohort: {
+      id: number
+      number: number
+      display: string
+      course: {
+        id: number
+        name: string
+        tag: string
+      }
+    }
+    created_at: string
   }>
 }
 
 export type DeploymentDetailResponse = {
-  exam: {
-    examId: number
-    examTitle: string
-    subjectName: string
-    questions: Array<{
-      questionId: number
-      type: string
-      question: string
-      point: number
-    }>
-  }
   deployment: {
-    deploymentId: number
-    examAccessUrl: string
-    accessCode: string
-    courseName: string
-    generationNumber: number
-    submitCount: number
-    notSubmittedCount: number
-    durationTime: number
-    openedAt: string
-    closedAt: string
-    createdAt: string
+    id: number
+    exam_access_url: string
+    access_code: string
+    cohort: {
+      id: number
+      number: number
+      display: string
+      course: {
+        id: number
+        name: string
+        tag: string
+      }
+    }
+    submit_count: number
+    not_submitted_count: number
+    duration_time: number
+    open_at: string
+    close_at: string
+    created_at: string
+    exam: {
+      id: number
+      title: string
+      thumbnail_img_url: string
+    }
+    subject: {
+      id: number
+      name: string
+    }
+  }
+  exam: {
+    id: number
+    title: string
+    thumbnail_img_url: string
+  }
+  subject: {
+    id: number
+    name: string
   }
 }
 

@@ -97,7 +97,7 @@ export const getDeploymentDetailRequest = async (
   deploymentId: number
 ): Promise<DeploymentDetailResponse> => {
   const response = await fetcher.get<DeploymentDetailResponse>(
-    `${ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_HISTORY}/${deploymentId}`
+    ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_DETAIL({ deploymentId })
   )
 
   return response.data

@@ -11,7 +11,6 @@ export const getExamInfoRows = (data: Distribution): DetailRow[] => [
   { label: '쪽지시험 ID', value: data.deploymentId ?? '-' },
   { label: '쪽지시험 명', value: data.examTitle ?? '-' },
   { label: '과목', value: data.subjectName ?? '-' },
-  { label: '시험 문항', value: data.questionCount ?? 0 },
 ]
 
 export const getDeploymentInfoRows = (data: Distribution): DetailRow[] => [

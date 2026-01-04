@@ -35,16 +35,25 @@ export default function DeploymentsHistoryModal({
     {
       title: '쪽지시험 정보',
       row: getExamInfoRows({
-        ...data.exam,
-        deploymentId: data.deployment.deploymentId,
+        deploymentId: data.deployment.id,
+        examTitle: data.deployment.exam.title,
+        subjectName: data.deployment.subject.name,
       } as unknown as Distribution),
     },
     {
       title: '배포 정보',
       row: getDeploymentInfoRows({
-        ...data.deployment,
-        examTitle: data.exam.examTitle,
-        subjectName: data.exam.subjectName,
+        deploymentId: data.deployment.id,
+        examAccessUrl: data.deployment.exam_access_url,
+        accessCode: data.deployment.access_code,
+        courseName: data.deployment.cohort.course.name,
+        generationNumber: data.deployment.cohort.number,
+        submitCount: data.deployment.submit_count,
+        notSubmittedCount: data.deployment.not_submitted_count,
+        durationTime: data.deployment.duration_time,
+        openedAt: data.deployment.open_at,
+        closedAt: data.deployment.close_at,
+        createdAt: data.deployment.created_at,
       } as unknown as Distribution),
     },
   ]
@@ -57,14 +66,14 @@ export default function DeploymentsHistoryModal({
         onClose={onClose}
         title="쪽지시험 배포 상세 조회"
       >
-        <div className="flex flex-col p-8 pb-20">
+        <div className="flex max-h-[70vh] flex-col overflow-y-auto p-8 pb-20">
           <div className="flex flex-col gap-12">
             {infoSections.map((section) => (
               <div key={section.title} className="flex flex-col gap-2">
                 <h3 className="text-lg font-medium text-neutral-800">
                   {section.title}
                 </h3>
-                <div className="w-full overflow-hidden border-neutral-200">
+                <div className="w-full overflow-hidden border-t-neutral-200">
                   <div className="max-w-full overflow-x-hidden">
                     <InfoSection rows={section.row} title={''} />
                   </div>

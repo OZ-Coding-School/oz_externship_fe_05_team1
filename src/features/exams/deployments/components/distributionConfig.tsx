@@ -15,7 +15,7 @@ export const getDistributionColumns = (): ColumnDef<Distribution>[] => [
     enableSorting: true,
   },
   {
-    accessorKey: 'examTitle',
+    accessorKey: 'title',
     header: '제목',
     cell: ({ row }) => (
       <span className="cursor-pointer underline decoration-neutral-300 underline-offset-4 hover:text-blue-600">
@@ -57,7 +57,8 @@ export const getDistributionColumns = (): ColumnDef<Distribution>[] => [
     accessorKey: 'status',
     header: '배포 활성 상태',
     cell: ({ row }) => {
-      const isActive = row.original.status === 'activated'
+      const { status } = row.original
+      const isActive = status === 'activated'
 
       return (
         <StatusBadge variant={isActive ? 'success' : 'neutral'}>
