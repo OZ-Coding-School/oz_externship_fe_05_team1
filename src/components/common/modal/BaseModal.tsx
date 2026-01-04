@@ -2,7 +2,7 @@ import { XbuttonIcon } from '@assets'
 import { MODAL_SIZE, Portal } from '@components'
 import { PORTAL_IDS, Z_INDEX } from '@constants'
 import { cn } from '@utils'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 import type { BaseModalProps } from './modalStyle'
 
@@ -26,32 +26,27 @@ export default function BaseModal({
   contentClassName,
 }: BaseModalProps) {
   const { modalMaxWidth } = MODAL_SIZE[size]
+  const modalRef = useRef<HTMLDivElement | null>(null)
 
   /**
    * 모달 사용 시 스크롤 잠금 여부
    * overflow 이전 상태 확인
    */
   useEffect(() => {
-    const prevOverflow = document.body.style.overflow
-    const prevPaddingRight = document.body.style.paddingRight
+    if (!isOpen) return
 
-    if (isOpen) {
-      const scrollbarWidth =
-        window.innerWidth - document.documentElement.clientWidth
+    const originalOverflow = document.body.style.overflow
+    const originalPaddingRight = document.body.style.paddingRight
 
-      document.body.style.overflow = 'hidden'
-      document.body.style.paddingRight = `${scrollbarWidth}px`
-    }
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth
+
+    document.body.style.overflow = 'hidden'
+    document.body.style.paddingRight = `${scrollbarWidth}px`
 
     return () => {
-      const hasOpenModal =
-        (document.getElementById(PORTAL_IDS.MODAL_PORTAL_ID)?.children.length ??
-          0) > 0
-
-      if (!hasOpenModal) {
-        document.body.style.overflow = prevOverflow
-        document.body.style.paddingRight = prevPaddingRight
-      }
+      document.body.style.overflow = originalOverflow
+      document.body.style.paddingRight = originalPaddingRight
     }
   }, [isOpen])
 
@@ -61,9 +56,26 @@ export default function BaseModal({
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose()
+      if (e.key !== 'Escape') {
+        return
       }
+
+      const modals = document.querySelectorAll('[data-base-modal="true"]')
+      const topModal = modals[modals.length - 1]
+
+      if (!topModal) {
+        return
+      }
+      if (!modalRef.current) {
+        return
+      }
+      if (topModal !== modalRef.current) {
+        return
+      }
+
+      e.preventDefault()
+      e.stopImmediatePropagation()
+      onClose()
     }
 
     window.addEventListener('keydown', handleKeyDown)
@@ -84,6 +96,8 @@ export default function BaseModal({
         style={{ zIndex: Z_INDEX.MODAL }}
       >
         <div
+          ref={modalRef}
+          data-base-modal="true"
           className={cn(
             'relative flex max-h-[95vh] w-[90%] min-w-[320px] flex-col rounded-xl bg-bg-primary shadow-2xl',
             modalMaxWidth,

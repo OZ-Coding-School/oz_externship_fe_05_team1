@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-import { BaseModal, Image } from '@components'
+import { BaseModal, Image, showToast } from '@components'
 import {
   ExamDeploymentsModal,
   ExamQuestionDetailBody,
@@ -166,9 +166,10 @@ export default function ExamQuestionDetailModal({
   }
 
   const handleExamQuestionsUpdate = () => {
+    showToast('수정 기능 준비중입니다.', 'fail')
     /**
      * TODO: 쪽지시험 문제 페이지로 이동 api
-     * 예시 : /navigator(`${ROUTES_PATHS.EXAM_QUESTIONS_CREATE(1)}`)
+     * 예시 : /navigator(`${ROUTES_PATHS.EXAM_QUESTIONS_CREATE(examId)}`)
      * 디자인 수정하면서 생성 예정
      * */
   }
