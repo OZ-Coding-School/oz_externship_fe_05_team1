@@ -121,3 +121,75 @@ export const BodyScrollLockTest: Story = {
     )
   },
 }
+export const NestedModalScrollLockTest: Story = {
+  parameters: {
+    layout: 'fullscreen',
+  },
+  decorators: [
+    (Story) => {
+      // ✅ Storybook(iframe) 문서에 스크롤 강제
+      document.documentElement.style.height = 'auto'
+      document.body.style.height = 'auto'
+      document.body.style.minHeight = '1200vh'
+      document.body.style.overflow = 'auto'
+
+      return <Story />
+    },
+  ],
+  render: () => {
+    const [isOuterOpen, setIsOuterOpen] = useState(false)
+    const [isInnerOpen, setIsInnerOpen] = useState(false)
+
+    return (
+      <div className="h-[200vh] bg-neutral-100 p-10">
+        <h2 className="mb-4 text-xl font-semibold">
+          Nested Modal Scroll Lock 테스트
+        </h2>
+
+        <p className="mb-6 text-neutral-500">
+          바깥 모달 + 안쪽 모달 중첩 시 body 스크롤이 정상적으로 lock / unlock
+          되는지 확인합니다.
+        </p>
+
+        <button
+          className="rounded bg-primary-500 px-4 py-2 text-white"
+          onClick={() => setIsOuterOpen(true)}
+        >
+          바깥 모달 열기
+        </button>
+
+        {/* 바깥 모달 */}
+        <BaseModal
+          isOpen={isOuterOpen}
+          onClose={() => setIsOuterOpen(false)}
+          title="바깥 모달"
+          size="lg"
+        >
+          <p className="mb-4 text-neutral-500">
+            이 모달이 열리면 body 스크롤이 잠겨야 합니다.
+          </p>
+
+          <button
+            className="rounded bg-neutral-800 px-4 py-2 text-white"
+            onClick={() => setIsInnerOpen(true)}
+          >
+            안쪽 모달 열기
+          </button>
+
+          {/* 안쪽 모달 */}
+          <BaseModal
+            isOpen={isInnerOpen}
+            onClose={() => setIsInnerOpen(false)}
+            title="안쪽 모달"
+            size="md"
+          >
+            <p className="text-neutral-500">
+              이 모달을 닫아도 바깥 모달이 열려 있으면 body 스크롤은 유지되어야
+              합니다.
+            </p>
+          </BaseModal>
+        </BaseModal>
+      </div>
+    )
+  },
+}

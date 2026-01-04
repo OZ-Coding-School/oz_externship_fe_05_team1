@@ -25,7 +25,7 @@ export default function BaseModal({
   headerClassName,
   contentClassName,
 }: BaseModalProps) {
-  const { modalMaxWidth, modalMaxHeight } = MODAL_SIZE[size]
+  const { modalMaxWidth } = MODAL_SIZE[size]
 
   /**
    * 모달 사용 시 스크롤 잠금 여부
@@ -85,9 +85,8 @@ export default function BaseModal({
       >
         <div
           className={cn(
-            'relative h-[90%] min-h-72.5 w-[90%] min-w-[320px] rounded-xl bg-bg-primary shadow-2xl',
+            'relative flex max-h-[95vh] w-[90%] min-w-[320px] flex-col rounded-xl bg-bg-primary shadow-2xl',
             modalMaxWidth,
-            modalMaxHeight,
             containerClassName
           )}
           onClick={(e) => e.stopPropagation()}
@@ -104,7 +103,7 @@ export default function BaseModal({
               <XbuttonIcon className="cursor-pointer text-neutral-400" />
             </button>
           </div>
-          <div className={cn('overflow-auto p-2.5', contentClassName)}>
+          <div className={cn('overflow-auto p-2.5 pb-6', contentClassName)}>
             {children}
           </div>
         </div>
