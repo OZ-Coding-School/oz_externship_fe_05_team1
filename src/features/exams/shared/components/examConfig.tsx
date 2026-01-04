@@ -31,11 +31,11 @@ export const ExamColumns = (
     cell: ({ row }) => row.index + 1,
   },
   {
-    accessorKey: 'questionCount',
+    accessorKey: 'totalQuestions',
     header: '총 문제 수',
   },
   {
-    accessorKey: 'submitCount',
+    accessorKey: 'submissionCount',
     header: '응시 수',
   },
   {

@@ -1,5 +1,5 @@
 import { FilterSection } from '@components'
-import { EXAM_DROPDOWNS, PAGE_SIZE } from '@constants'
+import { PAGE_SIZE } from '@constants'
 import {
   EmptyState,
   type Exam,
@@ -11,41 +11,32 @@ import {
   useExamListQuery,
 } from '@features/exams'
 import { useModal } from '@hooks/useModal'
-import { useSearchParams } from 'react-router'
+import { useCourseSubjectCohortDropdowns, useUrlFilters } from '@pages'
+import { useState } from 'react'
 
 /**
  * 쪽지시험 관리 페이지
  * - useSearchParams로 URL 상태 관리 및 useExamListQuery로 서버 데이터 페칭
  */
 export default function ExamManagementPage() {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [course, setCourse] = useState<string>('')
+  const { dropdowns: examDropdowns } = useCourseSubjectCohortDropdowns({
+    course,
+  })
 
-  const page = searchParams.get('page') || '1'
-  const course = searchParams.get('course') || ''
-  const subject = searchParams.get('subject') || ''
-  const search = searchParams.get('search') || ''
-
-  const updateParams = (newParams: Record<string, string>) => {
-    const current = Object.fromEntries(searchParams.entries())
-    const updated = { ...current, ...newParams }
-
-    Object.keys(updated).forEach((key) => {
-      if (!updated[key]) delete updated[key]
-    })
-
-    setSearchParams(updated)
-  }
+  const { page, filters, setFilters, updateSearchParams, changePage } =
+    useUrlFilters()
 
   // 서버 데이터 fetch
   const { data, isLoading } = useExamListQuery({
     page: Number(page),
     size: PAGE_SIZE,
-    searchKeyword: search || undefined,
-    subjectId: subject ? Number(subject) : undefined,
+    searchKeyword: filters.searchKeyword || undefined,
+    subjectId: filters.subjectId ? Number(filters.subjectId) : undefined,
   })
 
   // 데이터 변환
-  const exams: Exam[] = data?.exams?.map(transformExam) ?? []
+  const exams: Exam[] = data?.results.map(transformExam) ?? []
   const totalCount = data?.total_count ?? 0
   const pageCount = Math.ceil(totalCount / PAGE_SIZE)
 
@@ -56,15 +47,31 @@ export default function ExamManagementPage() {
   const updateModal = useModal<Exam>()
 
   const handleChangeFilters = (key: string, value: string) => {
-    updateParams({ [key]: value, page: '1' })
+    if (key === 'course') {
+      setCourse(value)
+      setFilters((prev) => ({
+        ...prev,
+        subjectId: '',
+        cohortId: '',
+      }))
+    } else {
+      setFilters((prev) => ({
+        ...prev,
+        [key]: value,
+      }))
+    }
   }
 
   const handleChangeSearch = (value: string) => {
-    updateParams({ search: value })
+    setFilters((prev) => ({ ...prev, searchKeyword: value }))
   }
 
   const handleSearch = () => {
-    updateParams({ page: '1' })
+    updateSearchParams({
+      searchKeyword: filters.searchKeyword,
+      subjectId: filters.subjectId,
+      cohortId: filters.cohortId,
+    })
   }
 
   const renderExamList = () => {
@@ -82,7 +89,7 @@ export default function ExamManagementPage() {
         data={exams}
         pageCount={pageCount}
         pageIndex={Number(page) - 1}
-        onPageChange={(index) => updateParams({ page: String(index + 1) })}
+        onPageChange={(index) => changePage(index + 1)}
         onButtonClick={createModal.modalOpen}
         onExamUpdateClick={updateModal.modalOpen}
         onDetailClick={detailModal.modalOpen}
@@ -100,10 +107,10 @@ export default function ExamManagementPage() {
 
         <div className="mb-3">
           <FilterSection
-            dropdowns={EXAM_DROPDOWNS}
-            selectedValues={{ course, subject }}
+            dropdowns={examDropdowns}
+            selectedValues={{ course, ...filters }}
             onChangeFilters={handleChangeFilters}
-            search={search}
+            search={filters.searchKeyword}
             onChangeSearch={handleChangeSearch}
             onSubmit={handleSearch}
           />

@@ -73,6 +73,7 @@ export default function SubmissionManagementPage() {
     updateSearchParams({
       searchKeyword: filters.searchKeyword,
       cohortId: filters.cohortId,
+      subjectId: filters.subjectId,
     })
   }
 
