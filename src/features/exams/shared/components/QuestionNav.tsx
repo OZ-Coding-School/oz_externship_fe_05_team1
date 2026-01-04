@@ -8,24 +8,34 @@ type QuestionNavProps = {
   mode?: 'create' | 'submission'
   actionButton?: React.ReactNode
   className?: string
+  errorIndexes?: number[]
 }
 
-/**
- * 문제 네비게이션
- * @param actionButton - 문제추가, 시험삭제 등
- */
 export default function QuestionNav({
   mode = 'create',
   actionButton,
   className,
+  errorIndexes = [],
 }: QuestionNavProps) {
   const { questions, currentIndex, deleteQuestion, setCurrentIndex } =
     useQuestionStore()
 
   const getButtonStyle = (index: number, question: Question) => {
     const isSelected = currentIndex === index
+    const hasError = errorIndexes.includes(index)
 
     if (mode === 'create') {
+      // 에러 있는 문제
+      if (hasError) {
+        return cn(
+          'ring-2 ring-red-500',
+          isSelected
+            ? 'bg-red-500 text-white'
+            : 'bg-red-50 text-red-500 hover:bg-red-100'
+        )
+      }
+
+      // 정상 문제
       return cn(
         isSelected
           ? 'bg-primary-400 text-white'
@@ -33,6 +43,7 @@ export default function QuestionNav({
       )
     }
 
+    // submission 모드
     const isCorrect =
       'isCorrect' in question
         ? (question as unknown as SubmissionQuestion).isCorrect
@@ -79,8 +90,8 @@ export default function QuestionNav({
                 onClick={(e) => handleDelete(e, index)}
                 className={cn(
                   'absolute -top-1 -right-1 hidden h-4 w-4 items-center justify-center',
-                  'rounded-full bg-gray-400 text-white group-hover:flex hover:bg-gray-500',
-                  'hidden group-hover:flex'
+                  'rounded-full bg-gray-400 text-white hover:bg-gray-500',
+                  'group-hover:flex'
                 )}
               >
                 <CancelIcon className="h-3 w-3" />

@@ -93,6 +93,7 @@ export const useQuestionStore = create<QuestionState>()(
         return questions.map(({ id: _id, updatedAt: _updatedAt, ...rest }) => ({
           exam_id: examId,
           ...rest,
+          point: rest.point ?? 10,
         }))
       },
     }),

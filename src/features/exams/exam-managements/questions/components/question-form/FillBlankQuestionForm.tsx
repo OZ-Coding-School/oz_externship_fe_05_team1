@@ -39,8 +39,8 @@ export default function FillBlankForm() {
   }
 
   return (
-    <section className="flex h-full flex-col gap-4">
-      <div className="mb-4">
+    <section className="flex flex-col gap-6">
+      <div>
         <QuestionTypeSelect
           value={current.type}
           onChange={(type) => {
@@ -58,7 +58,7 @@ export default function FillBlankForm() {
             updateCurrentQuestion({ question: value })
           }}
         />
-        <div className="mb-4 flex flex-col gap-1">
+        <div className="flex flex-col gap-1">
           <label
             htmlFor={pointId}
             className="invisible text-lg font-medium text-neutral-500"

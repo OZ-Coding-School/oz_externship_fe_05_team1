@@ -12,7 +12,7 @@ import {
 export type DropdownListProps = {
   id: string
   items: DropdownItem[]
-  selectedValue: string
+  selectedValue: string | undefined
   focusedIndex: number
   onItemClick: (value: string) => void
   onMouseEnterItem: (index: number) => void
@@ -45,7 +45,10 @@ export function DropdownList({
   return (
     <div
       role="listbox"
-      className="absolute top-full left-0 mt-1 max-h-60 w-full overflow-y-auto rounded-md border border-gray-200 bg-white shadow-lg"
+      className={cn(
+        'shadow-lg" h-60-xs absolute top-full left-0 mt-1 min-w-full',
+        'overflow-y-auto rounded-md border border-gray-200 bg-white'
+      )}
       tabIndex={-1}
       style={{ zIndex: Z_INDEX.DROPDOWN }}
     >

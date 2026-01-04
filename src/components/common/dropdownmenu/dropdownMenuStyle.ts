@@ -29,9 +29,13 @@ export const ICON_SIZE_STYLES: Record<DropdownSize, string> = {
 
 export const getSelectedLabel = (
   items: DropdownItem[],
-  selectedValue: string,
+  selectedValue: string | undefined,
   placeholder?: string
 ) => {
+  if (!selectedValue) {
+    return placeholder ?? ''
+  }
+
   const selectedItem = items.find((item) => item.value === selectedValue)
 
   return selectedItem ? selectedItem.label : placeholder || DEFAULT_MESSAGE

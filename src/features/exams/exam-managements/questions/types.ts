@@ -17,7 +17,7 @@ export type Question = {
   options: string[] | null
   blank_count: number | null
   correct_answer: string | string[] | number | number[] | boolean
-  point: number
+  point: number | null
   explanation: string
 }
 

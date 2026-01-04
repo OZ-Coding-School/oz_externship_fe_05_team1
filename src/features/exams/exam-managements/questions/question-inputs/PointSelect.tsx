@@ -14,7 +14,7 @@ const POINT_OPTIONS: DropdownItem[] = [
 ]
 
 type PointSelectProps = {
-  value: number
+  value: number | null
   onChange: (point: number) => void
   className?: string
 }
@@ -30,7 +30,7 @@ export default function PointSelect({
   return (
     <DropdownMenu
       items={POINT_OPTIONS}
-      selectedValue={String(value)}
+      selectedValue={value !== null ? String(value) : undefined}
       onSelect={(v) => {
         onChange(Number(v))
       }}

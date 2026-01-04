@@ -14,7 +14,7 @@ import type { DropdownItem } from './DropdownMenu'
 
 type UseDropdownProps = {
   items: DropdownItem[]
-  selectedValue: string
+  selectedValue: string | undefined
   onSelect: (value: string) => void
   buttonRef: RefObject<HTMLButtonElement | null>
 }
