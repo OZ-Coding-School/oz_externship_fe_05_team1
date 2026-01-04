@@ -15,7 +15,7 @@ export const getDistributionColumns = (): ColumnDef<Distribution>[] => [
     enableSorting: true,
   },
   {
-    accessorKey: 'examTitle',
+    accessorKey: 'title',
     header: '제목',
     cell: ({ row }) => (
       <span className="cursor-pointer underline decoration-neutral-300 underline-offset-4 hover:text-blue-600">

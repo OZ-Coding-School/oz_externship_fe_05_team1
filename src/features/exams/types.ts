@@ -80,6 +80,7 @@ export type Distribution = {
   notSubmittedCount?: number
   openedAt?: string
   closedAt?: string
+  durationTime?: number
 }
 
 export type CreateExamModalPayload = {
@@ -151,29 +152,44 @@ export type DeploymentListResponse = {
 }
 
 export type DeploymentDetailResponse = {
-  exam: {
-    examId: number
-    examTitle: string
-    subjectName: string
-    questions: Array<{
-      questionId: number
-      type: string
-      question: string
-      point: number
-    }>
-  }
   deployment: {
-    deploymentId: number
-    examAccessUrl: string
-    accessCode: string
-    courseName: string
-    generationNumber: number
-    submitCount: number
-    notSubmittedCount: number
-    durationTime: number
-    openedAt: string
-    closedAt: string
-    createdAt: string
+    id: number
+    exam_access_url: string
+    access_code: string
+    cohort: {
+      id: number
+      number: number
+      display: string
+      course: {
+        id: number
+        name: string
+        tag: string
+      }
+    }
+    submit_count: number
+    not_submitted_count: number
+    duration_time: number
+    open_at: string
+    close_at: string
+    created_at: string
+    exam: {
+      id: number
+      title: string
+      thumbnail_img_url: string
+    }
+    subject: {
+      id: number
+      name: string
+    }
+  }
+  exam: {
+    id: number
+    title: string
+    thumbnail_img_url: string
+  }
+  subject: {
+    id: number
+    name: string
   }
 }
 

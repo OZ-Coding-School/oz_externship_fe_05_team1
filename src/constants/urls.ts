@@ -42,6 +42,8 @@ export const ROUTES_PATHS_ADMIN = {
     `/admin/exams/deployments/${deploymentId}`,
 
   EXAM_DISTRIBUTION_HISTORY: '/admin/exams/deployments',
+  EXAM_DISTRIBUTION_DETAIL: ({ deploymentId }: { deploymentId: number }) =>
+    `/admin/exams/deployments/${deploymentId}`,
   EXAM_SUBMISSION_HISTORY: '/admin/exams/submissions',
   EXAM_SUBMISSION_ID: ({ submissionId }: { submissionId: number }) =>
     `/admin/exams/submissions/${submissionId}`,
