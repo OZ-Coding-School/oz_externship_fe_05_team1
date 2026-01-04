@@ -31,7 +31,9 @@ export default function PointSelect({
     <DropdownMenu
       items={POINT_OPTIONS}
       selectedValue={String(value)}
-      onSelect={(v) => onChange(Number(v))}
+      onSelect={(v) => {
+        onChange(Number(v))
+      }}
       placeholder="배점"
       className={className}
       size="sm"

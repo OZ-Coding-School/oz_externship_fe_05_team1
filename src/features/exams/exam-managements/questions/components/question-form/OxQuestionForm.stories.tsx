@@ -5,18 +5,13 @@ import { useQuestionStore } from '@stores'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { vi } from 'vitest'
 
-/**
- * ✅ react-router 훅만 mock (타입 안전)
- * - Router 컴포넌트 ❌
- * - any ❌
- */
 vi.mock('react-router', async () => {
   const actual =
     await vi.importActual<typeof import('react-router')>('react-router')
 
   return {
     ...actual,
-    useNavigate: () => () => {},
+    useNavigate: () => () => ({}),
     useParams: () => ({ examId: '1' }) as { examId: string },
   }
 })

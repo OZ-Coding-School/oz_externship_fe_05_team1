@@ -37,7 +37,11 @@ export const useCourseSubjectsList = ({ mode }: { mode: ModalMode }) =>
     queryFn: () => fetchCourseList(),
     initialData:
       mode === 'update'
-        ? { courseList: MOCK_COURSE_LIST.map(normalizeCourse) }
+        ? {
+            courseList: MOCK_COURSE_LIST.map((course) =>
+              normalizeCourse(course)
+            ),
+          }
         : undefined,
     staleTime: Infinity,
     retry: false,
@@ -56,7 +60,7 @@ export const useSubjectsList = (
         ? {
             subjectsList: MOCK_SUBJECT_LIST.filter(
               (s) => s.course_id === courseId
-            ).map(normalizeSubject),
+            ).map((subject) => normalizeSubject(subject)),
           }
         : undefined,
     staleTime: Infinity,

@@ -79,7 +79,9 @@ export default function DeploymentsHistoryModal({
             variant="success"
             size="md"
             className="px-6"
-            onClick={() => setIsStatusOpen(true)}
+            onClick={() => {
+              setIsStatusOpen(true)
+            }}
           >
             배포
           </Button>
@@ -87,7 +89,9 @@ export default function DeploymentsHistoryModal({
             variant="danger"
             size="md"
             className="px-6"
-            onClick={() => setIsDeleteOpen(true)}
+            onClick={() => {
+              setIsDeleteOpen(true)
+            }}
           >
             삭제
           </Button>
@@ -97,14 +101,18 @@ export default function DeploymentsHistoryModal({
       {isDeleteOpen && (
         <DeploymentDeletePopupModal
           isOpen={isDeleteOpen}
-          onClose={() => setIsDeleteOpen(false)}
+          onClose={() => {
+            setIsDeleteOpen(false)
+          }}
           deploymentId={deploymentId}
         />
       )}
       {isStatusOpen && (
         <DeploymentStatusPopupModal
           isOpen={isStatusOpen}
-          onClose={() => setIsStatusOpen(false)}
+          onClose={() => {
+            setIsStatusOpen(false)
+          }}
           deploymentId={deploymentId}
           status="activated"
         />

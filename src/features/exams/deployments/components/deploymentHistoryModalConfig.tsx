@@ -22,7 +22,11 @@ export const getDeploymentInfoRows = (data: Distribution): DetailRow[] => [
     isLink: true,
     isFullWidth: true,
   },
-  { label: '시험 참가 코드', value: data.accessCode ?? '-', isFullWidth: true },
+  {
+    label: '시험 참가 코드',
+    value: data.accessCode ?? '-',
+    isFullWidth: true,
+  },
 
   {
     label: '응시 대상 과정',
@@ -51,5 +55,9 @@ export const getDeploymentInfoRows = (data: Distribution): DetailRow[] => [
 
   { label: '시작 일시', value: data.openedAt ?? '-', isFullWidth: true },
   { label: '종료 일시', value: data.closedAt ?? '-', isFullWidth: true },
-  { label: '배포 생성 일시', value: data.createdAt ?? '-', isFullWidth: true },
+  {
+    label: '배포 생성 일시',
+    value: data.createdAt ?? '-',
+    isFullWidth: true,
+  },
 ]

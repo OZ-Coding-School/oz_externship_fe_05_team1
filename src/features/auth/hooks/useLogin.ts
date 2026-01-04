@@ -1,15 +1,14 @@
-import type { LoginRequest, LoginResponse } from '@api/auth'
-
-import { login } from '@api/auth'
+import { login, type LoginRequest, type LoginResponse } from '@api'
 import { showToast } from '@components'
 import { ROUTES_PATHS } from '@constants'
 import { useAuthStore } from '@stores'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 export function useLogin() {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
+
   const setAccessToken = useAuthStore((state) => state.setAccessToken)
 
   return useMutation({

@@ -22,7 +22,11 @@ function QuestionTypeSelectWithState() {
 
   return (
     <div className="flex flex-col gap-4">
-      <QuestionTypeSelect value={value} onChange={setValue} className="w-40" />
+      <QuestionTypeSelect
+        value={value}
+        onChange={(newValue) => setValue(newValue)}
+        className="w-40"
+      />
       <p className="text-sm text-gray-500">선택된 값: {value}</p>
     </div>
   )
@@ -32,7 +36,9 @@ function QuestionTypeSelectWithState() {
 export const Default: Story = {
   args: {
     value: 'multiple_choice',
-    onChange: () => {},
+    onChange: () => {
+      return
+    },
     className: 'w-40',
   },
 }
@@ -41,7 +47,9 @@ export const Default: Story = {
 export const Ox: Story = {
   args: {
     value: 'ox',
-    onChange: () => {},
+    onChange: () => {
+      return
+    },
     className: 'w-40',
   },
 }
@@ -50,7 +58,9 @@ export const Ox: Story = {
 export const Ordering: Story = {
   args: {
     value: 'ordering',
-    onChange: () => {},
+    onChange: () => {
+      return
+    },
     className: 'w-40',
   },
 }
@@ -59,7 +69,9 @@ export const Ordering: Story = {
 export const ShortAnswer: Story = {
   args: {
     value: 'short_answer',
-    onChange: () => {},
+    onChange: () => {
+      return
+    },
     className: 'w-40',
   },
 }
@@ -68,7 +80,9 @@ export const ShortAnswer: Story = {
 export const FillBlank: Story = {
   args: {
     value: 'fill_blank',
-    onChange: () => {},
+    onChange: () => {
+      return
+    },
     className: 'w-40',
   },
 }

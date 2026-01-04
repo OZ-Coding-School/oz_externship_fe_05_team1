@@ -17,7 +17,7 @@ export const validationChoiceAnswer = (
   )
 
   if (isInvalid) {
-    ctx.addIssue({
+    return ctx.addIssue({
       path: ['correct_answer'],
       message: '정답이 보기 범위를 벗어났습니다.',
       code: z.ZodIssueCode.custom,
@@ -62,7 +62,7 @@ export const multipleChoiceSchema = baseQuestionSchema
       return
     }
 
-    validationChoiceAnswer(data, ctx)
+    return validationChoiceAnswer(data, ctx)
   })
 
 // 순서 배열형
@@ -86,7 +86,8 @@ export const orderingSchema = baseQuestionSchema
 
       return
     }
-    validationChoiceAnswer(data, ctx)
+
+    return validationChoiceAnswer(data, ctx)
   })
 
 // 단답형
@@ -121,7 +122,7 @@ export const fillBlankSchema = baseQuestionSchema
     const hasEmptyAnswer = data.correct_answer.some((answer) => !answer.trim())
 
     if (hasEmptyAnswer) {
-      ctx.addIssue({
+      return ctx.addIssue({
         path: ['correct_answer'],
         message: '빈칸 답안을 모두 입력해주세요.',
         code: z.ZodIssueCode.custom,
@@ -180,6 +181,3 @@ export const validateAllQuestions = (
 export type OxQuestion = z.infer<typeof oxSchema>
 export type MultipleChoiceQuestion = z.infer<typeof multipleChoiceSchema>
 export type OrderingQuestion = z.infer<typeof orderingSchema>
-export type ShortAnswerQuestion = z.infer<typeof shortAnswerSchema>
-export type FillBlankQuestion = z.infer<typeof fillBlankSchema>
-export type QuestionFormData = z.infer<typeof questionSchema>

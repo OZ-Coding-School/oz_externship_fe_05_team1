@@ -10,11 +10,12 @@ export const useDeploymentMutation = (onClose: () => void) => {
       updateDeploymentStatusRequest(id, status),
     onSuccess: () => {
       showToast('배포 상태가 성공적으로 변경되었습니다.', 'success')
-      queryClient.invalidateQueries({ queryKey: ['deployments', 'list'] })
-      onClose()
+      queryClient.invalidateQueries({
+        queryKey: ['deployments', 'list'],
+      })
+
+      return onClose()
     },
-    onError: () => {
-      showToast('상태 변경 중 오류가 발생했습니다.', 'fail')
-    },
+    onError: () => showToast('상태 변경 중 오류가 발생했습니다.', 'fail'),
   })
 }

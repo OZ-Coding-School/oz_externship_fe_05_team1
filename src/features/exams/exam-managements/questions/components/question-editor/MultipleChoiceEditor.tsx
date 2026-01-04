@@ -60,18 +60,12 @@ export default function MultipleChoiceEditor({
     const newOptions = options.filter((_, i) => i !== index)
 
     onOptionsChange(newOptions)
-    adjustAfterDelete(index)
+
+    return adjustAfterDelete(index)
   }
 
-  const getOnClearWithAdjust = (index: number) => {
-    if (!canDelete || disabled) {
-      return
-    }
-
-    return () => {
-      handleDeleteOption(index)
-    }
-  }
+  // 컨벤션에 맞춘 핸들러 생성 함수
+  const handleClear = (index: number) => () => handleDeleteOption(index)
 
   return (
     <div className="over flex flex-col gap-3">
@@ -104,16 +98,20 @@ export default function MultipleChoiceEditor({
                 onChange={(value) => handleOptionChange(index, value)}
                 placeholder={`보기 ${alphabet} 입력`}
                 className="flex-1"
-                onClear={getOnClearWithAdjust(index)}
+                onClear={handleClear(index)}
                 disabled={disabled}
               />
 
               <input
                 type="checkbox"
                 checked={isSelected}
-                onChange={
-                  canDelete && !disabled ? () => handleToggle(index) : undefined
-                }
+                onChange={() => {
+                  if (canDelete && !disabled) {
+                    return handleToggle(index)
+                  }
+
+                  return
+                }}
                 disabled={disabled}
                 className={cn(
                   'h-5 w-5 cursor-pointer rounded accent-primary-400',
@@ -128,7 +126,7 @@ export default function MultipleChoiceEditor({
       {canAdd && !disabled && (
         <button
           type="button"
-          onClick={handleAddOption}
+          onClick={() => handleAddOption()}
           className="hover:text-primary-600 self-start text-sm text-primary-500"
         >
           + 보기 추가

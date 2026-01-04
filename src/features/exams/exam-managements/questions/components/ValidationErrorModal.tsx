@@ -29,7 +29,8 @@ export default function ValidationErrorModal({
 }: ValidationErrorModalProps) {
   const handleGoToQuestion = (index: number) => {
     onGoToQuestion(index)
-    onClose()
+
+    return onClose()
   }
 
   return (
