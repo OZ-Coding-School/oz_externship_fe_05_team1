@@ -36,6 +36,7 @@ export function TableHeader<TData>({
             return (
               <th
                 key={header.id}
+                style={{ width: header.getSize() }}
                 className={cn(
                   thVariants({ size }),
                   canSort && 'cursor-pointer select-none'

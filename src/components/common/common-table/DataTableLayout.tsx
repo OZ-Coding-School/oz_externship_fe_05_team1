@@ -24,10 +24,16 @@ export function DataTableLayout<TData>({
   onRowClick,
 }: DataTableLayoutProps<TData>) {
   return (
-    <div className="space-y-4">
+    <div className="flex flex-col gap-1">
       <DataTable table={table} onRowClick={onRowClick} />
-      {actionButtons && <div>{actionButtons}</div>}
-      <TablePagination table={table} />
+
+      <div className="relative flex items-center justify-center">
+        <TablePagination table={table} />
+
+        {actionButtons && (
+          <div className="absolute right-0">{actionButtons}</div>
+        )}
+      </div>
     </div>
   )
 }

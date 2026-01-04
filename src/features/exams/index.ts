@@ -78,3 +78,4 @@ export { default as CreateQuestionHeader } from './exam-managements/questions/co
 export { default as CreateQuestionFooter } from './exam-managements/questions/components/CreateQuestionFooter.tsx'
 export { default as QuestionDeletePopupModal } from './exam-managements/questions/components/QuestionDeletPopupModal.tsx'
 export { default as ValidationErrorModal } from './exam-managements/questions/components/ValidationErrorModal.tsx'
+export { formatDate } from './utils/formatDate'

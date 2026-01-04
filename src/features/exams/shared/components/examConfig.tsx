@@ -1,7 +1,7 @@
-import type { Exam } from '@features/exams'
 import type { ColumnDef } from '@tanstack/react-table'
 
 import { Button } from '@components'
+import { type Exam, formatDate } from '@features/exams'
 
 /**
  * 쪽지시험 목록 테이블 컬럼 설정
@@ -16,11 +16,15 @@ export const ExamColumns = (
   {
     accessorKey: 'id',
     header: 'ID',
+    size: 50,
+    minSize: 40,
+    maxSize: 60,
     enableSorting: true,
   },
   {
     accessorKey: 'title',
     header: '제목',
+    size: 80,
     cell: ({ row }) => (
       <span className="cursor-pointer underline">{row.original.title}</span>
     ),
@@ -28,27 +32,34 @@ export const ExamColumns = (
   {
     accessorKey: 'subjectName',
     header: '과목명',
+    size: 120,
     cell: ({ row }) => row.index + 1,
   },
   {
     accessorKey: 'totalQuestions',
     header: '총 문제 수',
+    size: 80,
   },
   {
     accessorKey: 'submissionCount',
     header: '응시 수',
+    size: 70,
   },
   {
     accessorKey: 'createdAt',
     header: '등록 일시',
+    size: 150,
+    cell: ({ row }) => formatDate(row.original.createdAt),
   },
   {
     accessorKey: 'updatedAt',
     header: '수정 일시',
+    cell: ({ row }) => formatDate(row.original.updatedAt),
   },
   {
     id: 'actions',
     header: '',
+    size: 140,
     cell: ({ row }) => (
       <div className="flex flex-row gap-3">
         <Button

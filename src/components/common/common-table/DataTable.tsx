@@ -1,5 +1,7 @@
 import type { Table } from '@tanstack/react-table'
 
+import { cn } from '@utils'
+
 import { TableBody } from './TableBody'
 import { TableHeader } from './TableHeader'
 import { tableVariants, type TableVariantsType } from './TableStyle'
@@ -29,9 +31,9 @@ export function DataTable<TData>({
   emptyMessage,
 }: DataTableProps<TData>) {
   return (
-    <div className="w-full space-y-4">
-      <div className="relative overflow-x-auto bg-white">
-        <table className={tableVariants({ size })}>
+    <div className="w-full overflow-x-auto">
+      <div className="w-full table-auto bg-white">
+        <table className={cn(tableVariants({ size }))}>
           <TableHeader headerGroups={table.getHeaderGroups()} size={size} />
           <TableBody
             rows={table.getRowModel().rows}

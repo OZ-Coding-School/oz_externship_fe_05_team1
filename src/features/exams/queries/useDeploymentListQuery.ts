@@ -7,6 +7,16 @@ import type {
 import { getDeploymentsRequest } from '@api/exams'
 import { useQuery } from '@tanstack/react-query'
 
+const formatDate = (isoString: string): string => {
+  if (!isoString) return '-'
+  const date = new Date(isoString)
+  const yyyy = date.getFullYear()
+  const mm = String(date.getMonth() + 1).padStart(2, '0')
+  const dd = String(date.getDate()).padStart(2, '0')
+
+  return `${yyyy}.${mm}.${dd}`
+}
+
 export const useDeploymentListQuery = (params: DeploymentListParams) =>
   useQuery({
     queryKey: [
@@ -19,30 +29,21 @@ export const useDeploymentListQuery = (params: DeploymentListParams) =>
     ],
     queryFn: () => getDeploymentsRequest(params),
     select: (data: DeploymentListResponse) => ({
-      ...data,
+      totalCount: data.count,
       deployments: data.results.map(
-        ({
-          id,
-          submit_count,
-          avg_score,
-          status,
-          exam,
-          subject,
-          cohort,
-          created_at,
-        }): Distribution => ({
-          deploymentId: id,
-          examTitle: exam.title,
-          subjectName: subject.name,
-          generationNumber: cohort.number,
-          courseName: cohort.course.name,
-          submitCount: submit_count,
-          averageScore: avg_score,
-          status: status.toLowerCase() as
-            | 'activated'
-            | 'deactivated'
-            | 'pending',
-          createdAt: created_at,
+        (d): Distribution => ({
+          deploymentId: d.id,
+          examTitle: d.exam?.title ?? '',
+          subjectName: d.subject?.name ?? '',
+          courseName: d.cohort?.course?.name ?? '',
+          generationNumber: d.cohort?.number ?? 0,
+          submitCount: d.submit_count ?? 0,
+          averageScore: d.avg_score ?? 0,
+          status: d.status === 'activated' ? 'activated' : 'deactivated',
+          createdAt: formatDate(d.created_at),
+          durationTime: 0,
+          questionCount: 0,
+          nickname: '',
         })
       ),
     }),

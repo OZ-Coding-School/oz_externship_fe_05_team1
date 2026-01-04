@@ -56,11 +56,20 @@ export function useImageUpload(
     fileInputRef.current?.click()
   }
 
+  const clearFile = () => {
+    setPreview(null)
+    setFileName('')
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
+  }
+
   return {
     fileInputRef,
     preview,
     fileName,
     handleOpenFile,
     handleFileChange,
+    clearFile,
   }
 }

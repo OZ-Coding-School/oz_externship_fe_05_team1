@@ -24,7 +24,7 @@ export type ExamListParams = {
 export type ExamListResponse = {
   page: number
   size: number
-  total_count: number
+  count: number
   exams: ExamApiItem[]
   results: ExamApiItem[]
 }
@@ -64,25 +64,6 @@ export type Submission = {
   cohortId: number
 }
 
-export type Distribution = {
-  deploymentId: number
-  examTitle: string
-  subjectName: string
-  courseName: string
-  generationNumber: number
-  submitCount: number
-  averageScore: number
-  createdAt: string
-  status: 'activated' | 'deactivated' | 'pending'
-
-  examAccessUrl?: string
-  accessCode?: string
-  notSubmittedCount?: number
-  openedAt?: string
-  closedAt?: string
-  durationTime?: number
-}
-
 export type CreateExamModalPayload = {
   title: string
   subjectId: string
@@ -117,38 +98,63 @@ export type ExamQuestionResponse = {
   questions: ExamQuestion[]
 }
 
+export type DeploymentFromServer = {
+  id: number
+  submit_count: number
+  avg_score: number
+  status: string
+  exam: {
+    id: number
+    title: string
+    thumbnail_img_url: string
+  }
+  subject: {
+    id: number
+    name: string
+  }
+  cohort: {
+    id: number
+    number: number
+    display: string
+    course: {
+      id: number
+      name: string
+      tag: string
+    }
+  }
+  created_at: string
+}
+
+// 프론트엔드에서 사용하는 변환된 타입
+export type Distribution = {
+  deploymentId: number
+  examTitle: string
+  subjectName: string
+  courseName: string
+  generationNumber: number
+  submitCount: number
+  averageScore: number
+  status: 'activated' | 'deactivated'
+  createdAt: string
+
+  // 모달에서 사용하는 필드들
+  examAccessUrl?: string
+  accessCode?: string
+  notSubmittedCount?: number
+  durationTime: number
+  openedAt?: string
+  closedAt?: string
+  questionCount: number
+  nickname?: string
+}
+
 export type DeploymentListResponse = {
   page: number
   size: number
   count: number
   previous: string | null
   next: string | null
-  results: Array<{
-    id: number
-    submit_count: number
-    avg_score: number
-    status: string
-    exam: {
-      id: number
-      title: string
-      thumbnail_img_url: string
-    }
-    subject: {
-      id: number
-      name: string
-    }
-    cohort: {
-      id: number
-      number: number
-      display: string
-      course: {
-        id: number
-        name: string
-        tag: string
-      }
-    }
-    created_at: string
-  }>
+  results: DeploymentFromServer[]
 }
 
 export type DeploymentDetailResponse = {

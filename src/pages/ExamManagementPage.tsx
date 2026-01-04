@@ -1,4 +1,4 @@
-import { FilterSection } from '@components'
+import { Button, FilterSection } from '@components'
 import { PAGE_SIZE } from '@constants'
 import {
   EmptyState,
@@ -37,7 +37,7 @@ export default function ExamManagementPage() {
 
   // 데이터 변환
   const exams: Exam[] = data?.results.map(transformExam) ?? []
-  const totalCount = data?.total_count ?? 0
+  const totalCount = data?.count ?? 0
   const pageCount = Math.ceil(totalCount / PAGE_SIZE)
 
   // 모달 제어
@@ -90,7 +90,6 @@ export default function ExamManagementPage() {
         pageCount={pageCount}
         pageIndex={Number(page) - 1}
         onPageChange={(index) => changePage(index + 1)}
-        onButtonClick={createModal.modalOpen}
         onExamUpdateClick={updateModal.modalOpen}
         onDetailClick={detailModal.modalOpen}
         onDeployClick={deployModal.modalOpen}
@@ -99,13 +98,13 @@ export default function ExamManagementPage() {
   }
 
   return (
-    <section className="px-15 py-11">
-      <div className="h-192 bg-white px-18 py-8">
+    <section className="px-6 py-8">
+      <div className="rounded-xm min-h-200 bg-white px-8 py-6">
         <h1 className="mb-1 text-[22px] font-bold text-neutral-500">
           쪽지시험 관리
         </h1>
 
-        <div className="mb-3">
+        <div className="mb-4 flex items-center justify-between">
           <FilterSection
             dropdowns={examDropdowns}
             selectedValues={{ course, ...filters }}
@@ -114,6 +113,16 @@ export default function ExamManagementPage() {
             onChangeSearch={handleChangeSearch}
             onSubmit={handleSearch}
           />
+
+          <Button
+            variant="primary"
+            size="md"
+            onClick={() => {
+              createModal.modalOpen()
+            }}
+          >
+            생성
+          </Button>
         </div>
 
         {renderExamList()}

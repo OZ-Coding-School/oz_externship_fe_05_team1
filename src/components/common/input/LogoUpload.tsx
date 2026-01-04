@@ -1,4 +1,6 @@
+import { XbuttonIcon } from '@assets'
 import { useImageUpload } from '@components'
+import { cn } from '@utils'
 
 import UploadIcon from './UploadIcon'
 
@@ -17,29 +19,58 @@ export default function LogoUpload({
   initialPreview,
   ...props
 }: LogoUploadProps) {
-  const { fileInputRef, preview, fileName, handleOpenFile, handleFileChange } =
-    useImageUpload(onChange)
+  const {
+    fileInputRef,
+    preview,
+    fileName,
+    handleOpenFile,
+    handleFileChange,
+    clearFile,
+  } = useImageUpload(onChange)
 
   const logoPreview = preview ?? initialPreview ?? null
   const shortenFileName = (name: string, max = 20) =>
     name.length > max ? `${name.slice(0, 10)}...${name.slice(-7)}` : name
 
+  // 이미지 삭제 핸들러
+  const handleRemove = () => {
+    clearFile()
+    onChange?.(null, null)
+  }
+
   return (
     <div className="flex flex-col justify-center gap-3">
-      <button
-        className="flex h-33 w-35 cursor-pointer items-center justify-center border border-neutral-300 bg-neutral-200"
-        onClick={handleOpenFile}
-      >
-        {logoPreview ? (
-          <img
-            src={logoPreview}
-            alt="logo preview"
-            className="object-cover p-4"
-          />
-        ) : (
-          <UploadIcon />
+      <div className="relative flex h-33 w-35">
+        <button
+          className={cn(
+            'flex h-full w-full cursor-pointer items-center justify-center border',
+            'border-neutral-300 bg-neutral-200'
+          )}
+          onClick={handleOpenFile}
+        >
+          {logoPreview ? (
+            <img
+              src={logoPreview}
+              alt="logo preview"
+              className="object-cover p-4"
+            />
+          ) : (
+            <UploadIcon />
+          )}
+        </button>
+        {logoPreview && (
+          <button
+            onClick={handleRemove}
+            className={cn(
+              'absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center',
+              'rounded-full bg-neutral-500 text-white hover:bg-neutral-600'
+            )}
+          >
+            <XbuttonIcon className="h-3 w-3" />
+          </button>
         )}
-      </button>
+      </div>
+
       <div className="flex items-center gap-3">
         <span className="text-[14px] text-neutral-300">
           96 x 96 사이즈로 등록하세요.
