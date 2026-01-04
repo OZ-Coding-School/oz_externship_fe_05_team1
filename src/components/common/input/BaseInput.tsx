@@ -50,7 +50,7 @@ export default function BaseInput({
       {showClear && (
         <button
           onClick={onClear}
-          className="absolute top-1/2 right-2 -translate-0.5"
+          className="absolute top-1/2 right-2 -translate-y-1/2"
         >
           <CancelIcon className="h-5 w-5" />
         </button>
