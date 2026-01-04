@@ -7,7 +7,7 @@ import type {
 import { getDeploymentsRequest } from '@api/exams'
 import { useQuery } from '@tanstack/react-query'
 
-export const useDeploymentList = (params: DeploymentListParams) =>
+export const useDeploymentListQuery = (params: DeploymentListParams) =>
   useQuery({
     queryKey: ['deployments', 'list', params],
     queryFn: () => getDeploymentsRequest(params),

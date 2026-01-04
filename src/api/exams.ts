@@ -79,7 +79,15 @@ export const deleteExamRequest = async (examId: number) => {
 export const getDeploymentsRequest = async (params: DeploymentListParams) => {
   const response = await fetcher.get<DeploymentListResponse>(
     `${ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_HISTORY}`,
-    { params }
+    {
+      params: {
+        page: params.page,
+        size: params.size,
+        search_keyword: params.searchKeyword,
+        cohort_id: params.cohortId,
+        subject_id: params.subjectId,
+      },
+    }
   )
 
   return response.data
@@ -157,7 +165,6 @@ export const fetchExamDetailRequest = async (examId: number) => {
   return convertToCamelCase(raw)
 }
 
-// Query Key
 export const examKeys = {
   all: ['exams'] as const,
   lists: () => [...examKeys.all, 'list'] as const,
@@ -169,7 +176,7 @@ export const updateDeploymentRequest = async (
   body: { openAt: string; closeAt: string; durationTime: number }
 ) => {
   const response = await fetcher.patch(
-    `${ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_HISTORY}/${deploymentId}`,
+    `${ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_ID({ deploymentId })}`,
     body
   )
 
