@@ -73,11 +73,11 @@ export function useCreateQuestion() {
     const hasContent = questions.some((q) => q.question.trim())
 
     if (hasContent) {
-      const confirmed = window.confirm(
+      const hasConfirmed = window.confirm(
         '저장하지 않은 변경사항이 있습니다. 나가시겠습니까?'
       )
 
-      if (!confirmed) return
+      if (!hasConfirmed) return
     }
 
     reset()

@@ -4,6 +4,7 @@ import type { ComponentType } from 'react'
 import {
   MultipleChoiceQuestionForm as MultipleChoieForm,
   OxQuestionForm as OxForm,
+  ShortAnswerQuestionForm as ShortAnswerForm,
 } from '../question-form'
 
 /**
@@ -12,6 +13,7 @@ import {
 export const QUESTION_FORM_MAP: Record<QuestionType, ComponentType> = {
   ox: OxForm,
   multiple_choice: MultipleChoieForm,
+  short_answer: ShortAnswerForm,
 }
 
 export function getQuestionForm(type: QuestionType) {

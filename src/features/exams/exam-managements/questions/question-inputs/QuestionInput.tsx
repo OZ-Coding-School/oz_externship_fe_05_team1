@@ -6,7 +6,7 @@ type CommonInputProps = {
   onChange: (value: string) => void
   placeholder?: string
   className?: string
-  error?: boolean
+  isError?: boolean
   disabled?: boolean
 }
 
@@ -27,7 +27,7 @@ const DEFAULT_ANSWER_PLACEHOLDER = '보기를 입력해주세요.'
  * 문제 내용 입력
  */
 export default function QuestionInput(props: QuestionInputProps) {
-  const { value, onChange, className, error = false, mode } = props
+  const { value, onChange, className, isError = false, mode } = props
   const inputId = useId()
 
   const placeholder =
@@ -46,7 +46,7 @@ export default function QuestionInput(props: QuestionInputProps) {
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           className={className}
-          error={error}
+          error={isError}
           size="answer"
           onClear={onClear}
         />
@@ -68,7 +68,7 @@ export default function QuestionInput(props: QuestionInputProps) {
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         className={className}
-        error={error}
+        error={isError}
         size="question"
       />
     </div>

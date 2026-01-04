@@ -10,9 +10,9 @@ export const textareaVariant = cva(
   {
     variants: {
       size: {
-        sm: 'min-h-20',
-        md: 'min-h-32',
-        lg: 'md-h-40',
+        sm: 'h-20',
+        md: 'h-32',
+        lg: 'h-40',
       },
       error: {
         true: 'border-error focus:ring-red-300',

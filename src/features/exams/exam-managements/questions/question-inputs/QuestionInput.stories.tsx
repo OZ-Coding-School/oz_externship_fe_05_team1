@@ -65,7 +65,7 @@ export const Error: Story = {
   args: {
     value: '',
     onChange: () => {},
-    error: true,
+    isError: true,
   },
 }
 
