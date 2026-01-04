@@ -43,7 +43,9 @@ export default function QuestionInput(props: QuestionInputProps) {
         <BaseInput
           id={inputId}
           value={value}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={(e) => {
+            onChange(e.target.value)
+          }}
           placeholder={placeholder}
           className={className}
           error={isError}
@@ -65,7 +67,9 @@ export default function QuestionInput(props: QuestionInputProps) {
       <BaseInput
         id={inputId}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => {
+          onChange(e.target.value)
+        }}
         placeholder={placeholder}
         className={className}
         error={isError}

@@ -146,7 +146,7 @@ export default tseslint.config(
 
       // 화살표 함수 사용 권장
       'prefer-arrow-callback': 'warn',
-      'arrow-body-style': ['warn', 'as-needed'],
+      'arrow-body-style': ['error', 'always'],
 
       // 중괄호 항상 사용
       curly: ['error', 'all'],

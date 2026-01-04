@@ -24,8 +24,9 @@ export default function ShortAnswerQuestionForm() {
   // 타입가드
   const isShortAnswer = (
     q: Question
-  ): q is Question & { type: 'short_answer'; correct_answer: string } =>
-    q.type === 'short_answer'
+  ): q is Question & { type: 'short_answer'; correct_answer: string } => {
+    return q.type === 'short_answer'
+  }
 
   if (!current || !isShortAnswer(current)) {
     return null
@@ -49,7 +50,9 @@ export default function ShortAnswerQuestionForm() {
         <QuestionInput
           mode="question"
           value={current.question}
-          onChange={(value) => updateCurrentQuestion({ question: value })}
+          onChange={(value) => {
+            updateCurrentQuestion({ question: value })
+          }}
         />
 
         <div className="mb-6 flex flex-col gap-1">
@@ -61,7 +64,9 @@ export default function ShortAnswerQuestionForm() {
           </label>
           <PointSelect
             value={current.point}
-            onChange={(point) => updateCurrentQuestion({ point })}
+            onChange={(point) => {
+              updateCurrentQuestion({ point })
+            }}
           />
         </div>
       </div>
@@ -70,15 +75,17 @@ export default function ShortAnswerQuestionForm() {
         <div className="w-1/2">
           <ShortAnswerEditor
             value={String(current.correct_answer || '')}
-            onChange={(answer) =>
+            onChange={(answer) => {
               updateCurrentQuestion({ correct_answer: answer })
-            }
+            }}
           />
         </div>
         <div className="w-1/2">
           <ExplanationEditor
             value={current.explanation || ''}
-            onChange={(explanation) => updateCurrentQuestion({ explanation })}
+            onChange={(explanation) => {
+              updateCurrentQuestion({ explanation })
+            }}
           />
         </div>
       </div>
