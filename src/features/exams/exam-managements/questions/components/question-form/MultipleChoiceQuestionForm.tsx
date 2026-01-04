@@ -25,14 +25,13 @@ export default function MultipleChoiceForm() {
     return null
   }
 
-  const handleUpdate = (updates: Partial<Question>) => {
+  const handleUpdate = (updates: Partial<Question>) =>
     updateQuestion(currentIndex, updates)
-  }
 
   const handleTypeChange = (type: QuestionType) => {
     const defaultValues = QUESTION_DEFAULT_VALUES[type]
 
-    handleUpdate({
+    return handleUpdate({
       type,
       ...defaultValues,
     })
@@ -48,7 +47,7 @@ export default function MultipleChoiceForm() {
       <div className="mb-6">
         <QuestionTypeSelect
           value={currentQuestion.type}
-          onChange={handleTypeChange}
+          onChange={(type) => handleTypeChange(type)}
           className="text-sm"
         />
       </div>

@@ -28,7 +28,10 @@ function ExplanationEditorWithState() {
 
   return (
     <div className="flex flex-col gap-4">
-      <ExplanationEditor value={value} onChange={setValue} />
+      <ExplanationEditor
+        value={value}
+        onChange={(newValue) => setValue(newValue)}
+      />
       <div className="rounded bg-gray-100 p-2">
         <p className="text-xs text-gray-500">입력된 마크다운:</p>
         <pre className="mt-1 text-xs">{value || '(비어있음)'}</pre>
@@ -41,7 +44,9 @@ function ExplanationEditorWithState() {
 export const Empty: Story = {
   args: {
     value: '',
-    onChange: () => {},
+    onChange: () => {
+      return
+    },
   },
 }
 
@@ -64,7 +69,9 @@ const dogs: Dog[] = [{ name: 'Rex', breed: 'German Shepherd' }]
 const animals: Animal[] = dogs // OK - 공변성
 \`\`\`
 `,
-    onChange: () => {},
+    onChange: () => {
+      return
+    },
   },
 }
 
@@ -72,7 +79,9 @@ const animals: Animal[] = dogs // OK - 공변성
 export const SimpleContent: Story = {
   args: {
     value: '정답은 **3번**입니다. React는 라이브러리입니다.',
-    onChange: () => {},
+    onChange: () => {
+      return
+    },
   },
 }
 

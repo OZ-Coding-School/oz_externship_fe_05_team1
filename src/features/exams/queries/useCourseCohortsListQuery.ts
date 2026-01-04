@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 export const useCourseList = () =>
   useQuery({
     queryKey: ['courseList'],
-    queryFn: fetchCourseList,
+    queryFn: () => fetchCourseList(),
   })
 
 export const useCohortsList = (courseId: number) =>

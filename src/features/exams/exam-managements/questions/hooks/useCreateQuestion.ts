@@ -65,7 +65,8 @@ export function useCreateQuestion() {
     }
 
     await saveAll()
-    navigate(ROUTES_PATHS.EXAM)
+
+    return navigate(ROUTES_PATHS.EXAM)
   }
 
   // 취소
@@ -73,21 +74,22 @@ export function useCreateQuestion() {
     const hasContent = questions.some((q) => q.question.trim())
 
     if (hasContent) {
-      const confirmed = window.confirm(
+      const hasConfirmed = window.confirm(
         '저장하지 않은 변경사항이 있습니다. 나가시겠습니까?'
       )
 
-      if (!confirmed) return
+      if (!hasConfirmed) {
+        return
+      }
     }
 
     reset()
-    navigate(ROUTES_PATHS.EXAM)
+
+    return navigate(ROUTES_PATHS.EXAM)
   }
 
   // 수정
-  const handleEdit = () => {
-    showToast('수정 기능 준비 중입니다.', 'fail')
-  }
+  const handleEdit = () => showToast('수정 기능 준비 중입니다.', 'fail')
 
   // 삭제 모달 열기
   const handleDeleteClick = () => {
@@ -96,36 +98,35 @@ export function useCreateQuestion() {
 
       return
     }
-    setIsDeleteModalOpen(true)
+
+    return setIsDeleteModalOpen(true)
   }
 
   // 삭제 모달 닫기
-  const handleDeleteModalClose = () => {
-    setIsDeleteModalOpen(false)
-  }
+  const handleDeleteModalClose = () => setIsDeleteModalOpen(false)
 
   // 삭제 확정
   const handleDeleteConfirm = () => {
     deleteQuestion(currentIndex)
     setIsDeleteModalOpen(false)
-    showToast('문제가 삭제되었습니다.', 'success')
+
+    return showToast('문제가 삭제되었습니다.', 'success')
   }
 
   // 유효성 검사 모달 닫기
-  const handleValidationModalClose = () => {
-    setIsValidationModalOpen(false)
-  }
+  const handleValidationModalClose = () => setIsValidationModalOpen(false)
 
   // 해당 문제로 이동
   const handleGoToQuestion = (index: number) => {
     setCurrentIndex(index)
-    setIsValidationModalOpen(false)
+
+    return setIsValidationModalOpen(false)
   }
 
   // 문제 추가
   const handleAddQuestion = () => {
     if (questions.length < 20) {
-      addQuestion('multiple_choice')
+      return addQuestion('multiple_choice')
     }
   }
 

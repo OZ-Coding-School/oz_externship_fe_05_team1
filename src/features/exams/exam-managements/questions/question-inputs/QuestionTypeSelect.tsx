@@ -19,7 +19,9 @@ export default function QuestionTypeSelect({
     <DropdownMenu
       items={QUESTION_TYPE_OPTIONS}
       selectedValue={value}
-      onSelect={(v) => onChange(v as QuestionType)}
+      onSelect={(v) => {
+        onChange(v as QuestionType)
+      }}
       placeholder="문제 유형"
       className={className}
       size="md"

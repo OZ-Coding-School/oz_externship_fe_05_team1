@@ -50,21 +50,22 @@ export function useCorrectAnswer(
         const isAlreadySelected = current.includes(index)
 
         if (isAlreadySelected && current.length > 1) {
-          ;(onCorrectChange as (answer: number[]) => void)(
+          return (onCorrectChange as (answer: number[]) => void)(
             current.filter((i) => i !== index)
           )
-
-          return
         }
 
         if (!isAlreadySelected) {
-          ;(onCorrectChange as (answer: number[]) => void)([...current, index])
+          return (onCorrectChange as (answer: number[]) => void)([
+            ...current,
+            index,
+          ])
         }
 
         return
       }
 
-      ;(onCorrectChange as (answer: number) => void)(index)
+      return (onCorrectChange as (answer: number) => void)(index)
     },
     [multiple, correctAnswer, onCorrectChange, disabled]
   )
@@ -83,23 +84,19 @@ export function useCorrectAnswer(
             return i
           })
 
-        ;(onCorrectChange as (answer: number[]) => void)(
+        return (onCorrectChange as (answer: number[]) => void)(
           adjusted.length > 0 ? adjusted : [0]
         )
-
-        return
       }
 
       const current = correctAnswer as number
 
       if (current === deletedIndex) {
-        ;(onCorrectChange as (answer: number) => void)(0)
-
-        return
+        return (onCorrectChange as (answer: number) => void)(0)
       }
 
       if (current > deletedIndex) {
-        ;(onCorrectChange as (answer: number) => void)(current - 1)
+        return (onCorrectChange as (answer: number) => void)(current - 1)
       }
     },
     [multiple, correctAnswer, onCorrectChange]

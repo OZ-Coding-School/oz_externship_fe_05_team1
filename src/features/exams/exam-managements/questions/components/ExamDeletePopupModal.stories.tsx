@@ -36,7 +36,9 @@ const renderModal: Story['render'] = (args) => {
       <div className="h-150 bg-neutral-100 p-10">
         <button
           className="rounded bg-primary-500 px-4 py-2 text-white"
-          onClick={() => setIsOpen(true)}
+          onClick={() => {
+            setIsOpen(true)
+          }}
         >
           삭제 모달 열기
         </button>
@@ -44,7 +46,9 @@ const renderModal: Story['render'] = (args) => {
         <ExamDeletePopupModal
           {...args}
           isOpen={isOpen}
-          onClose={() => setIsOpen(false)}
+          onClose={() => {
+            setIsOpen(false)
+          }}
         />
       </div>
     </QueryClientProvider>

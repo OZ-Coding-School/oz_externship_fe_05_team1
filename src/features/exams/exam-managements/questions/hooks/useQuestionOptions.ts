@@ -32,7 +32,8 @@ export function useOptions({
       const newOptions = [...options]
 
       newOptions[index] = value
-      onOptionsChange(newOptions)
+
+      return onOptionsChange(newOptions)
     },
     [options, onOptionsChange]
   )
@@ -42,7 +43,7 @@ export function useOptions({
       return
     }
 
-    onOptionsChange([...options, ''])
+    return onOptionsChange([...options, ''])
   }, [options, onOptionsChange, canAdd, disabled])
 
   const handleDelete = useCallback(
@@ -53,7 +54,7 @@ export function useOptions({
 
       const newOptions = options.filter((_, i) => i !== index)
 
-      onOptionsChange(newOptions)
+      return onOptionsChange(newOptions)
     },
     [options, onOptionsChange, canDelete, disabled]
   )
@@ -64,9 +65,7 @@ export function useOptions({
         return null
       }
 
-      return () => {
-        handleDelete(index)
-      }
+      return () => handleDelete(index)
     },
     [canDelete, disabled, handleDelete]
   )

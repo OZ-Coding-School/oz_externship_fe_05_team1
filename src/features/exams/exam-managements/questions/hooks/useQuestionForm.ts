@@ -19,16 +19,12 @@ export function useQuestionForm(): UseQuestionFormReturn {
   const current = questions[currentIndex]
 
   const updateCurrentQuestion = useCallback(
-    (updates: Partial<Question>) => {
-      updateQuestion(currentIndex, updates)
-    },
+    (updates: Partial<Question>) => updateQuestion(currentIndex, updates),
     [currentIndex, updateQuestion]
   )
 
   const replaceQuestion = useCallback(
-    (index: number, next: Question) => {
-      updateQuestion(index, next)
-    },
+    (index: number, next: Question) => updateQuestion(index, next),
     [updateQuestion]
   )
 

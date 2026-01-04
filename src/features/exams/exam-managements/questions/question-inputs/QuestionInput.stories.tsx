@@ -12,6 +12,7 @@ const meta: Meta<typeof QuestionInput> = {
   },
   decorators: [
     (Story) => (
+      // return이 누락되어 에러가 발생했을 부분입니다.
       <div className="w-125">
         <Story />
       </div>
@@ -28,7 +29,11 @@ function QuestionInputWithState() {
 
   return (
     <div className="flex flex-col gap-4">
-      <QuestionInput value={value} onChange={setValue} mode="question" />
+      <QuestionInput
+        value={value}
+        onChange={(newValue) => setValue(newValue)}
+        mode="question"
+      />
       <p className="text-sm text-gray-500">글자 수: {value.length}자</p>
     </div>
   )
@@ -38,7 +43,9 @@ function QuestionInputWithState() {
 export const Empty: Story = {
   args: {
     value: '',
-    onChange: () => {},
+    onChange: () => {
+      return
+    },
   },
 }
 
@@ -47,7 +54,9 @@ export const WithContent: Story = {
   args: {
     value:
       'TypeScript의 타입 호환성 규칙에 따라, 상위 타입-하위 타입 관계에서 보통 안전하게 허용되는 걸 뭘라고 하는지?',
-    onChange: () => {},
+    onChange: () => {
+      return
+    },
   },
 }
 
@@ -55,7 +64,9 @@ export const WithContent: Story = {
 export const CustomPlaceholder: Story = {
   args: {
     value: '',
-    onChange: () => {},
+    onChange: () => {
+      return
+    },
     placeholder: 'OX 문제를 입력하세요',
   },
 }
@@ -64,8 +75,10 @@ export const CustomPlaceholder: Story = {
 export const Error: Story = {
   args: {
     value: '',
-    onChange: () => {},
-    error: true,
+    onChange: () => {
+      return
+    },
+    isError: true,
   },
 }
 

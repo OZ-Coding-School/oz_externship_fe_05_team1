@@ -3,43 +3,45 @@ import { useId } from 'react'
 
 import type { Question, QuestionType } from '../../types'
 
-import { useQuestionForm } from '../../hooks/useQuestionForm'
+import { useQuestionForm } from '../../hooks'
 import {
   ExplanationEditor,
   PointSelect,
   QuestionInput,
   QuestionTypeSelect,
 } from '../../question-inputs'
-import OxEditor from '../question-editor/OxEditor'
+import ShortAnswerEditor from '../question-editor/ShortAnswerEditor'
 
 /**
- * OX 문제 폼
+ * 단답형 문제 폼
  */
-export default function OxQuestionForm() {
+export default function ShortAnswerQuestionForm() {
   const { current, updateCurrentQuestion, replaceQuestion, currentIndex } =
     useQuestionForm()
 
   const pointId = useId()
 
-  // 타입 가드 - 화살표 함수 블록화 및 return 추가
-  const isOxQuestion = (
+  // 타입가드
+  const isShortAnswer = (
     q: Question
-  ): q is Question & { type: 'ox'; correct_answer?: boolean } => q.type === 'ox'
+  ): q is Question & { type: 'short_answer'; correct_answer: string } => {
+    return q.type === 'short_answer'
+  }
 
-  // Early Return 블록화
-  if (!current || !isOxQuestion(current)) {
+  if (!current || !isShortAnswer(current)) {
     return null
   }
 
-  const handleTypeChange = (type: QuestionType) =>
+  const handleTypeChange = (type: QuestionType) => {
     replaceQuestion(currentIndex, createEmptyQuestion(type))
+  }
 
   return (
-    <section className="flex h-full flex-col gap-4">
-      <div className="mb-4">
+    <section className="fex h-full flex-col gap-4">
+      <div className="mb-6">
         <QuestionTypeSelect
           value={current.type}
-          onChange={(type) => handleTypeChange(type)}
+          onChange={handleTypeChange}
           className="text-sm"
         />
       </div>
@@ -48,9 +50,12 @@ export default function OxQuestionForm() {
         <QuestionInput
           mode="question"
           value={current.question}
-          onChange={(value) => updateCurrentQuestion({ question: value })}
+          onChange={(value) => {
+            updateCurrentQuestion({ question: value })
+          }}
         />
-        <div className="mb-4 flex flex-col gap-1">
+
+        <div className="mb-6 flex flex-col gap-1">
           <label
             htmlFor={pointId}
             className="invisible text-lg font-medium text-neutral-500"
@@ -59,24 +64,28 @@ export default function OxQuestionForm() {
           </label>
           <PointSelect
             value={current.point}
-            onChange={(point) => updateCurrentQuestion({ point })}
+            onChange={(point) => {
+              updateCurrentQuestion({ point })
+            }}
           />
         </div>
       </div>
 
       <div className="flex gap-6">
         <div className="w-1/2">
-          <OxEditor
-            value={current.correct_answer}
-            onChange={(answer) =>
+          <ShortAnswerEditor
+            value={String(current.correct_answer || '')}
+            onChange={(answer) => {
               updateCurrentQuestion({ correct_answer: answer })
-            }
+            }}
           />
         </div>
         <div className="w-1/2">
           <ExplanationEditor
             value={current.explanation || ''}
-            onChange={(explanation) => updateCurrentQuestion({ explanation })}
+            onChange={(explanation) => {
+              updateCurrentQuestion({ explanation })
+            }}
           />
         </div>
       </div>
