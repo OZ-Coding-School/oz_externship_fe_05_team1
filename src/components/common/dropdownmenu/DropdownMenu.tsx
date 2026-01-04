@@ -30,7 +30,7 @@ export default function DropdownMenu({
   size = 'md',
   disabled = false,
 }: DropdownMenuProps) {
-  const menuId = useId()
+  const internalMenuId = useId()
   const buttonRef = useRef<HTMLButtonElement | null>(null)
 
   const {
@@ -57,7 +57,7 @@ export default function DropdownMenu({
       ref={dropdownRef}
       role="combobox"
       tabIndex={0}
-      aria-controls={menuId}
+      aria-controls={internalMenuId}
       aria-haspopup="listbox"
       aria-expanded={isOpen}
       onKeyDown={handleKeyDown}
@@ -78,7 +78,7 @@ export default function DropdownMenu({
       />
       {isOpen && (
         <DropdownList
-          id={menuId}
+          id={internalMenuId}
           items={items}
           selectedValue={selectedValue}
           focusedIndex={focusedIndex}

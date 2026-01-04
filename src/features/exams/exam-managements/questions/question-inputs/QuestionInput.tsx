@@ -25,8 +25,11 @@ export default function QuestionInput({
   const inputId = useId()
 
   return (
-    <div className="flex flex-col gap-2">
-      <label htmlFor={inputId} className="text-lg font-medium text-neutral-500">
+    <div className="flex-1">
+      <label
+        htmlFor={inputId}
+        className="mb-1 block text-lg font-medium text-neutral-500"
+      >
         문제 입력
       </label>
       <BaseInput

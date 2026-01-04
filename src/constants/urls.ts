@@ -3,20 +3,14 @@ export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 export const ROUTES_PATHS = {
   MAIN: '/',
   EXAM: '/exams',
-  EXAM_QUESTIONS_CREATE: (questionsId: number | string) =>
-    `/exams/questions/${questionsId}`,
-  EXAM_QUESTIONS_ID: ({
-    examId,
-    questionId,
-  }: {
-    examId: number
-    questionId: number
-  }) => `${ROUTES_PATHS_ADMIN.QUESTIONS({ examId })}/${questionId}`,
+  EXAM_QUESTIONS_CREATE: (examId: number | string) =>
+    `/exams/${examId}/questions`,
   // 라우트용
   EXAM_QUESTIONS_ROUTE: `/exams/:examId/questions`,
   // 네비게이트용
   EXAM_QUESTIONS: ({ examId }: { examId: number }) =>
     `/exam/${examId}/questions`,
+
   LOGIN: '/login',
   EXAM_DISTRIBUTION_HISTORY: '/exams/deployments',
   EXAM_SUBMISSION_HISTORY: '/exams/submissions',

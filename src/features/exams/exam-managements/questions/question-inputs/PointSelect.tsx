@@ -34,6 +34,7 @@ export default function PointSelect({
       onSelect={(v) => onChange(Number(v))}
       placeholder="배점"
       className={className}
+      size="sm"
     />
   )
 }

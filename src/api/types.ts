@@ -35,7 +35,7 @@ export type ApiCreateQuestionResponse = {
   prompt: string
   options: string[] | null
   blank_count: number | null
-  correct_answer: unknown
+  correct_answer: string | string[] | boolean | number | number[]
   point: number
   explanation: string
 }

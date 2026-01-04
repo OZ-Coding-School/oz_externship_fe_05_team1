@@ -3,13 +3,25 @@ import type { Question, QuestionType } from '@features/exams'
 import { QUESTION_DEFAULT_VALUES } from '@constants'
 
 /**
+ * 고유 ID 생성
+ */
+const generateUniqueId = (): string => {
+  // crypto.randomUUID()가 지원되면 사용, 아니면 fallback
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+    return `question-${crypto.randomUUID()}`
+  }
+
+  return `question-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`
+}
+
+/**
  * 문제 유형별 빈 문제 생성
  * @param type - 문제 유형
  * @returns 초기화된 Question 객체
  */
 export const createEmptyQuestion = (type: QuestionType): Question => {
   const base = {
-    id: `question-${Date.now()}`,
+    id: generateUniqueId(),
     type,
     question: '',
     prompt: '',

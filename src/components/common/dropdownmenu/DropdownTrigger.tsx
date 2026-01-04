@@ -1,11 +1,7 @@
 import { DropdownIcon } from '@assets'
 import { cn } from '@utils'
 
-import {
-  type DropdownSize,
-  ICON_SIZE_STYLES,
-  SIZE_STYLES,
-} from './dropdownMenuStyle'
+import { type DropdownSize, SIZE_STYLES } from './dropdownMenuStyle'
 
 export type DropdownTriggerProps = {
   displayLabel: string
@@ -46,7 +42,6 @@ export const DropdownTrigger = ({
         className={cn(
           'absolute inset-0 h-3 w-3 text-gray-600 transition-opacity duration-200',
           isOpen ? 'opacity-0' : 'opacity-100',
-          ICON_SIZE_STYLES[size],
           disabled && 'text-neutral-300'
         )}
       />
