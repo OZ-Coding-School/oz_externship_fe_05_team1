@@ -55,6 +55,7 @@ export const createExamDeploymentsRequest = async (body: ExamDeployRequest) => {
     open_at: body.openAt,
     close_at: body.closeAt,
   }
+
   const response = await fetcher.post(
     ROUTES_PATHS_ADMIN.EXAM_DISTRIBUTION_HISTORY,
     payload
