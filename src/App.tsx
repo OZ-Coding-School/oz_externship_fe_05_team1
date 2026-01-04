@@ -6,7 +6,6 @@ import {
   CreateQuestionPage,
   DistributionHistoryManagementPage,
   ExamManagementPage,
-  MainPage,
   NotFound,
   SubmissionManagementPage,
 } from '@pages'
@@ -16,7 +15,7 @@ function App() {
   const ROUTES = [
     {
       path: ROUTES_PATHS.MAIN,
-      element: <MainPage />,
+      element: <ExamManagementPage />,
     },
     {
       path: ROUTES_PATHS.EXAM,
