@@ -48,6 +48,22 @@ export function useExamForm({ modalMode, examId, onClose }: UseExamFormProps) {
   const [logoFile, setLogoFile] = useState<File | null>(null)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
 
+  const resetForm = () => {
+    setValues({
+      examTitle: '',
+      courseId: '',
+      subjectId: '',
+      thumbnailImg: '',
+    })
+    setLogoFile(null)
+    setPreviewUrl(null)
+  }
+
+  const handleClose = () => {
+    resetForm()
+    onClose()
+  }
+
   const updateValue = (
     key: keyof typeof values,
     value: string | File | null
@@ -79,6 +95,12 @@ export function useExamForm({ modalMode, examId, onClose }: UseExamFormProps) {
   )
 
   useEffect(() => {
+    if (modalMode === 'create') {
+      resetForm()
+    }
+  }, [modalMode])
+
+  useEffect(() => {
     if (modalMode === 'update' && examDetail) {
       const parsed = parseExamDetail(examDetail as ExamQuestionResponse)
       const matchedSubject = MOCK_SUBJECT_LIST.find(
@@ -104,10 +126,19 @@ export function useExamForm({ modalMode, examId, onClose }: UseExamFormProps) {
     [previewUrl]
   )
 
-  const examCreateMutation = useExamCreateMutation(onClose)
-  const examUpdateMutation = useExamUpdateMutation(onClose)
+  const { mutate: examCreateMutation, isPending: isCreatePending } =
+    useExamCreateMutation(handleClose)
+
+  const { mutate: examUpdateMutation, isPending: isUpdatePending } =
+    useExamUpdateMutation(onClose)
+
+  const isPending = modalMode === 'create' ? isCreatePending : isUpdatePending
 
   const handleSubmit = async () => {
+    if (isPending) {
+      return
+    }
+
     const schemaResult = await examFormSchema.safeParseAsync({
       examTitle: values.examTitle,
       subjectId: values.subjectId,
@@ -131,39 +162,27 @@ export function useExamForm({ modalMode, examId, onClose }: UseExamFormProps) {
         return
       }
 
-      examCreateMutation.mutate({
+      examCreateMutation({
         title: parsed.examTitle,
         subjectId: parsed.subjectId.toString(),
         logoFile,
       })
 
       return
+    } else {
+      if (!examId) {
+        showToast('시험 ID가 없습니다.', 'fail')
+
+        return
+      }
+
+      examUpdateMutation({
+        title: parsed.examTitle,
+        subjectId: parsed.subjectId.toString(),
+        logoFile: logoFile ?? undefined,
+        examId,
+      })
     }
-
-    if (!examId) {
-      showToast('시험 ID가 없습니다.', 'fail')
-
-      return
-    }
-
-    examUpdateMutation.mutate({
-      title: parsed.examTitle,
-      subjectId: parsed.subjectId.toString(),
-      logoFile: logoFile ?? undefined,
-      examId,
-    })
-  }
-
-  const handleClose = () => {
-    setValues({
-      examTitle: '',
-      courseId: '',
-      subjectId: '',
-      thumbnailImg: '',
-    })
-    setLogoFile(null)
-    setPreviewUrl(null)
-    onClose()
   }
 
   const { data: courseRes } = useCourseSubjectsList({ mode: modalMode })

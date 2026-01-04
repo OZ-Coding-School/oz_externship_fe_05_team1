@@ -71,7 +71,7 @@ type ExamQuestionDetailSideProps = {
   children: ReactNode
 }
 
-/**
+/** //
  * Side 컴포넌트
  * @param children : ReactNode
  */
@@ -197,6 +197,7 @@ export default function ExamQuestionDetailModal({
             currentIndex={currentIndex}
             onSelect={setCurrentIndex}
             examId={examId}
+            onCloseDetailModal={onClose}
           />
         </ExamQuestionDetailModal.Side>
         <ExamQuestionDetailModal.Body>

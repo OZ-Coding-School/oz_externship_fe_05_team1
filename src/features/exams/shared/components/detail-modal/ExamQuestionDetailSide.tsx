@@ -7,6 +7,7 @@ type ExamQuestionDetailSideProps = {
   currentIndex: number
   onSelect: (index: number) => void
   examId: number
+  onCloseDetailModal: () => void
 }
 
 /**
@@ -21,6 +22,7 @@ export const ExamQuestionDetailSide = ({
   currentIndex,
   onSelect,
   examId,
+  onCloseDetailModal,
 }: ExamQuestionDetailSideProps) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const handleExamDeletePopupModal = () => {
@@ -56,6 +58,10 @@ export const ExamQuestionDetailSide = ({
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
         examId={examId}
+        onDeleted={() => {
+          setIsDeleteModalOpen(false)
+          onCloseDetailModal()
+        }}
       />
     </div>
   )
