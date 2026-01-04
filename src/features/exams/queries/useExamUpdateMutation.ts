@@ -1,21 +1,19 @@
-import { updateExamRequest } from '@api/exams'
+import { examKeys, updateExamRequest } from '@api/exams'
 import { showToast } from '@components'
-import { ROUTES_PATHS } from '@constants'
-import { useMutation } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const useExamUpdateMutation = (onClose: () => void) => {
-  const navigate = useNavigate()
+  const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: updateExamRequest,
 
-    onSuccess: () => {
+    onSuccess: async () => {
       showToast('시험이 수정 되었습니다.', 'success')
 
       onClose()
 
-      navigate(ROUTES_PATHS.EXAM, { replace: true })
+      await queryClient.invalidateQueries({ queryKey: examKeys.lists() })
     },
 
     onError: () => {

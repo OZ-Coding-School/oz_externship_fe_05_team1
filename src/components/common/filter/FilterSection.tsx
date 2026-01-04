@@ -4,6 +4,7 @@ export type DropdownConfig = {
   key: string
   items: DropdownItem[]
   placeholder: string
+  disabled?: boolean
 }
 
 type FilterSectionProps = {
@@ -62,6 +63,7 @@ export default function FilterSection({
           selectedValue={selectedValues[dropdown.key] || ''}
           onSelect={(value) => onChangeFilters(dropdown.key, value)}
           placeholder={dropdown.placeholder}
+          disabled={dropdown.disabled}
         />
       ))}
 

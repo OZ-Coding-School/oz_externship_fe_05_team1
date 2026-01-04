@@ -43,7 +43,7 @@ export function useCourseSubjectCohortDropdowns(
   const { data: courseRes } = useCourseList()
   const courseList = courseRes?.courseList ?? []
   const selectedCourseId = course ? Number(course) : undefined
-
+  const isCourseSelected = Boolean(selectedCourseId)
   const { data: subjectsRes } = useSubjectsList(selectedCourseId ?? 0, {
     mode: 'update',
   })
@@ -57,16 +57,19 @@ export function useCourseSubjectCohortDropdowns(
       key: 'course',
       items: toDropdownItems(courseList, (item) => item.name),
       placeholder: '과정',
+      disabled: false,
     },
     {
       key: 'subjectId',
       items: toDropdownItems(subjectsList, (item) => item.title),
       placeholder: '과목',
+      disabled: !isCourseSelected,
     },
     {
       key: 'cohortId',
       items: toDropdownItems(cohortsList, (item) => `${item.number}기`),
       placeholder: '기수',
+      disabled: !isCourseSelected,
     },
   ]
 
