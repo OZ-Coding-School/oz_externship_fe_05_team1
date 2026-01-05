@@ -16,9 +16,10 @@ export type Question = {
   prompt: string
   options: string[] | null
   blank_count: number | null
-  correct_answer: string | string[] | number | number[] | boolean
+  correctAnswer: string | string[] | number | number[] | boolean
   point: number | null
   explanation: string
+  updated_at: string
 }
 
 export type QuestionPayload = {
@@ -42,6 +43,8 @@ export type ExamQuestion = {
   options: string[]
   correctAnswer: string | string[] | boolean | number | number[]
   explanation: string
+  updated_at: string
+  blank_count: number | null
 }
 
 export type ExamSubject = {
@@ -66,8 +69,3 @@ export type ExamDeployRequest = {
   openAt: string
   closeAt: string
 }
-
-export type QuestionDefaultValues = Pick<
-  Question,
-  'options' | 'blank_count' | 'correct_answer' | 'prompt'
->

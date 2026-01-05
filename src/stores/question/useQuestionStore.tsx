@@ -19,6 +19,7 @@ type QuestionState = {
   updateQuestion: (index: number, data: Partial<Question>) => void
   deleteQuestion: (index: number) => void
   setCurrentIndex: (index: number) => void
+  loadQuestions: (questions: Question[]) => void
   reset: () => void
 
   // API 전송용
@@ -95,6 +96,10 @@ export const useQuestionStore = create<QuestionState>()(
           ...rest,
           point: rest.point ?? 10,
         }))
+      },
+
+      loadQuestions: (questions: Question[]) => {
+        set({ questions, currentIndex: 0 })
       },
     }),
     {

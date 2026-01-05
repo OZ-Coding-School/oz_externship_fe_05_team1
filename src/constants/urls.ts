@@ -7,9 +7,12 @@ export const ROUTES_PATHS = {
     `/exams/${examId}/questions`,
   // 라우트용
   EXAM_QUESTIONS_ROUTE: `/exams/:examId/questions`,
+
   // 네비게이트용
   EXAM_QUESTIONS: ({ examId }: { examId: number }) =>
     `/exam/${examId}/questions`,
+  EXAM_QUESTIONS_EDIT: (examId: number | string) =>
+    `/exams/${examId}/questions/edit`,
 
   LOGIN: '/login',
   EXAM_DISTRIBUTION_HISTORY: '/exams/deployments',

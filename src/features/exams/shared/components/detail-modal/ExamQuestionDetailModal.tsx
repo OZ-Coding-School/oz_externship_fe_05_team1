@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 
 import { BaseModal, Image, showToast } from '@components'
+import { ROUTES_PATHS } from '@constants'
 import {
   ExamDeploymentsModal,
   ExamQuestionDetailBody,
@@ -9,6 +10,7 @@ import {
   useExamDetailState,
 } from '@features/exams'
 import { useState } from 'react'
+import { useNavigate } from 'react-router'
 
 type HeaderProps = {
   children: ReactNode
@@ -130,6 +132,8 @@ export default function ExamQuestionDetailModal({
   const [isDeploymentsOpen, setIsDeploymentsOpen] = useState(false)
   const { exam, isLoading, isError } = useExamDetailState(examId, isOpen)
 
+  const navigate = useNavigate()
+
   if (!exam) {
     return (
       <BaseModal isOpen={isOpen} onClose={onClose} size="xxl">
@@ -166,12 +170,8 @@ export default function ExamQuestionDetailModal({
   }
 
   const handleExamQuestionsUpdate = () => {
-    showToast('수정 기능 준비중입니다.', 'fail')
-    /**
-     * TODO: 쪽지시험 문제 페이지로 이동 api
-     * 예시 : /navigator(`${ROUTES_PATHS.EXAM_QUESTIONS_CREATE(examId)}`)
-     * 디자인 수정하면서 생성 예정
-     * */
+    onClose()
+    navigate(ROUTES_PATHS.EXAM_QUESTIONS_CREATE(examId))
   }
 
   return (
