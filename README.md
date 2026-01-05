@@ -12,10 +12,13 @@
 ---
 
 ## 🔗 배포 링크
-
 > ### 🚧 [Live Demo](https://admin.ozcodingschool.site/)
 >
 > ### 🚧 [Storybook](http://sammylee519.github.io/oz_externship_fe_05_team1/)
+
+>  **테스트 계정**
+> - email : admin@ozcodingschool.site
+> - password: Ozcoding1234@
 
 ---
 
