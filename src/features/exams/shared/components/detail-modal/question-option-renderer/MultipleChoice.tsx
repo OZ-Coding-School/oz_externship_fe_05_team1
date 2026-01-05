@@ -1,7 +1,7 @@
 type MultipleChoiceOptionProps = {
   question: {
     options: string[]
-    correctAnswer: string[]
+    correctAnswer: number[]
   }
 }
 
@@ -12,26 +12,20 @@ type MultipleChoiceOptionProps = {
 export default function MultipleChoice({
   question,
 }: MultipleChoiceOptionProps) {
-  const correctAnswer = question.correctAnswer
-  const answers = question.correctAnswer as string[]
+  const { options, correctAnswer } = question
 
   return (
     <>
       <div className="flxe-col flex gap-3">
         정답 :
         <span className="text-primary-400">
-          {answers
-            .map((ans) =>
-              String.fromCharCode(65 + question.options.indexOf(ans))
-            )
-            .join(', ')}
+          {correctAnswer.map((idx) => String.fromCharCode(65 + idx)).join(', ')}
         </span>
       </div>
       <div className="flex flex-col gap-3">
-        {question.options.map((opt, idx) => {
+        {options.map((opt, idx) => {
           const label = String.fromCharCode(65 + idx)
-          const isChecked =
-            Array.isArray(correctAnswer) && correctAnswer.includes(opt)
+          const isChecked = correctAnswer.includes(idx)
 
           return (
             <label key={idx} className="flex items-center gap-3 text-sm">
