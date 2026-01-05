@@ -123,7 +123,7 @@ export default function DeploymentsHistoryModal({
             setIsStatusOpen(false)
           }}
           deploymentId={deploymentId}
-          status="activated"
+          status="pending"
         />
       )}
     </>

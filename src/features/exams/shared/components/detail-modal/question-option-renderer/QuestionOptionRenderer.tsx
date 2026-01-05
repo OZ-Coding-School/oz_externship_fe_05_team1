@@ -44,7 +44,6 @@ const normalizeIndexAnswers = (
 export default function QuestionOptionRenderer({
   question,
 }: QuestionOptionRendererProps) {
-  console.log('question', question)
   switch (question.type) {
     case 'single_choice': {
       const answers = normalizeIndexAnswers(

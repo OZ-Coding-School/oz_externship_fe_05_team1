@@ -58,13 +58,10 @@ export const getDistributionColumns = (): ColumnDef<Distribution>[] => [
     header: '배포 활성 상태',
     cell: ({ row }) => {
       const { status } = row.original
-      const isActive = status === 'activated'
+      const variant = status === 'activated' ? 'neutral' : 'success'
+      const label = variant === 'success' ? '활성화' : '비활성화'
 
-      return (
-        <StatusBadge variant={isActive ? 'success' : 'neutral'}>
-          {isActive ? '활성화' : '비활성화'}
-        </StatusBadge>
-      )
+      return <StatusBadge variant={variant}>{label}</StatusBadge>
     },
   },
 ]

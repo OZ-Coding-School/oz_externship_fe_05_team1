@@ -60,7 +60,8 @@ export const examHandlers = [
 
       // 목업 환경이므로 상태를 반전시킨 가상의 성공 응답을 보냅니다.
       const updatedStatus =
-        deployment.status === 'activated' ? 'deactivated' : 'activated'
+        deployment.status === 'pending' ? 'activated' : 'deactivated'
+      // deployment.status === 'activated' ? 'deactivated' : 'activated'
 
       return HttpResponse.json({
         ...deployment,
