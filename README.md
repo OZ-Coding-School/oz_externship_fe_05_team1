@@ -15,7 +15,7 @@
 
 > ### 🚧 [Live Demo](https://admin.ozcodingschool.site/) - 배포 예정
 >
-> ### 🚧 [Storybook](https://example.com) - 배포 예정
+> ### 🚧 [Storybook](https://sammylee519.github.io/oz_externship_fe_05_team1/?path=/story/components-button--default) - 배포 예정
 
 ---
 
