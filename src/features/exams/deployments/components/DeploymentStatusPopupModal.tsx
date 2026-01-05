@@ -7,7 +7,7 @@ type DeploymentStatusPopupModalProps = {
   isOpen: boolean
   onClose: () => void
   deploymentId: number
-  status: 'activated' | 'deactivated'
+  status: 'activated' | 'deactivated' | 'pending' | 'done'
 }
 
 export default function DeploymentStatusPopupModal({
@@ -18,13 +18,15 @@ export default function DeploymentStatusPopupModal({
 }: DeploymentStatusPopupModalProps) {
   const navigate = useNavigate()
 
+  const statusReverse = status === 'pending' ? 'done' : 'pending'
+
   const { mutate: updateStatus, isPending } = useDeploymentMutation(() => {
     onClose()
     navigate(ROUTES_PATHS.EXAM_DISTRIBUTION_HISTORY)
   })
 
   const handleStatusUpdateClick = () => {
-    updateStatus({ id: deploymentId, status })
+    updateStatus({ id: deploymentId, statusReverse })
   }
 
   return (

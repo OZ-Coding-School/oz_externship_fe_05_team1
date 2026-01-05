@@ -12,12 +12,17 @@ export const useDeploymentMutation = (onClose: () => void) => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, status }: { id: number; status: string }) =>
-      updateDeploymentStatusRequest(id, status),
+    mutationFn: ({
+      id,
+      statusReverse,
+    }: {
+      id: number
+      statusReverse: string
+    }) => updateDeploymentStatusRequest(id, statusReverse),
     onSuccess: () => {
       showToast('배포 상태가 성공적으로 변경되었습니다.', 'success')
       queryClient.invalidateQueries({
-        queryKey: ['deployments', 'list'],
+        queryKey: ['deployments', 'detail'],
       })
 
       return onClose()

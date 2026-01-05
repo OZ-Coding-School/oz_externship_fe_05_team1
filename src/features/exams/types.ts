@@ -134,7 +134,7 @@ export type Distribution = {
   generationNumber: number
   submitCount: number
   averageScore: number
-  status: 'activated' | 'deactivated'
+  status: 'activated' | 'deactivated' | 'pending' | 'done'
   createdAt: string
 
   // 모달에서 사용하는 필드들

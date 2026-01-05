@@ -3,6 +3,12 @@ import type { ColumnDef } from '@tanstack/react-table'
 
 import { StatusBadge } from '@components'
 
+const STATUS_CONFIG = {
+  active: { label: '활성화', variant: 'success' },
+  pending: { label: '대기중', variant: 'warning' },
+  inactive: { label: '비활성화', variant: 'neutral' },
+} as const
+
 /**
  * 쪽지시험 목록 테이블 컬럼 설정
  * - TanStack Table(ColumnDef)을 기반으로 시험 목록 컬럼 정의
@@ -58,13 +64,10 @@ export const getDistributionColumns = (): ColumnDef<Distribution>[] => [
     header: '배포 활성 상태',
     cell: ({ row }) => {
       const { status } = row.original
-      const isActive = status === 'activated'
+      const variant = status === 'activated' ? 'neutral' : 'success'
+      const label = variant === 'success' ? '활성화' : '비활성화'
 
-      return (
-        <StatusBadge variant={isActive ? 'success' : 'neutral'}>
-          {isActive ? '활성화' : '비활성화'}
-        </StatusBadge>
-      )
+      return <StatusBadge variant={variant}>{label}</StatusBadge>
     },
   },
 ]
