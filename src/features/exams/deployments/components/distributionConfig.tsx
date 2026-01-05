@@ -3,12 +3,6 @@ import type { ColumnDef } from '@tanstack/react-table'
 
 import { StatusBadge } from '@components'
 
-const STATUS_CONFIG = {
-  active: { label: '활성화', variant: 'success' },
-  pending: { label: '대기중', variant: 'warning' },
-  inactive: { label: '비활성화', variant: 'neutral' },
-} as const
-
 /**
  * 쪽지시험 목록 테이블 컬럼 설정
  * - TanStack Table(ColumnDef)을 기반으로 시험 목록 컬럼 정의

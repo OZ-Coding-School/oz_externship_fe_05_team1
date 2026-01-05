@@ -27,7 +27,6 @@ export default function DeploymentsHistoryModal({
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
   const [isStatusOpen, setIsStatusOpen] = useState(false)
 
-  console.log('data', data)
   if (!isOpen || !deploymentId || isLoading || !data) {
     return null
   }
