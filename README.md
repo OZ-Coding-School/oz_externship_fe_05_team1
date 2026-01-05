@@ -13,13 +13,28 @@
 
 ## 🔗 배포 링크
 
-> ### 🚧 [Live Demo](https://admin.ozcodingschool.site/) - 배포 예정
+> ### 🚧 [Live Demo](https://admin.ozcodingschool.site/)
 >
-> ### 🚧 [Storybook](https://example.com) - 배포 예정
+> ### 🚧 [Storybook](http://sammylee519.github.io/oz_externship_fe_05_team1/)
 
 ---
 
 ## 🚀 Getting Started
+
+### 저장소 클론
+
+```bash
+git clone https://github.com/OZ-Coding-School/oz_externship_fe_05_team1.git
+cd oz_externship_fe_05_team1
+```
+
+### 환경 변수 설정
+
+프로젝트 루트 디렉토리에 `.env` 파일을 생성하고 아래 내용을 추가합니다.
+
+```env
+VITE_API_BASE_URL=your_api_base_url_here
+```
 
 ### 설치
 
@@ -151,14 +166,6 @@ npm run storybook
 - **ESLint + Prettier** 일관된 코드 스타일 유지
 - **Storybook** 공통 컴포넌트 문서화 및 시각적 테스트
 - **GitHub Actions** CI / CD 자동화
-
----
-
-## 📄 Documents
-
-> - 플로우 차트: 추후 업데이트 예정
-> - 화면 정의서: 추후 업데이트 예정
-> - 팀 문서: 추후 업데이트 예정
 
 ---
 
