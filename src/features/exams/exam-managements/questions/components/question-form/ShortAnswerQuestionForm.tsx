@@ -36,8 +36,8 @@ export default function ShortAnswerQuestionForm() {
   }
 
   return (
-    <section className="fex h-full flex-col gap-4">
-      <div className="mb-6">
+    <section className="flex flex-col gap-6">
+      <div>
         <QuestionTypeSelect
           value={current.type}
           onChange={handleTypeChange}
@@ -54,7 +54,7 @@ export default function ShortAnswerQuestionForm() {
           }}
         />
 
-        <div className="mb-6 flex flex-col gap-1">
+        <div className="flex flex-col gap-1">
           <label
             htmlFor={pointId}
             className="invisible text-lg font-medium text-neutral-500"

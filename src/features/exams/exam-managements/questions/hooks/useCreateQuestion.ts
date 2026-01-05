@@ -66,6 +66,8 @@ export function useCreateQuestion() {
 
     await saveAll()
 
+    reset()
+
     return navigate(ROUTES_PATHS.EXAM)
   }
 
@@ -129,6 +131,15 @@ export function useCreateQuestion() {
       return addQuestion('multiple_choice')
     }
   }
+
+  // 문제 수정 시 해당 에러 제거
+  useEffect(() => {
+    if (validationErrors.length > 0) {
+      setValidationErrors((prev) =>
+        prev.filter((error) => error.questionIndex !== currentIndex)
+      )
+    }
+  }, [questions, currentIndex, validationErrors.length])
 
   return {
     examId,

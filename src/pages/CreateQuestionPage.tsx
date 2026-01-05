@@ -7,11 +7,10 @@ import {
   getQuestionForm,
   QuestionDeletePopupModal,
   QuestionNav,
+  useCreateQuestion,
   ValidationErrorModal,
 } from '@features/exams'
 import { cn } from '@utils'
-
-import { useCreateQuestion } from '../features/exams/exam-managements/questions/hooks/useCreateQuestion'
 
 export default function CreateQuestionPage() {
   const {
@@ -24,7 +23,6 @@ export default function CreateQuestionPage() {
     isValidationModalOpen,
     validationErrors,
     handleValidationModalClose,
-    handleGoToQuestion,
     handleComplete,
     handleCancel,
     handleEdit,
@@ -43,18 +41,23 @@ export default function CreateQuestionPage() {
     return <div>시험 정보를 찾을 수 없습니다.</div>
   }
 
+  // 에러가 있는 문제 인덱스 추출 (중복 제거)
+  const errorQuestionIndexes = [
+    ...new Set(validationErrors.map((e) => e.questionIndex)),
+  ]
+
   return (
     <>
-      <section className="px-15 py-11">
-        <div className="h-192 bg-white px-18 py-8">
+      <section className="px-6 py-8">
+        <div className="bg-white px-8 py-6">
           <CreateQuestionHeader
             onGoToList={handleCancel}
             onEdit={handleEdit}
             onDelete={handleDeleteClick}
           />
 
-          <div className="relative flex max-h-174 max-w-353 flex-col overflow-hidden bg-neutral-100 px-8 py-7">
-            <div className="mb-4 flex items-center gap-3">
+          <div className="flex h-175 flex-col bg-neutral-100 px-8 py-6">
+            <div className="mb-4 flex shrink-0 items-center gap-3">
               <img
                 src={examDetail?.thumbnailImgUrl || DEFAULT_THUMBNAIL_IMG}
                 alt={examDetail?.title || ''}
@@ -69,27 +72,31 @@ export default function CreateQuestionPage() {
               </div>
             </div>
 
-            <main className="flex flex-1 gap-6 overflow-y-auto">
-              <QuestionNav
-                actionButton={
-                  <Button
-                    variant="primary-outline"
-                    size="action"
-                    onClick={handleAddQuestion}
-                    className="w-full"
-                    disabled={questions.length >= 20}
-                  >
-                    문제 추가
-                  </Button>
-                }
-              />
-              <div className="max-h-125 max-w-225 flex-1 overflow-y-auto rounded-lg bg-white p-6 shadow-sm">
+            <main className="flex min-h-0 flex-1 gap-6">
+              <div className="shrink-0">
+                <QuestionNav
+                  actionButton={
+                    <Button
+                      variant="primary-outline"
+                      size="action"
+                      onClick={handleAddQuestion}
+                      className="w-full"
+                      disabled={questions.length >= 20}
+                    >
+                      문제 추가
+                    </Button>
+                  }
+                  errorIndexes={errorQuestionIndexes}
+                />
+              </div>
+
+              <div className="min-h-0 flex-1 overflow-y-auto rounded-lg bg-white p-6 shadow-sm">
                 {QuestionForm ? (
                   <QuestionForm />
                 ) : (
                   <div
                     className={cn(
-                      'flex flex-1 items-center justify-center',
+                      'flex h-full items-center justify-center',
                       'rounded-lg border border-primary-100 p-6'
                     )}
                   >
@@ -99,13 +106,15 @@ export default function CreateQuestionPage() {
               </div>
             </main>
 
-            <CreateQuestionFooter
-              currentIndex={currentIndex}
-              totalCount={questions.length}
-              isPending={isPending}
-              onCancel={handleCancel}
-              onComplete={handleComplete}
-            />
+            <div className="shrink-0">
+              <CreateQuestionFooter
+                currentIndex={currentIndex}
+                totalCount={questions.length}
+                isPending={isPending}
+                onCancel={handleCancel}
+                onComplete={handleComplete}
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -120,8 +129,6 @@ export default function CreateQuestionPage() {
       <ValidationErrorModal
         isOpen={isValidationModalOpen}
         onClose={handleValidationModalClose}
-        errors={validationErrors}
-        onGoToQuestion={handleGoToQuestion}
       />
     </>
   )

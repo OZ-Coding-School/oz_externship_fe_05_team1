@@ -1,5 +1,4 @@
 import { createEmptyQuestion } from '@stores/question/helpers'
-import { useId } from 'react'
 
 import type { Question, QuestionType } from '../../types'
 
@@ -19,8 +18,6 @@ export default function OxQuestionForm() {
   const { current, updateCurrentQuestion, replaceQuestion, currentIndex } =
     useQuestionForm()
 
-  const pointId = useId()
-
   const isOxQuestion = (
     q: Question
   ): q is Question & { type: 'ox'; correct_answer?: boolean } => q.type === 'ox'
@@ -33,8 +30,8 @@ export default function OxQuestionForm() {
     replaceQuestion(currentIndex, createEmptyQuestion(type))
 
   return (
-    <section className="flex h-full flex-col gap-4">
-      <div className="mb-4">
+    <section className="flex flex-col gap-6">
+      <div>
         <QuestionTypeSelect
           value={current.type}
           onChange={(type) => handleTypeChange(type)}
@@ -48,13 +45,11 @@ export default function OxQuestionForm() {
           value={current.question}
           onChange={(value) => updateCurrentQuestion({ question: value })}
         />
-        <div className="mb-4 flex flex-col gap-1">
-          <label
-            htmlFor={pointId}
-            className="invisible text-lg font-medium text-neutral-500"
-          >
+
+        <div className="flex flex-col gap-1">
+          <span className="invisible text-lg font-medium text-neutral-500">
             배점
-          </label>
+          </span>
           <PointSelect
             value={current.point}
             onChange={(point) => updateCurrentQuestion({ point })}

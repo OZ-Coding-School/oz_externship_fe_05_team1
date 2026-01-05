@@ -25,6 +25,7 @@ export function useSaveAllQuestions() {
     onSuccess: () => {
       showToast('문제가 저장되었습니다.', 'success')
       queryClient.invalidateQueries({ queryKey: ['exam', examId] })
+      queryClient.invalidateQueries({ queryKey: ['exams'] })
       reset()
     },
 

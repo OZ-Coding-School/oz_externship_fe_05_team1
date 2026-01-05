@@ -26,7 +26,7 @@ export const createEmptyQuestion = (type: QuestionType): Question => {
     question: '',
     prompt: '',
     explanation: '',
-    point: 10,
+    point: null,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   }

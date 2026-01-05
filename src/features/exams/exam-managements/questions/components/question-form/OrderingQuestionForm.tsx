@@ -38,12 +38,14 @@ export default function OrderingQuestionForm() {
   }
 
   // 기본값 설정
-  const options = current.options || ['', '']
-  const correctAnswer = current.correct_answer || [0, 1]
+  const options = current.options?.length ? current.options : ['', '', '', '']
+  const correctAnswer = current.correct_answer?.length
+    ? current.correct_answer
+    : [0, 1, 2, 3]
 
   return (
-    <section className="flex h-full flex-col gap-4">
-      <div className="mb-4">
+    <section className="flex flex-col gap-6">
+      <div>
         <QuestionTypeSelect
           value={current.type}
           onChange={(type) => {
@@ -61,7 +63,8 @@ export default function OrderingQuestionForm() {
             updateCurrentQuestion({ question: value })
           }}
         />
-        <div className="mb-4 flex flex-col gap-1">
+
+        <div className="flex flex-col gap-1">
           <label
             htmlFor={pointId}
             className="invisible text-lg font-medium text-neutral-500"
@@ -77,7 +80,6 @@ export default function OrderingQuestionForm() {
         </div>
       </div>
 
-      {/* 보기 & 순서 에디터 + 해설 */}
       <div className="flex gap-6">
         <div className="w-1/2">
           <OrderingEditor

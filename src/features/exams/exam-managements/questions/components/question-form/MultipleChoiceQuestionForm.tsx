@@ -43,8 +43,8 @@ export default function MultipleChoiceForm() {
     : []
 
   return (
-    <section className="fex h-full flex-col gap-4">
-      <div className="mb-4">
+    <section className="flex flex-col gap-6">
+      <div>
         <QuestionTypeSelect
           value={currentQuestion.type}
           onChange={(type) => handleTypeChange(type)}

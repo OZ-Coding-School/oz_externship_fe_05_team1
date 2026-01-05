@@ -13,7 +13,7 @@ export type DropdownItem = {
 
 export type DropdownMenuProps = {
   items: DropdownItem[]
-  selectedValue: string
+  selectedValue: string | undefined
   onSelect: (value: string) => void
   placeholder?: string
   size?: DropdownSize
