@@ -1,0 +1,209 @@
+import { showToast } from '@components'
+import {
+  examFormModalConfig,
+  examFormSchema,
+  type ExamQuestionResponse,
+  type ModalMode,
+  useCourseSubjectsList,
+  useExamCreateMutation,
+  useExamDetailQuery,
+  useExamUpdateMutation,
+  useSubjectsList,
+} from '@features/exams'
+import { MOCK_SUBJECT_LIST } from '@mocks'
+import { useEffect, useState } from 'react'
+
+type UseExamFormProps = {
+  modalMode: ModalMode
+  examId?: number
+  onClose: () => void
+}
+
+/**
+ * 상세조회 API에서 조회된 데이터 parse진행.
+ */
+function parseExamDetail(Response: ExamQuestionResponse) {
+  return {
+    parseTitle: Response.title ?? '',
+    parseSubjectId: String(Response.subject.id ?? ''),
+    parseThumbnailImg: Response.thumbnailImgUrl ?? '',
+  }
+}
+
+/**
+ * 쪽지시험 기능 훅
+ * @param modalMode - 생성/수정 구분
+ * @param examId - 쪽지시험 id
+ * @param onClose - 모달 닫기
+ * @returns
+ */
+export function useExamForm({ modalMode, examId, onClose }: UseExamFormProps) {
+  const [values, setValues] = useState({
+    examTitle: '',
+    courseId: '',
+    subjectId: '',
+    thumbnailImg: '',
+  })
+
+  const [logoFile, setLogoFile] = useState<File | null>(null)
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+
+  const resetForm = () => {
+    setValues({
+      examTitle: '',
+      courseId: '',
+      subjectId: '',
+      thumbnailImg: '',
+    })
+    setLogoFile(null)
+    setPreviewUrl(null)
+  }
+
+  const handleClose = () => {
+    resetForm()
+    onClose()
+  }
+
+  const updateValue = (
+    key: keyof typeof values,
+    value: string | File | null
+  ) => {
+    if (key === 'thumbnailImg') {
+      if (value instanceof File) {
+        setLogoFile(value)
+
+        const objectUrl = URL.createObjectURL(value)
+
+        setPreviewUrl(objectUrl)
+        setValues((prev) => ({
+          ...prev,
+          thumbnailImg: objectUrl,
+        }))
+      } else {
+        setPreviewUrl(null)
+        setValues((prev) => ({ ...prev, thumbnailImg: value as string }))
+      }
+
+      return
+    }
+
+    setValues((prev) => ({ ...prev, [key]: value }))
+  }
+
+  const { data: examDetail } = useExamDetailQuery(
+    modalMode === 'update' ? examId : undefined
+  )
+
+  useEffect(() => {
+    if (modalMode === 'create') {
+      resetForm()
+    }
+  }, [modalMode])
+
+  useEffect(() => {
+    if (modalMode === 'update' && examDetail) {
+      const parsed = parseExamDetail(examDetail as ExamQuestionResponse)
+      const matchedSubject = MOCK_SUBJECT_LIST.find(
+        (s) => s.id === Number(parsed.parseSubjectId)
+      )
+
+      setValues((prev) => ({
+        ...prev,
+        examTitle: parsed.parseTitle,
+        subjectId: parsed.parseSubjectId,
+        thumbnailImg: parsed.parseThumbnailImg,
+        courseId: matchedSubject ? String(matchedSubject.course_id) : '',
+      }))
+    }
+  }, [modalMode, examDetail])
+
+  useEffect(
+    () => () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl)
+      }
+    },
+    [previewUrl]
+  )
+
+  const { mutate: examCreateMutation, isPending: isCreatePending } =
+    useExamCreateMutation(handleClose)
+
+  const { mutate: examUpdateMutation, isPending: isUpdatePending } =
+    useExamUpdateMutation(onClose)
+
+  const isPending = modalMode === 'create' ? isCreatePending : isUpdatePending
+
+  const handleSubmit = async () => {
+    if (isPending) {
+      return
+    }
+
+    const schemaResult = await examFormSchema.safeParseAsync({
+      examTitle: values.examTitle,
+      subjectId: values.subjectId,
+      thumbnailImgFile: logoFile,
+      thumbnailImgUrl: values.thumbnailImg,
+      modalMode,
+    })
+
+    if (!schemaResult.success) {
+      showToast(schemaResult.error.issues[0].message, 'fail')
+
+      return
+    }
+
+    const parsed = schemaResult.data
+
+    if (modalMode === 'create') {
+      if (!logoFile) {
+        showToast('로고를 업로드하세요.', 'fail')
+
+        return
+      }
+
+      examCreateMutation({
+        title: parsed.examTitle,
+        subjectId: parsed.subjectId.toString(),
+        logoFile,
+      })
+
+      return
+    } else {
+      if (!examId) {
+        showToast('시험 ID가 없습니다.', 'fail')
+
+        return
+      }
+
+      examUpdateMutation({
+        title: parsed.examTitle,
+        subjectId: parsed.subjectId.toString(),
+        logoFile: logoFile ?? undefined,
+        examId,
+      })
+    }
+  }
+
+  const { data: courseRes } = useCourseSubjectsList({ mode: modalMode })
+  const { data: subjectsRes } = useSubjectsList(Number(values.courseId), {
+    mode: modalMode,
+  })
+
+  const FIELDS = examFormModalConfig({
+    values,
+    updateValue,
+    courseList: courseRes?.courseList ?? [],
+    subjectsList: subjectsRes?.subjectsList ?? [],
+    modalMode: modalMode,
+  })
+
+  return {
+    values,
+    logoFile,
+    updateValue,
+    handleSubmit,
+    handleClose,
+    FIELDS,
+  }
+}

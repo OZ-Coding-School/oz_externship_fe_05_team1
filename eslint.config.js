@@ -1,3 +1,6 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+import storybook from 'eslint-plugin-storybook'
+
 import js from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import react from 'eslint-plugin-react'
@@ -10,13 +13,18 @@ import jsxA11y from 'eslint-plugin-jsx-a11y'
 
 export default tseslint.config(
   {
-    ignores: ['dist', 'node_modules', '*.config.js', '*.config.ts', 'public'],
+    ignores: [
+      'dist',
+      'node_modules',
+      '*.config.js',
+      '*.config.ts',
+      'public',
+      '.storybook',
+      'vitest.shims.d.ts',
+    ],
   },
-
   js.configs.recommended,
-
   ...tseslint.configs.recommended,
-
   {
     files: ['**/*.{ts,tsx}'],
 
@@ -69,9 +77,37 @@ export default tseslint.config(
       ],
 
       // ===== TypeScript 규칙 =====
-      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-explicit-any': 'error', // any 금지 (error로 강화)
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
+
+      // enum 금지 (as const 사용)
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'TSEnumDeclaration',
+          message: 'enum 대신 as const를 사용하세요.',
+        },
+      ],
+
+      // 타입/인터페이스 네이밍 규칙 (PascalCase)
+      '@typescript-eslint/naming-convention': [
+        'warn',
+        {
+          selector: 'typeLike',
+          format: ['PascalCase'],
+        },
+        {
+          selector: 'typeProperty',
+          format: ['camelCase', 'snake_case'],
+        },
+        {
+          selector: 'variable',
+          types: ['boolean'],
+          format: ['PascalCase'],
+          prefix: ['is', 'has', 'should', 'can'],
+        },
+      ],
 
       // ===== React 베스트 프랙티스 =====
       'react/prop-types': 'off',
@@ -84,7 +120,36 @@ export default tseslint.config(
       // ===== 코드 품질 =====
       'no-console': 'warn',
       'no-debugger': 'warn',
-      'no-duplicate-imports': 'off', // perfectionist가 처리
+      'no-duplicate-imports': 'off',
+
+      // 주석 뒤 띄어쓰기
+      'spaced-comment': [
+        'warn',
+        'always',
+        {
+          markers: ['/'],
+          exceptions: ['-', '+', '*'],
+        },
+      ],
+
+      // return 전 빈 줄
+      'padding-line-between-statements': [
+        'warn',
+        { blankLine: 'always', prev: '*', next: 'return' },
+        { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
+        {
+          blankLine: 'any',
+          prev: ['const', 'let', 'var'],
+          next: ['const', 'let', 'var'],
+        },
+      ],
+
+      // 화살표 함수 사용 권장
+      'prefer-arrow-callback': 'warn',
+      'arrow-body-style': ['warn', 'as-needed'],
+
+      // 중괄호 항상 사용
+      curly: ['error', 'all'],
 
       // ===== Vite HMR =====
       'react-refresh/only-export-components': [
@@ -109,6 +174,6 @@ export default tseslint.config(
       ...jsxA11y.configs.recommended.rules,
     },
   },
-
-  prettier
+  prettier,
+  storybook.configs['flat/recommended']
 )

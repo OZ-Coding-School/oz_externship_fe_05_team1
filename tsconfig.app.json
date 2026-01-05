@@ -38,7 +38,15 @@
       "@constants": ["src/constants"],
       "@constants/*": ["src/constants/*"],
       "@assets": ["src/assets"],
-      "@assets/*": ["src/assets/*"]
+      "@assets/*": ["src/assets/*"],
+      "@stores": ["src/stores"],
+      "@stores/*": ["src/stores/*"],
+      "@features": ["src/features"],
+      "@features/*": ["src/features/*"],
+      "@custom-types": ["src/custom-types"],
+      "@custom-types/*": ["src/custom-types/*"],
+      "@mocks": ["src/mocks"],
+      "@mocks/*": ["src/mocks/*"]
     }
   },
   "include": ["src"]
